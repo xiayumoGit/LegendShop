@@ -1,0 +1,3 @@
+rootProject.name = 'LegendShop'
+
+include ':app'
