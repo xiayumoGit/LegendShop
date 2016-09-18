@@ -1,11 +1,10 @@
-/**
- * Created by ljunb on 16/5/26.
- */
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from '../reducers/rootRudcer';
+'use strict';
 
-let createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-let store = createStoreWithMiddleware(rootReducer);
-
-export default store;
+import {createStore, applyMiddleware} from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import RootReducer from '../reducers/RootReducer';
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
+export default function configureStore(initialState) {
+    const store = createStoreWithMiddleware(RootReducer, initialState);
+    return store;
+}

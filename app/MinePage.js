@@ -17,8 +17,6 @@ import MyMenu from './mine/MyMenu';
 import MyItem from './mine/MyItem';
 import Login from './login/Login';
 
-//个人中心，涉及数据变化的部分进行组件封装，便于后期维护修改
-
 const WINDOW_WIDTH = Platform.OS==='ios'?Dimensions.get('window').width:Dimensions.get('screen').width;
 
 export default class MinePage extends Component {

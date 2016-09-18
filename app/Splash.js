@@ -12,26 +12,20 @@ import {
 } from 'react-native';
 
 import Animated from 'Animated';
-import Main from './MainScreen';
+import MainScreenContainer from './MainScreenContainer';
+import Constant from './common/Constant';
 
-//设置本地存储
-const WINDOW_WIDTH = Platform.OS==='ios'?Dimensions.get('window').width:Dimensions.get('screen').width;
 
-//启动页，设置路由
 export default class Splash extends Component {
 
-   //定义首页图片获取的state
   constructor(props){
         super(props);
         this.state = {
-            cover: null,
             bounceValue: new Animated.Value(1),
         };
   }
 
-  //定义首页动画播放
   componentDidMount(){
-    // this.fetchData();
     this.state.bounceValue.setValue(1);
     Animated.timing(
       this.state.bounceValue,
@@ -41,35 +35,23 @@ export default class Splash extends Component {
       }
     ).start();
 
-    let {navigator}=this.props;
-
       InteractionManager.runAfterInteractions(() => {
-            navigator.replace({
+          this.props.navigator.replace({
             name: '首页',
-            component: Main,
+            component: MainScreenContainer,
             });
       });
   }
 
   render() {
-    let img, text;
-    if (this.state.cover) {
-      // img = {uri: this.state.cover.img};
-      // text = this.state.cover.text;
-      //暂时使用本地图片
-      img = require('./image/splash.jpg');
-      text = '';
-    } else {
-      img = require('./image/splash.jpg');
-      text = '';
-    }
+
     return (
       <View style={styles.container}>
         <Animated.Image
-          source={img}
+          source={require('./image/splash.jpg')}
           style={{
             flex: 1,
-            width: WINDOW_WIDTH,
+            width: Constant.window.width,
             height: 1,
             transform: [
               {scale: this.state.bounceValue},
@@ -79,7 +61,7 @@ export default class Splash extends Component {
     );
   }
 }
-//
+
 let styles = StyleSheet.create({
 	container: {
     flex: 1,

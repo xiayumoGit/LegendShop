@@ -70,20 +70,17 @@ const ACTIVE_BANNER_IMGS = [
 
 const styles = StyleSheet.create({
     parent:{
-      flex:1,
       padding:5,
       marginTop:8,
       backgroundColor:'white',
     },
     container: {
-      flex:1,
       padding:5,
       flexDirection:'row',
       justifyContent:'space-between',
       alignItems:'center'
     },
     container1:{
-      flex:1,
       flexDirection:'row',
       padding:3,
     },
@@ -92,7 +89,6 @@ const styles = StyleSheet.create({
       backgroundColor:'#F0F0F0',
     },
     separate1:{
-      width:1,
       height:Constant.window.width/2,
       backgroundColor:'#F0F0F0',
     },

@@ -25,7 +25,7 @@ import ThemePavilion from './home/ThemePavilion';
 
 import ProductList from './product/ProductList'
 import ProductDetail from './product/ProductDetail';
-import SearchProduct from './product/SearchProduct';
+import ProductSearch from './product/ProductSearch';
 
 import Login from './login/Login';
 
@@ -65,7 +65,7 @@ export default class HomePage extends Component {
        let navigator = this.props.navigator;
         navigator.push({
                name: title,
-               component: SearchProduct,
+               component: ProductSearch,
                params: {
                     title:title,
                 }
@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
       backgroundColor:'#F1F2F6',
     },
     menuView1: {
-      flex:1,
       backgroundColor:'white',
       justifyContent:'space-around',
       flexDirection: 'row',
@@ -196,7 +195,6 @@ const styles = StyleSheet.create({
       padding:3,
     },
     menuView2: {
-      flex:1,
       backgroundColor:'white',
       justifyContent:'space-around',
       flexDirection: 'row',
@@ -208,7 +206,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     wrapper: {
-      flex:1,
       backgroundColor:'white'
     },
     paginationStyle:{

@@ -19,7 +19,7 @@ import Constant from '../common/Constant';
 let defaultTab=Constant.strings.searchTabString;
 let orderByKey=Constant.strings.orderByString;
 
-export default class SearchProduct extends Component{
+export default class ProductSearch extends Component{
 
  constructor(props) {
     super(props);

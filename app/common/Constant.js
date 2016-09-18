@@ -1,16 +1,24 @@
 /**
- * Created by ljunb on 16/5/26.
+ * Created by xiayumo on 16/5/26.
  */
 import { Dimensions,Platform} from 'react-native';
 
-//基本的全局信息，比如窗口信息
-
+/**
+ *  公共配置
+ *
+ */
 let window = {
     width: Platform.OS === 'ios' ? Dimensions.get('window').width : Dimensions.get('screen').width,
     height: Platform.OS === 'ios' ? Dimensions.get('window').height : Dimensions.get('screen').height,
+    tabBarHeight:50,
+    navigatorBarHeight:60,
+    statusBarHeight:20,
 }
 
-//全局颜色配置
+/**
+ *
+ * 颜色
+ */
 
 let colors = {
     lightGreyColor:'rgb(240, 242, 245)',//默认背景灰底
@@ -20,21 +28,35 @@ let colors = {
     lightBlackColor:'rgb(92, 92, 92)',//浅黑色
 }
 
+/**
+ *
+ * 常量字符串
+ */
 let strings = {
+    homeString : '首页',
+    categoryString : '分类',
+    cartString : '购物车',
+    mineString : '我的',
     searchTabString:['默认','销量','评论数','价格'],
     orderByString:['buys','buys','comments','cash'],
     detailTabString:['商品','详情','评价'],
     judgeTabString:['全部评价','好评','中评','差评'],
 }
 
-//key,存储本地数据的key
 
+/**
+ *
+ * 存储
+ */
 let storeKeys = {
     //存储跟登录相关的所有配置信息，包括token，账号，密码等
     LOGIN_INFO_KEY:'LOGIN_INFO_KEY',
 }
 
-//http
+/**
+ *
+ * http
+ */
 let httpKeys = {
     //主地址
     HOST: 'http://react.legendshop.cn',

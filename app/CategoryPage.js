@@ -20,7 +20,7 @@ import ProductDetail from './product/ProductDetail';
 import Constant from './common/Constant';
 import Utils from './common/Utils';
 
-import SearchProduct from './product/SearchProduct';
+import SearchProduct from './product/ProductSearch';
 
 export default class CategoryPage extends Component {
 

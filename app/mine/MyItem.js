@@ -83,7 +83,6 @@ export default class MyItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
     flexDirection:'row',
     paddingTop:8,
     paddingBottom:8,
@@ -92,13 +91,11 @@ const styles = StyleSheet.create({
     backgroundColor:'white'
   },
   container1:{
-    flex:1,
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'flex-start',
   },
   container2:{
-    flex:1,
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'flex-end',

@@ -82,25 +82,21 @@ const THEME_BANNER_IMGS = [
 
 const styles = StyleSheet.create({
     parent:{
-      flex:1,
       padding:5,
       marginTop:8,
       backgroundColor:'white',
     },
     container: {
-      flex:1,
       padding:5,
       flexDirection:'row',
       justifyContent:'space-between',
       alignItems:'center'
     },
     container2:{
-      flex:1,
       flexDirection:'row',
       padding:3,
     },
     container1:{
-      flex:1,
     },
     separate:{
       height:0.5,

@@ -81,7 +81,6 @@ const RECOMMEND_IMGS = [
 
 const styles = StyleSheet.create({
     parent:{
-      flex:1,
       padding:5,
       marginTop:8,
       marginBottom:8,
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
       alignItems:'center'
     },
     container: {
-        flex:1,
         justifyContent:'space-around',
         flexDirection: 'row',
         padding:3,
@@ -106,12 +104,10 @@ const styles = StyleSheet.create({
       borderWidth:0.5,
       borderColor:'#DEDEDE',
       backgroundColor:'#ffff',
-      flex:1,
       margin:3,
       padding:3,
     },
     container2:{
-      flex:1,
       flexDirection:'row',
       marginTop:3,
       justifyContent:'center',

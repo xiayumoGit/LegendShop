@@ -39,7 +39,7 @@ export default class TopBar extends Component {
 
   }
 
-    _onCodeClick(title:string){
+    _onScanClick(title:string){
         if (this.props._onCodeClick) {
             this.props._onCodeClick(title);
         }

@@ -93,7 +93,6 @@ export default class TopInfo extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
     flexDirection:'row',
     justifyContent:'space-around',
     alignItems:'center',
@@ -103,16 +102,13 @@ const styles = StyleSheet.create({
     backgroundColor:'#8C023A'
   },
   container1:{
-    flex:1,
     flexDirection:'row'
   },
   container2:{
-    flex:1,
     marginTop:20,
     backgroundColor:'transparent',
   },
   container3:{
-    flex:1,
     flexDirection:'row',
     justifyContent:'flex-end'
   },
@@ -127,7 +123,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   userContainer2:{
-    flex:1,
     flexDirection:'row',
     justifyContent:'flex-end',
     alignItems:'center',
@@ -135,7 +130,7 @@ const styles = StyleSheet.create({
   },
   user:{
     width: 60,
-		height: 60,
+	height: 60,
     marginTop:10,
     marginLeft:10,
     marginRight:8,

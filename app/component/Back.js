@@ -10,7 +10,11 @@ import {
     StyleSheet
 } from 'react-native';
 
-//定义统一风格的ios和安卓的导航栏
+import UIConfigure from '../common/UIConfigure'
+
+/**
+ * 定义统一的退回，对应navigator，布局统一左边箭头，中间文字，右边文字（可能空白）
+ */
 export default class Back extends Component {
 
     constructor(props) {
@@ -23,8 +27,9 @@ export default class Back extends Component {
             this.props.onClick();
         }
     }
+
     render() {
-        let {title}= this.props;
+        let {title,rightTitle}= this.props;
         return (
           <View >
             <View style={styles.container}>
@@ -34,25 +39,24 @@ export default class Back extends Component {
                 <Text style={[styles.text,{marginRight:20}]}>
                       {title}
                 </Text>
-                <Text style={styles.text}></Text>
+                <Text style={styles.text}>{rightTitle?rightTitle:''}</Text>
             </View>
             <View style={styles.separate}/>
           </View>
-        );
+        )
     }
 }
 
 const styles = StyleSheet.create({
-
   container: {
-      flexDirection: 'row',   // 水平排布
+      flexDirection: 'row',
       paddingLeft: 5,
       justifyContent:'space-between',
       paddingRight: 5,
-      paddingTop:20,  // 处理iOS状态栏
-      height: 60,   // 处理iOS状态栏
+      paddingTop:UIConfigure.home.statusBarHeight,
+      height: UIConfigure.home.navigationBarHeight,
       backgroundColor: 'white',
-      alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
+      alignItems: 'center'
   },
   separate:{
     height:1,
