@@ -46,7 +46,7 @@ export default class ProductDetail extends React.Component{
     // 排序View动画
     handleSortTypesViewAnimation() {
         this.setState({
-            isDrop:!this.state.isDrop,
+            isDrop:!this.state.isDrop,c
         });
         Animated.parallel([
             Animated.timing(this.state.sortTypeViewY, {
@@ -123,7 +123,7 @@ export default class ProductDetail extends React.Component{
             <Animated.View style={typesStyle}>
                 <View style={{backgroundColor:'white',height:Constant.window.height-Constant.window.height/3}}>
                     <View style={{flexDirection:'row',alignItems:'center',margin:10}}>
-                        <Image source={require('../image/cart_banner.jpg')} style={{width:100,height:100}}/>
+                        <Image source={require('../image/default_banner_@2x.jpg')} style={{width:100,height:100}}/>
                         <Text style={{marginLeft:15,}}>2016款愤怒的小鸟主题</Text>
                     </View>
 

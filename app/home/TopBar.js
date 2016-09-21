@@ -11,7 +11,8 @@ import {
     StyleSheet
 } from 'react-native';
 
-import Constant from '../common/Constant';
+import ProductSearch from '../product/ProductSearch';
+import UIConfigure from '../common/UIConfigure';
 
 export default class TopBar extends Component {
 
@@ -35,20 +36,31 @@ export default class TopBar extends Component {
     //       }
     //     });
 
-
-
   }
+    /**
+     *  进入二维码扫描
+     * @param title
+     * @private
+     */
+    _onScanClick(title:string) {
 
-    _onScanClick(title:string){
-        if (this.props._onCodeClick) {
-            this.props._onCodeClick(title);
-        }
     }
 
-    _onSearchClick(title: string) {
-        if (this.props._onSearchClick) {
-             this.props._onSearchClick(title);
-        }
+    /**
+     *
+     * 进入搜索
+     * @param title
+     * @private
+     */
+    _onSearchClick(title:string) {
+        const {navigator} = this.props;
+        navigator.push({
+            name: title,
+            component: ProductSearch,
+            params: {
+                title:title,
+            }
+        })
     }
 
     render() {
@@ -64,7 +76,7 @@ export default class TopBar extends Component {
                         搜索...
                     </Text>
                 </View>
-                <Image source={require('../image/two_dim_code_@2x.png')}/>
+                <Image style={{width:28,height:28}} source={require('../image/icon_camera_@2x.png')}/>
             </View>
             <View style={styles.separate}/>
           </View>
@@ -77,21 +89,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',   // 水平排布
         paddingLeft: 5,
         paddingRight: 5,
-        paddingTop: Platform.OS === 'ios' ? 20 : 20,  // 处理iOS状态栏
-        height: 60,   // 处理iOS状态栏
-        backgroundColor: 'white',
-        alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
+        paddingTop:UIConfigure.home.statusBarHeight,
+        height: UIConfigure.home.navigationBarHeight,
+        backgroundColor: UIConfigure.home.defaultBgColor,
+        alignItems: 'center'
     },
     logo: {
         height: 15,
         width: 100,
-        resizeMode: 'stretch'  // 设置拉伸模式
+        resizeMode: 'stretch'
     },
     searchBox: {
         height: 25,
         flexDirection: 'row',
-        flex: 1,  // 类似于android中的layout_weight,设置为1即自动拉伸填充
-        borderRadius: 12,  // 设置圆角边
+        flex: 1,
+        borderRadius: 12,
         backgroundColor: 'white',
         borderWidth:0.5,
         borderColor:'#DEDEDE',
@@ -113,7 +125,7 @@ const styles = StyleSheet.create({
     },
     inputText: {
         flex: 1,
-        color:Constant.colors.lightColor,
+        color:UIConfigure.home.searchTextColor,
         backgroundColor: 'transparent',
         fontSize: 10
     },

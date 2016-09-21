@@ -1,12 +1,13 @@
 'use strict';
 
-import React, { Component,PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
     Image,
     StyleSheet,
     ScrollView,
+    ActivityIndicator,
     Alert,
     StatusBar,
     RefreshControl,
@@ -18,62 +19,32 @@ import {
 import TopBar from './home/TopBar';
 import Swiper from 'react-native-swiper';
 import MenuButton from './component/MenuButton';
-import Recommend from './home/Recommend';
-import BusinessActive from './home/BusinessActive';
-import BusinessNew from './home/BusinessNew';
-import ThemePavilion from './home/ThemePavilion';
+
+import BagActive from './home/BagActive';
+import ClothesActive from './home/ClothesActive';
+import DigitalActive from './home/DigitalActive';
 
 import ProductList from './product/ProductList'
-import ProductDetail from './product/ProductDetail';
-import ProductSearch from './product/ProductSearch';
 
-import Login from './login/Login';
+import UIConfigure from './common/UIConfigure';
+import Constant from './common/Constant';
+import Utils from './common/Utils'
 
-const BANNER_IMGS = [
-    require('./image/img_home_banner1_@2x.jpg'),
-    require('./image/img_home_banner2_@2x.jpg'),
-    require('./image/img_home_banner3_@2x.jpg'),
-];
-const adv_IMGS= [
-    require('./image/home_adv_@2x.jpg'),
-    require('./image/home_adv_@2x.jpg'),
-    require('./image/home_adv_@2x.jpg'),
-    require('./image/home_adv_@2x.jpg')
-];
-
-//首页配置，各组件导入
 export default class HomePage extends Component {
-    constructor(props) {
-        super(props);
-        this.state={
-          isRefreshing:false,
-        };
-        this._onRefresh=this._onRefresh.bind(this);
-    }
 
     componentDidMount() {
-        //获取首页数据
-
-
+        const {fetchHomeResult} =this.props;
+        fetchHomeResult();
     }
 
-    _onCodeClick(title:string) {
-
-    }
-
-    _onSearchClick(title:string) {
-       let navigator = this.props.navigator;
-        navigator.push({
-               name: title,
-               component: ProductSearch,
-               params: {
-                    title:title,
-                }
-        })
-    }
-
+    /**
+     *
+     * 进入收藏，订单，财产，精品
+     * @param title
+     * @private
+     */
     _onMenuClick(title:string) {
-       let navigator = this.props.navigator;
+        const {navigator} = this.props;
         navigator.push({
                name: title,
                component: ProductList,
@@ -84,131 +55,117 @@ export default class HomePage extends Component {
                 }
         })
     }
-    _onItemClick(title:string){
-      let navigator = this.props.navigator;
-        navigator.push({
-              name: title,
-              component: ProductDetail,
-              params: {
-                   title:title,
-               }
-       })
-    }
+
+    /**
+     * 下拉刷新
+     * @private
+     */
     _onRefresh() {
-        this.setState({isRefreshing: true});
-        setTimeout(() => {
-          //这里从新获取数据
-          this.setState({
-            isRefreshing: false,
-          });
-        }, 1500 );
+        /**
+         * 首页刷新数据
+         */
+        const {fetchHomeRefreshResult} =this.props;
+        fetchHomeRefreshResult();
     }
+
+    _renderMenuView(){
+        return UIConfigure.home.menuStringArray.map((item,i)=>{
+            return (
+                <MenuButton key={i} renderIcon={UIConfigure.home.menuIconArray[i]}
+                            showText={item}
+                            onClick={()=>this._onMenuClick(item)}/>
+            )
+        });
+    }
+
+    /**
+     * 获取轮播图片刷新
+     * @returns {*}
+     * @private
+     */
+    _renderSwiperCell(swiperArray){
+        return swiperArray.map((item,i)=>{
+
+            return (
+                <TouchableOpacity key={i} activeOpacity={0.7} onPress={()=>this._onItemClick('商品详情')}>
+                    <View style={styles.slide} >
+                        <Image source={{uri:Constant.httpKeys.IMAGE_API_HOST+item.img}}
+                              style={styles.swiperImg}/>
+                    </View>
+                </TouchableOpacity>
+            )
+        });
+    }
+
     render() {
+
+        const {isLoading,isRefreshing,resultDto}=this.props;
+
+        let content = isLoading ? <ActivityIndicator style={styles.scrollSpinner}/>
+            : (!Utils.isEmptyObject(resultDto)?<ScrollView style={styles.container}
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                            <RefreshControl
+                              refreshing={isRefreshing}
+                              onRefresh={()=>this._onRefresh()}
+                          />}>
+            <Swiper style={styles.wrapper} height={UIConfigure.home.swiperHeight} autoplay={true} autoplayTimeout={5}
+                    paginationStyle={styles.paginationStyle}
+                    loop={true}>
+                {this._renderSwiperCell(resultDto.indexjpgDto)}
+            </Swiper>
+
+            <View style={styles.menuView}>
+                {this._renderMenuView()}
+            </View>
+
+            <BagActive {...this.props}/>
+            <ClothesActive {...this.props}/>
+            <DigitalActive {...this.props}/>
+        </ScrollView>:null);
+
         return (
             <View style={{flex: 1}}>
-            <StatusBar
-                backgroundColor='white'
-                translucent={true}
-                hidden={false}
-                animated={true}
-              />
-              <TopBar  _onSearchClick={this._onSearchClick.bind(this)}  _onCodeClick={this._onCodeClick.bind(this)}/>
-	            <ScrollView style={styles.container1}
-                          refreshControl={
-                            <RefreshControl
-                              refreshing={this.state.isRefreshing}
-                              onRefresh={this._onRefresh}
-                          />}>
-                <Swiper style={styles.wrapper} height={145} autoplay={true} autoplayTimeout={5}
-                        paginationStyle={styles.paginationStyle}
-                        loop={true}>
-                        <TouchableHighlight onPress={()=>this._onItemClick('商品详情')}>
-                          <Image source={BANNER_IMGS[0]}/>
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={()=>this._onItemClick('商品详情')}>
-                          <Image source={BANNER_IMGS[1]}/>
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={()=>this._onItemClick('商品详情')}>
-                          <Image source={BANNER_IMGS[2]}/>
-                        </TouchableHighlight>
-                </Swiper>
-                <View style={styles.menuView1}>
-                    <MenuButton renderIcon={require('./image/icon_home_center_tag1_@2x.png')}
-                                showText={'精品'}
-                                onClick={()=>this._onMenuClick('精品')}/>
-                    <MenuButton renderIcon={require('./image/icon_home_center_tag2_@2x.png')}
-                                showText={'热卖'}
-                                onClick={()=>this._onMenuClick('热卖')}/>
-                    <MenuButton renderIcon={require('./image/icon_home_center_tag3_@2x.png')}
-                                showText={'促销'}
-                                onClick={()=>this._onMenuClick('促销')}/>
-                    <MenuButton renderIcon={require('./image/icon_home_center_tag4_@2x.png')}
-                                showText={'团购'}
-                                onClick={()=>this._onMenuClick('团购')}/>
-                </View>
-                <View style={styles.menuView2}>
-                    <MenuButton renderIcon={require('./image/icon_home_center_tag5_@2x.png')}
-                                showText={'积分'}
-                                onClick={()=>this._onMenuClick('积分')}/>
-                    <MenuButton renderIcon={require('./image/icon_home_center_tag6_@2x.png')}
-                                showText={'试用'}
-                                onClick={()=>this._onMenuClick('试用')}/>
-                    <MenuButton renderIcon={require('./image/icon_home_center_tag7_@2x.png')}
-                                showText={'类目'}
-                                onClick={()=>this._onMenuClick('类目')}/>
-                    <MenuButton renderIcon={require('./image/icon_home_center_tag8_@2x.png')}
-                                showText={'品牌'}
-                                onClick={()=>this._onMenuClick('品牌')}/>
-                </View>
-                <Recommend  onItemClick={this._onItemClick.bind(this)} onMoreClick={this._onMenuClick.bind(this)}/>
-                <Swiper style={styles.wrapper} height={70} autoplay={true} autoplayTimeout={5}
-                  paginationStyle={styles.paginationStyle}
-                  loop={true}>
-                  <TouchableHighlight onPress={()=>this._onItemClick('商品详情')}>
-                    <Image source={adv_IMGS[0]}/>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={()=>this._onItemClick('商品详情')}>
-                    <Image source={adv_IMGS[1]}/>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={()=>this._onItemClick('商品详情')}>
-                    <Image source={adv_IMGS[2]}/>
-                  </TouchableHighlight>
-                </Swiper>
-                <BusinessActive onItemClick={this._onItemClick.bind(this)} onMoreClick={this._onMenuClick.bind(this)}/>
-                <BusinessNew onItemClick={this._onItemClick.bind(this)} onMoreClick={this._onMenuClick.bind(this)}/>
-                <ThemePavilion onItemClick={this._onItemClick.bind(this)} onMoreClick={this._onMenuClick.bind(this)}/>
-              </ScrollView>
+              <TopBar navigator={this.props.navigator}/>
+                {content}
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container1:{
-      backgroundColor:'#F1F2F6',
+    container:{
+      backgroundColor:UIConfigure.home.defaultBgColor,
     },
-    menuView1: {
+    slide: {
+      flex: 1,
+      height:UIConfigure.home.swiperHeight,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'white',
+    },
+    menuView: {
       backgroundColor:'white',
       justifyContent:'space-around',
       flexDirection: 'row',
       marginTop: 8,
       padding:3,
     },
-    menuView2: {
-      backgroundColor:'white',
-      justifyContent:'space-around',
-      flexDirection: 'row',
-      padding: 3,
-    },
-    text: {
-      color: '#fff',
-      fontSize: 30,
-      fontWeight: 'bold',
-    },
     wrapper: {
       backgroundColor:'white'
     },
     paginationStyle:{
       bottom: 5,
+    },
+    scrollSpinner: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical:200,
+    },
+    swiperImg: {
+      width:UIConfigure.home.swiperWidth,
+      height:UIConfigure.home.swiperHeight,
+      resizeMode:'cover',
     }
+
 });

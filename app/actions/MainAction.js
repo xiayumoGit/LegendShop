@@ -1,7 +1,7 @@
 /**
  * Created by xiayumo on 16/9/17.
  */
-import * as types from './ActionTypes';
+import * as TYPES from './ActionTypes';
 
 /**
  * 触发底部tab切换
@@ -10,7 +10,7 @@ import * as types from './ActionTypes';
  */
 export let changeTab = (label)=> {
     return {
-        type: types.MAIN_TAB_CHANGE,
+        type: TYPES.MAIN_TAB_CHANGE,
         selectedTab:label
     }
 }

@@ -98,6 +98,6 @@ let styles = StyleSheet.create({
     textAlign: 'center',
     alignSelf: 'stretch',
     marginTop: 2,
-    marginBottom: Platform.OS==='ios'?7+ Layout.pixel:5+ Layout.pixel,
+    marginBottom: Platform.OS==='ios'?3+ Layout.pixel:3+ Layout.pixel,
   },
 });

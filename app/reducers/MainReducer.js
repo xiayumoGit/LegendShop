@@ -1,4 +1,8 @@
-import * as types from '../actions/ActionTypes';
+/**
+ * Created by xiayumo on 16/9/18.
+ */
+
+import * as TYPES from '../actions/ActionTypes';
 import UIConfigure from '../common/UIConfigure';
 
 const initialState = {
@@ -8,7 +12,7 @@ const initialState = {
 let MainReducer = (state = initialState, action)=>{
 
     switch (action.type) {
-        case types.MAIN_TAB_CHANGE:
+        case TYPES.MAIN_TAB_CHANGE:
             return Object.assign({}, state, {
                 selectedTab:action.selectedTab,
             })

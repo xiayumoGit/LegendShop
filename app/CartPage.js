@@ -19,31 +19,31 @@ import {
   //购物车测试数据
   const CART_DATAS=[
    {title:'汉密尔顿(Hamiliton)旗舰店',content:[
-      {img:require('./image/cart_banner.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
+      {img:require('./image/default_banner_@2x.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
       color:'颜色：银盘 棕带',price:'¥5599.00'},
-      {img:require('./image/cart_banner.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表adsfasdf',
+      {img:require('./image/default_banner_@2x.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表adsfasdf',
       color:'颜色：银盘 棕带',price:'125555.00'}]
    },
    {title:'百达翡丽独家直营店',content:[
-      {img:require('./image/cart_banner.jpg'),name:'百达翡丽(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
+      {img:require('./image/default_banner_@2x.jpg'),name:'百达翡丽(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
       color:'颜色：银盘 白色',price:'1256000.00'},]
    },
    {title:'江诗丹顿旗舰店',content:[
-      {img:require('./image/cart_banner.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
+      {img:require('./image/default_banner_@2x.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
       color:'颜色：银盘 棕带',price:'¥5599.00'},
-      {img:require('./image/cart_banner.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表adsfasdf',
+      {img:require('./image/default_banner_@2x.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表adsfasdf',
       color:'颜色：银盘 棕带',price:'125555.00'},
-      {img:require('./image/cart_banner.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表adsfasdf',
+      {img:require('./image/default_banner_@2x.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表adsfasdf',
       color:'颜色：银盘 棕带',price:'125555.00'},
-      {img:require('./image/cart_banner.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表adsfasdf',
+      {img:require('./image/default_banner_@2x.jpg'),name:'汉密尔顿(Hamiliton)卡其海军先锋系列 自动机械男表adsfasdf',
       color:'颜色：银盘 棕带',price:'125555.00'}]
    },
    {title:'劳力士中国授权店',content:[
-      {img:require('./image/cart_banner.jpg'),name:'百达翡丽(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
+      {img:require('./image/default_banner_@2x.jpg'),name:'百达翡丽(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
       color:'颜色：银盘 白色',price:'1256000.00'},
-      {img:require('./image/cart_banner.jpg'),name:'百达翡丽(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
+      {img:require('./image/default_banner_@2x.jpg'),name:'百达翡丽(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
       color:'颜色：银盘 白色',price:'1256000.00'},
-      {img:require('./image/cart_banner.jpg'),name:'百达翡丽(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
+      {img:require('./image/default_banner_@2x.jpg'),name:'百达翡丽(Hamiliton)卡其海军先锋系列 自动机械男表h88475345',
       color:'颜色：银盘 白色',price:'1256000.00'},]
    },
   ];
@@ -140,7 +140,7 @@ export default class CartPage extends Component {
     _renderSectionHeader(sectionData:string, sectionID:number|string){
       return (
           <View style={styles.sectionContainer}>
-            <Image source={require('./image/icon_button_i_02.png')} style={styles.icon}/>
+            <Image source={require('./image/default_banner_@2x.jpg')} style={styles.icon}/>
             <Text style={styles.sectionHeader}>
               {sectionData}
             </Text>

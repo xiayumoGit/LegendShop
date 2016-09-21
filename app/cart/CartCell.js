@@ -30,7 +30,7 @@ export default class CartCell extends Component{
           onHideUnderlay={this.props.onUnhighlight}>
           <View style={styles.row}>
             <Image
-              source={require('../image/icon_button_i_02.png')}
+              source={require('../image/default_banner_@2x.jpg')}
               style={styles.icon}
             />
             <Image

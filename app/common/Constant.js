@@ -5,7 +5,6 @@ import { Dimensions,Platform} from 'react-native';
 
 /**
  *  公共配置
- *
  */
 let window = {
     width: Platform.OS === 'ios' ? Dimensions.get('window').width : Dimensions.get('screen').width,
@@ -16,20 +15,20 @@ let window = {
 }
 
 /**
- *
  * 颜色
  */
-
 let colors = {
-    lightGreyColor:'rgb(240, 242, 245)',//默认背景灰底
-    lightGreyColor1:'rgb(238, 238, 238)',//比默认灰底稍微深点
+    /**
+     * 所有背景灰底
+     */
+    lightGreyColor:'rgb(240, 242, 245)',
+    lightGreyColor1:'rgb(238, 238, 238)',
     lightColor:'rgb(206, 206, 211)',
-    redColor:'rgb(255,0,0)',//正红
-    lightBlackColor:'rgb(92, 92, 92)',//浅黑色
+    redColor:'rgb(255,0,0)',
+    lightBlackColor:'rgb(92, 92, 92)',
 }
 
 /**
- *
  * 常量字符串
  */
 let strings = {
@@ -37,15 +36,15 @@ let strings = {
     categoryString : '分类',
     cartString : '购物车',
     mineString : '我的',
-    searchTabString:['默认','销量','评论数','价格'],
-    orderByString:['buys','buys','comments','cash'],
-    detailTabString:['商品','详情','评价'],
-    judgeTabString:['全部评价','好评','中评','差评'],
+    menuStringArray:['收藏','订单','财产','精品'],
+    searchTabStringArray:['默认','销量','评论数','价格'],
+    // orderByStringArray:['buys','buys','comments','cash'],
+    detailTabStringAarray:['商品','详情','评价'],
+    judgeTabStringArray:['全部评价','好评','中评','差评'],
 }
 
 
 /**
- *
  * 存储
  */
 let storeKeys = {
@@ -54,14 +53,15 @@ let storeKeys = {
 }
 
 /**
- *
  * http
  */
 let httpKeys = {
-    //主地址
+    //域名
     HOST: 'http://react.legendshop.cn',
+    //图片前缀
     IMAGE_API_HOST: 'http://react.legendshop.cn/photoserver/photo/',
-    // HOST: 'http://legendshop.imwork.net:8801/legendshop_app',
+    //首页
+    HOME_API_KEY:'/index?',
     //注册使用短信验证码
     REGISTER_SMS_API_KEY: '/sendRegSMSCode?',
     //忘记密码发送短信验证码
@@ -78,9 +78,8 @@ let httpKeys = {
     SEARCH_API_KEY: '/appSearch/prodList?',
     //商品详情
     PRODUCT_DETAIL_API_KEY1: '/productDetail?',
-    PRODUCT_DETAIL_API_KEY2: '/productContent/',//get请求
+    PRODUCT_DETAIL_API_KEY2: '/productContent/',
     PRODUCT_DETAIL_API_KEY3: '/productDetail',
-
 }
 
 export default {

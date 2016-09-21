@@ -14,6 +14,7 @@ import  {
 } from 'react-native';
 
 //该组件定义了左中右三种list相互关联的组件
+import Utils from '../common/Utils';
 
 export default class ExpandTab extends Component {
 
@@ -93,12 +94,12 @@ export default class ExpandTab extends Component {
       });
     }
     render() {
-        let {originData}=this.props;
-        if(originData.length>0){
+        let {resultDto}=this.props;
+        if(!Utils.isEmptyObject(resultDto)){
             let {tabIndex,childIndex}=this.state;
-            let tab=this._renderTab(originData,tabIndex);
-            let child=this._renderChild(originData,tabIndex,childIndex);
-            let grandson=this._renderGrandson(originData,tabIndex,childIndex);
+            let tab=this._renderTab(resultDto,tabIndex);
+            let child=this._renderChild(resultDto,tabIndex,childIndex);
+            let grandson=this._renderGrandson(resultDto,tabIndex,childIndex);
             return (
               <View style={styles.parent}>
                 <View style={styles.separate}/>

@@ -9,7 +9,6 @@ import Splash from './Splash';
 export default class App extends Component {
 
     componentDidMount(){
-
     }
 
     render() {

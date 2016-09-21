@@ -9,24 +9,22 @@ import {
     StyleSheet
 } from 'react-native';
 
-//该组件定义上面icon底部文字并带有右上角冒泡的基础组件
-//验证参数类型，定义该组件默认的状态和行为
+
+
+/**
+ * 该组件定义上面icon底部文字并带有右上角冒泡的基础组件,验证参数类型，定义该组件默认的状态和行为
+ */
 
 export default class MenuButton extends Component {
 
     static propTypes = {
-        renderIcon: PropTypes.number.isRequired,  // 图片,加入.isRequired即为比填项
-        showText: PropTypes.string.isRequired,  // 显示标题\文字
-        onClick: PropTypes.func,  // 回调函数
+        renderIcon: PropTypes.number.isRequired,
+        showText: PropTypes.string.isRequired,
+        onClick: PropTypes.func,
         renderBadge:PropTypes.func,
         renderPrompt:PropTypes.func,
         textStyle:Text.propTypes.style,
         iconStyle:View.propTypes.style,
-    };
-
-    static defaultProps = {
-      renderIcon:require('../mine/img/icon_mine_order_1.png'),
-      showText:'',
     };
 
     constructor(props) {

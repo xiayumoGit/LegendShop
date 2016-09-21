@@ -14,23 +14,16 @@ import {
     Platform,
 } from 'react-native';
 
-import ExpandTab from './component/ExpandTab';
+// import ExpandTab from './component/ExpandTab';
+
+import LeftRightTab from './component/LeftRightTab';
 import ProductDetail from './product/ProductDetail';
+import SearchProduct from './product/ProductSearch';
 
 import Constant from './common/Constant';
-import Utils from './common/Utils';
-
-import SearchProduct from './product/ProductSearch';
 
 export default class CategoryPage extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state={
-          load:false,
-          dataSource:[],
-        };
-    }
     _onClick(title) {
         let navigator = this.props.navigator;
         navigator.push({
@@ -51,32 +44,15 @@ export default class CategoryPage extends Component {
                }
        })
     }
-    _onFetchCategoryData(){
-      //获取分类数据
-      Utils.httpGet(Constant.httpKeys.HOST+Constant.httpKeys.CATEGOTY_API_KEY,
-          (response) => {
-                  console.log('_onFetchCategoryData success: ' + JSON.stringify(response));
-                  this.setState({
-                    load: true,
-                    dataSource: response,
-                  });
-            }, (error) => {
-                  console.log('_onFetchCategoryData error: ' + error);
-                    this.setState({
-                      load:false,
-                      dataSource:[],
-                    });
-                    Alert.alert('',error)
-            });
-    }
-    //从网络获取数据
+
     componentDidMount() {
-      console.log('tag','componentDidMount');
-      InteractionManager.runAfterInteractions(() => {
-        this._onFetchCategoryData();
-      });
+        const {fetchCategoryResult} =this.props;
+        fetchCategoryResult();
+
     }
     render() {
+
+        const {resultDto} =this.props;
         return (
           <View style={{flex: 1}}>
             <View style={styles.container}>
@@ -90,7 +66,7 @@ export default class CategoryPage extends Component {
                 </View>
             </View>
             <View style={styles.separate}/>
-            <ExpandTab originData={this.state.dataSource} onClick={this._onClick.bind(this)}/>
+            <LeftRightTab {...this.props} onClick={this._onClick.bind(this)}/>
           </View>
         );
     }

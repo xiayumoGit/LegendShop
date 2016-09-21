@@ -11,35 +11,45 @@ import {
   Dimensions,
 } from 'react-native';
 
-import Animated from 'Animated';
 import MainScreenContainer from './MainScreenContainer';
 import Constant from './common/Constant';
-
 
 export default class Splash extends Component {
 
   constructor(props){
         super(props);
         this.state = {
-            bounceValue: new Animated.Value(1),
+            count: 3,
         };
   }
 
   componentDidMount(){
-    this.state.bounceValue.setValue(1);
-    Animated.timing(
-      this.state.bounceValue,
-      {
-        toValue: 1.2,
-        duration: 1000, 
-      }
-    ).start();
+      this.interval = setInterval(
+          () => {
+              if(this.state.count===1){
+                  this.props.navigator.replace({
+                      name: '首页',
+                      component: MainScreenContainer,
+                  });
+              }else{
+                  this.setState({
+                      count:this.state.count-1,
+                  })
+              }
+          },
+          1000
+      );
 
-      InteractionManager.runAfterInteractions(() => {
-          this.props.navigator.replace({
-            name: '首页',
-            component: MainScreenContainer,
-            });
+  }
+
+  componentWillUnmount() {
+      this.interval && clearInterval(this.interval);
+  }
+
+  _goToHome(){
+      this.props.navigator.replace({
+          name: '首页',
+          component: MainScreenContainer,
       });
   }
 
@@ -47,16 +57,16 @@ export default class Splash extends Component {
 
     return (
       <View style={styles.container}>
-        <Animated.Image
+        <Image
           source={require('./image/splash.jpg')}
           style={{
             flex: 1,
             width: Constant.window.width,
             height: 1,
-            transform: [
-              {scale: this.state.bounceValue},
-            ]
           }} />
+          <Text style={styles.text} onPress={()=>this._goToHome()}>
+              {'点击跳过'+this.state.count+ 's'}
+          </Text>
       </View>
     );
   }
@@ -73,14 +83,16 @@ let styles = StyleSheet.create({
     height: 1,
   },
   text: {
-    flex: 1,
-    fontSize: 16,
-    textAlign: 'center',
-    color: 'white',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 10,
-    backgroundColor: 'transparent',
+      position:'absolute',
+      top:30,
+      color:'white',
+      borderWidth:0.8,
+      borderRadius:5,
+      borderColor:'white',
+      right:10,
+      paddingTop:5,
+      paddingBottom:5,
+      paddingRight:10,
+      paddingLeft:10,
   }
 });

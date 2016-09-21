@@ -5,7 +5,12 @@ import Md5 from 'md5';
 import { AsyncStorage } from 'react-native';
 
 let Util = {
-    //http的get请求，包括log日志打印以及成功及失败的回调
+    /**
+     * http的get请求方式，支持成功及失败的回调
+     * @param url
+     * @param successCallback
+     * @param failCallback
+     */
     httpGet: (url, successCallback, failCallback) => {
         fetch(url)
             .then((response) => response.text())
@@ -24,7 +29,13 @@ let Util = {
                 failCallback(err);
             }).done();
     },
-    //http的提交表单，包括log日志打印以及成功及失败的回调
+    /**
+     * http表单请求方式，包括成功及失败的回调
+     * @param url
+     * @param data
+     * @param successCallback
+     * @param failCallback
+     */
     httpPostForm:(url,data, successCallback, failCallback)=>{
           fetch(url, {
             method: 'POST',
@@ -32,11 +43,10 @@ let Util = {
              'Accept': 'application/json',
              'Content-Type': 'application/x-www-form-urlencoded'
            },
-           body:data+''
+            body:data+''
           })
             .then((response) => response.text())
             .then((responseText) => {
-                //根据返回状态进行回调
                 let result=JSON.parse(responseText);
                 if(result.status===1){
                   console.log('success: ' + responseText);
@@ -51,7 +61,13 @@ let Util = {
                 failCallback(err);
             }).done();
     },
-    //http的提交json对象，包括log日志打印以及成功及失败的回调
+    /**
+     * http的json请求方式，包括成功及失败的回调
+     * @param url
+     * @param data
+     * @param successCallback
+     * @param failCallback
+     */
     httpPostJson:(url, data,successCallback, failCallback)=>{
           fetch(url,{
               method: 'POST',
@@ -78,14 +94,24 @@ let Util = {
             }).done();
 
     },
-    //本地存储，以key-value的方式
+
+    /**
+     * 本地数据保存
+     * @param key
+     * @param value
+     * @returns {*|Promise}
+     */
     storageSetItem: (key, value) => {
         const jsonValue = JSON.stringify(value);
         return AsyncStorage.setItem(key, jsonValue, (error) => {
             console.log(key + ' set error: ' + error);
         });
     },
-    //获取本地对应key的value
+    /**
+     * 本地数据获取
+     * @param key
+     * @returns {Promise.<TResult>}
+     */
     storageGetItem: (key) => {
         return AsyncStorage.getItem(key)
             .then((data, error) => {
@@ -94,14 +120,23 @@ let Util = {
                 return null;
             })
     },
-    //更新key所对应的value
+    /**
+     * 更新本地数据
+     * @param key
+     * @param value
+     * @returns {Promise.<TResult>}
+     */
     storageUpdateItem: (key, value) => {
         return AsyncStorage.getItem(key).then((item) => {
           value =  Object.assign({}, JSON.parse(item), value);
           return AsyncStorage.setItem(key, JSON.stringify(value));
         });
     },
-    //清除当前key的value
+    /**
+     * 清除当前数据
+     * @param key
+     * @returns {*|Promise}
+     */
     storageClearItem: (key) => {
         return AsyncStorage.removeItem(key);
     },
@@ -109,12 +144,14 @@ let Util = {
     md5:(value)=>{
       return Md5(value);
     },
+
     isEmptyObject:(obj)=>{
-      for(var n in obj){
-        return false;
-      }
+        for(var n in obj){
+            return false;
+        }
         return true;
     },
+
 }
 
 export default Util;
