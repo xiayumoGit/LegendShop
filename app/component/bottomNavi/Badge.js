@@ -8,6 +8,9 @@ import {
 
 import Layout from './Layout';
 
+/**
+ * 定义了右上角的气泡布局
+ */
 export default class Badge extends React.Component {
   static propTypes = Text.propTypes;
 

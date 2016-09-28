@@ -10,7 +10,6 @@ export default class App extends Component {
 
     componentDidMount(){
     }
-
     render() {
         let defaultName = 'Splash';
         let defaultComponent = Splash;

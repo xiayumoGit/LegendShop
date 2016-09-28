@@ -16,8 +16,8 @@ import Back from '../component/Back';
 import ProductListCell from './ProductListCell';
 import Constant from '../common/Constant';
 
-let defaultTab=Constant.strings.searchTabString;
-let orderByKey=Constant.strings.orderByString;
+let defaultTab=Constant.strings.searchTabStringArray;
+let orderByKey=Constant.strings.orderByStringArray;
 
 export default class ProductSearch extends Component{
 

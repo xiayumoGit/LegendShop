@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import Layout from './Layout';
-//定义tabBar组件
+
 export default class TabBar extends React.Component {
   static propTypes = {
     ...View.propTypes,

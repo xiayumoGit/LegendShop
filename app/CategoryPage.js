@@ -14,13 +14,15 @@ import {
     Platform,
 } from 'react-native';
 
-// import ExpandTab from './component/ExpandTab';
-
-import LeftRightTab from './component/LeftRightTab';
+import GridSectionListView from './component/verticalNavi/GridSectionListView';
 import ProductDetail from './product/ProductDetail';
 import SearchProduct from './product/ProductSearch';
 
+import GridNavigator from './component/verticalNavi/GridNavigator';
+
 import Constant from './common/Constant';
+
+import UIConfigure from './common/UIConfigure';
 
 export default class CategoryPage extends Component {
 
@@ -45,14 +47,37 @@ export default class CategoryPage extends Component {
        })
     }
 
+    _tabItemSelected(tabIndex:number){
+        console.log('tag','tabIndex='+tabIndex);
+        const {tabChanged}=this.props;
+        tabChanged(tabIndex);
+    }
+
     componentDidMount() {
         const {fetchCategoryResult} =this.props;
         fetchCategoryResult();
 
     }
-    render() {
+    _renderTab(data,tabIndex){
 
-        const {resultDto} =this.props;
+        return data.map((item,i)=>{
+            let childView = <GridSectionListView resultDto={this.props.resultDto[i]} navigator={this.props.navigator}/>;
+            return (
+                <GridNavigator.Item
+                    key={i}
+                    title = {'title'+i}
+                    selected={tabIndex===i}
+                    titleStyle={{color:UIConfigure.home.tabTextColor,fontSize:12}}
+                    selectedTitleStyle={{color:UIConfigure.home.tabTextColor,fontSize:12}}
+                    bacStyle={{backgroundColor:'white'}}
+                    onPress={()=> this._tabItemSelected(i)}
+                    selectedBacStyle={{backgroundColor:'white'}}>
+                    {childView}
+                </GridNavigator.Item>
+            )
+        });
+    }
+    render() {
         return (
           <View style={{flex: 1}}>
             <View style={styles.container}>
@@ -66,7 +91,10 @@ export default class CategoryPage extends Component {
                 </View>
             </View>
             <View style={styles.separate}/>
-            <LeftRightTab {...this.props} onClick={this._onClick.bind(this)}/>
+              <GridNavigator style={styles.pageContainer} sceneStyle={styles.sceneContainer}
+                            hidesTabTouch={true} tabBarStyle={styles.tabContainer}>
+                  {this._renderTab(this.props.resultDto,this.props.tabIndex)}
+              </GridNavigator>
           </View>
         );
     }
@@ -74,13 +102,13 @@ export default class CategoryPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-      flexDirection: 'row',   // 水平排布
+      flexDirection: 'row',
       paddingLeft: 5,
       paddingRight: 5,
-      paddingTop: 20,  // 处理iOS状态栏
-      height: 60,   // 处理iOS状态栏
+      paddingTop: 20,
+      height: 60,
       backgroundColor: 'white',
-      alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
+      alignItems: 'center'
   },
   searchBox: {
       height: 28,
@@ -115,5 +143,15 @@ const styles = StyleSheet.create({
       color:Constant.colors.lightColor,
       backgroundColor: 'transparent',
       fontSize: 10
-  }
+  },
+    pageContainer:{
+        flexDirection:'row',
+    },
+    tabContainer: {
+        width: UIConfigure.home.tabBarHeight,
+    },
+
+    sceneContainer:{
+        paddingLeft:50,
+    },
 });

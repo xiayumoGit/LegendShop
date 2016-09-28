@@ -15,7 +15,8 @@ import  {
     StyleSheet,
 } from 'react-native';
 
-import UIConfigure from '../common/UIConfigure';
+import UIConfigure from '../../common/UIConfigure';
+import Utils from '../../common/Utils';
 
 
 export default class LeftRightTab extends Component {
@@ -41,20 +42,20 @@ export default class LeftRightTab extends Component {
         this.renderRow=this.renderRow.bind(this);
     }
 
-    _renderTab(data){
-        const {tabIndex} =this.props;
-        return data.map((item,i)=>{
-            let picUri= 'http://react.legendshop.cn/photoserver/photo/'+item.pic;
-            return (
-                <TouchableOpacity key={i} activeOpacity={0.7} onPress = {()=> this._tabItemSelected(i)}>
-                    <View style={styles.tabContainer}>
-                        <Image style={styles.icon} source={{uri: picUri}}/>
-                        <Text style={[styles.showText,tabIndex==i?styles.selectText:null]}>{item.name}</Text>
-                    </View>
-                </TouchableOpacity>
-            )
-        });
-    }
+    // _renderTab(data){
+    //     const {tabIndex} =this.props;
+    //     return data.map((item,i)=>{
+    //         let picUri= 'http://react.legendshop.cn/photoserver/photo/'+item.pic;
+    //         return (
+    //             <TouchableOpacity key={i} activeOpacity={0.7} onPress = {()=> this._tabItemSelected(i)}>
+    //                 <View style={styles.tabContainer}>
+    //                     <Image style={styles.icon} source={{uri: picUri}}/>
+    //                     <Text style={[styles.showText,tabIndex==i?styles.selectText:null]}>{item.name}</Text>
+    //                 </View>
+    //             </TouchableOpacity>
+    //         )
+    //     });
+    // }
 
     _tabItemSelected(tabIndex:string){
         const {tabChanged}=this.props;
@@ -71,7 +72,7 @@ export default class LeftRightTab extends Component {
                 <TouchableOpacity key={i} onPress={()=>this._itemPress()} activeOpacity={0.7}>
                     <View>
                         <View style={styles.row}>
-                            <Image style={styles.icon} source={require('../image/icon_home_center_tag1_@2x.png')} />
+                            <Image style={styles.icon} source={require('../../image/icon_home_center_tag1_@2x.png')} />
                             <Text style={{marginTop:5,fontSize:12,}}>
                                 {rowData[i].name}
                             </Text>
@@ -101,17 +102,17 @@ export default class LeftRightTab extends Component {
         );
     }
 
-    _getDataSource(resultDto: Array<any>,tabIndex:number): ListView.DataSource {
+    _getDataSource(resultDto: Object): ListView.DataSource {
         let dataBlob = {};
         let sectionIDs = [];
         let rowIDs = [];
-        for (let ii = 0; ii < resultDto[tabIndex].childrenList.length; ii++) {
-            let sectionName = resultDto[tabIndex].childrenList[ii].name;
+        for (let ii = 0; ii < resultDto.childrenList.length; ii++) {
+            let sectionName = resultDto.childrenList[ii].name;
             sectionIDs.push(sectionName);
             dataBlob[sectionName] = sectionName;
             rowIDs[ii] = [];
             let rowData=[];
-            let sectionArray= resultDto[tabIndex].childrenList[ii];
+            let sectionArray= resultDto.childrenList[ii];
             for (let jj = 0; jj <sectionArray.childrenList.length; jj++) {
                 rowData.push(sectionArray.childrenList[jj]);
                 if(jj!==0&&(jj+1)%3===0||jj==sectionArray.childrenList.length-1){
@@ -126,18 +127,18 @@ export default class LeftRightTab extends Component {
     }
 
     render() {
-        let {tabIndex,resultDto}=this.props;
-        if(resultDto.length>0){
+        let {resultDto}=this.props;
+        if(!Utils.isEmptyObject(resultDto)){
             return (
                 <View style={styles.parent}>
                     <View style={styles.separate}/>
                     <View style={styles.container}>
-                        <ScrollView style={styles.scroll}>
-                            {this._renderTab(resultDto,tabIndex)}
-                        </ScrollView>
+                        {/*<ScrollView style={styles.scroll}>*/}
+                            {/*{this._renderTab(resultDto,tabIndex)}*/}
+                        {/*</ScrollView>*/}
                         <ListView
                             style={{flex:3,paddingLeft:10,paddingRight:10}}
-                            dataSource={this._getDataSource(resultDto,tabIndex)}
+                            dataSource={this._getDataSource(resultDto)}
                             renderSectionHeader={this.renderSectionHeader}
                             renderRow={this.renderRow}
                             initialListSize={10}

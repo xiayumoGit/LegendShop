@@ -13,7 +13,7 @@ import {
 
 import Constant from '../common/Constant'
 
-let defaultTab=Constant.strings.judgeTabString;
+let defaultTab=Constant.strings.judgeTabStringArray;
 
 export default class ProductDetail3 extends Component{
 

@@ -38,7 +38,7 @@ let strings = {
     mineString : '我的',
     menuStringArray:['收藏','订单','财产','精品'],
     searchTabStringArray:['默认','销量','评论数','价格'],
-    // orderByStringArray:['buys','buys','comments','cash'],
+    orderByStringArray:['buys','buys','comments','cash'],
     detailTabStringAarray:['商品','详情','评价'],
     judgeTabStringArray:['全部评价','好评','中评','差评'],
 }

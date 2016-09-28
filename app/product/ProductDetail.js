@@ -24,7 +24,7 @@ import OrderCommit from '../order/OrderCommit';
 
 import Constant from '../common/Constant';
 
-let defaultTab=Constant.strings.detailTabString;
+let defaultTab=Constant.strings.detailTabStringAarray;
 
 export default class ProductDetail extends React.Component{
 
@@ -46,7 +46,7 @@ export default class ProductDetail extends React.Component{
     // 排序View动画
     handleSortTypesViewAnimation() {
         this.setState({
-            isDrop:!this.state.isDrop,c
+            isDrop:!this.state.isDrop,
         });
         Animated.parallel([
             Animated.timing(this.state.sortTypeViewY, {

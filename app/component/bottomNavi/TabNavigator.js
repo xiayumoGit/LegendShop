@@ -8,19 +8,17 @@ import {
 } from 'react-native';
 
 import Badge from './Badge';
-import Layout from './Layout';
-import StaticContainer from './StaticContainer';
 import Tab from './Tab';
 import TabBar from './TabBar';
 import TabNavigatorItem from './TabNavigatorItem';
 
-  //定义了TabNavigator的
 export default class TabNavigator extends React.Component {
   static propTypes = {
     ...View.propTypes,
     sceneStyle: View.propTypes.style,
     tabBarStyle: TabBar.propTypes.style,
     tabBarShadowStyle: TabBar.propTypes.shadowStyle,
+    tabDirection:PropTypes.number,
     hidesTabTouch: PropTypes.bool
   };
 
@@ -32,8 +30,8 @@ export default class TabNavigator extends React.Component {
 
     this._renderTab = this._renderTab.bind(this);
   }
-
   componentWillReceiveProps(nextProps) {
+    console.log('tag','componentWillReceiveProps');
     let { renderedSceneKeys } = this.state;
     this.setState({
       renderedSceneKeys: this._updateRenderedSceneKeys(
@@ -59,9 +57,15 @@ export default class TabNavigator extends React.Component {
   }
 
   render() {
+    console.log('tag','render');
+    /**
+     * children是当前TabNavigator的子节点，也就是被创建的四个item
+     */
     let { style, children, tabBarStyle, tabBarShadowStyle, sceneStyle, ...props } = this.props;
     let scenes = [];
-    //这里是容器页
+    /**
+     * 遍历四个item获取当前的item设置
+     */
     React.Children.forEach(children, (item, index) => {
       let sceneKey = this._getSceneKey(item, index);
       if (!this.state.renderedSceneKeys.has(sceneKey)) {
@@ -88,6 +92,9 @@ export default class TabNavigator extends React.Component {
   }
 
   _renderTab(item) {
+    /**
+     * 通过选中和未选中来重排tab
+     */
     let icon;
     if (item.props.selected) {
       if (item.props.renderSelectedIcon) {
@@ -133,6 +140,9 @@ export default class TabNavigator extends React.Component {
   }
 }
 
+/**
+ * 控制透明度，所以每次都尽心render
+ */
 class SceneContainer extends React.Component {
   static propTypes = {
     ...View.propTypes,
@@ -140,6 +150,9 @@ class SceneContainer extends React.Component {
   };
 
   render() {
+    /**
+     * 通过选中和未选中来实现当前容器的显示和不显示
+     */
     let { selected, ...props } = this.props;
     return (
       <View
@@ -158,10 +171,29 @@ class SceneContainer extends React.Component {
     );
   }
 }
+/**
+ * 做为真正的内容载体，可以根据shouldComponentUpdate来决定是否渲染以及缓存
+ */
+class StaticContainer extends React.Component {
+  static propTypes = {
+    shouldUpdate: PropTypes.bool,
+  };
+
+  shouldComponentUpdate(nextProps: Object): boolean {
+    return false;
+  }
+
+  render() {
+    let { children } = this.props;
+    return children ? React.Children.only(children) : null;
+  }
+}
+
 
 let styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection:'row',
   },
   sceneContainer: {
     position: 'absolute',
@@ -169,7 +201,6 @@ let styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    paddingBottom: Layout.tabBarHeight,
   },
   hiddenSceneContainer: {
     overflow: 'hidden',

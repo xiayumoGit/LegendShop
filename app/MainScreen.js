@@ -4,7 +4,7 @@ import React, { Component,PropTypes } from 'react';
 import {StyleSheet, Image, Text, View} from 'react-native';
 
 import UIConfigure from './common/UIConfigure';
-import TabNavigator from './component/tabBar/TabNavigator';
+import TabNavigator from './component/bottomNavi/TabNavigator';
 import HomePageContainer from './HomePageContainer';
 import CategoryPageContainer from './CategoryPageContainer';
 import CartPage from './CartPage';
@@ -38,7 +38,8 @@ export default class MainScreen extends Component {
     render() {
         const {navigator}=this.props;
         return (
-                <TabNavigator hidesTabTouch={true} tabBarStyle={styles.tab}>
+                <TabNavigator style={styles.pageContainer} sceneStyle={styles.sceneContainer}
+                              hidesTabTouch={true} tabBarStyle={styles.tabContainer}>
                     {this._renderTabItem(UIConfigure.home.homeNormalIcon, UIConfigure.home.homeFocusIcon,
                         UIConfigure.home.homeString, <HomePageContainer navigator={navigator}/>)}
                     {this._renderTabItem(UIConfigure.home.categoryNormalIcon, UIConfigure.home.categoryFocusIcon,
@@ -53,11 +54,23 @@ export default class MainScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    tab: {
+    pageContainer:{
+        flexDirection:'row',
+    },
+    tabContainer: {
         height: UIConfigure.home.tabBarHeight,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         backgroundColor: '#333333',
         alignItems: 'center',
+        left:0,
+        bottom:0,
+        right:0,
     },
+    sceneContainer:{
+        paddingBottom:50,
+    },
+
     tabIcon: {
         width: 28,
         height: 28,
