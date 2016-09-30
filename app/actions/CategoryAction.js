@@ -12,7 +12,7 @@ import Constant from '../common/Constant';
 export let fetchCategoryResult = ()=> {
     return dispatch => {
         dispatch(fetchLoading(true));
-        Utils.httpGet(Constant.httpKeys.HOST+Constant.httpKeys.CATEGOTY_API_KEY,
+        Utils.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.CATEGOTY_API_KEY,'',
             (response) => {
                 dispatch(receiveResult(false,response))
             }, (error) => {

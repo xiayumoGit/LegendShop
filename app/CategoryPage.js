@@ -8,6 +8,7 @@ import {
     InteractionManager,
     TouchableOpacity,
     Alert,
+    ActivityIndicator,
     StyleSheet,
     ScrollView,
     TextInput,
@@ -23,7 +24,6 @@ import GridNavigator from './component/verticalNavi/GridNavigator';
 import Constant from './common/Constant';
 
 import UIConfigure from './common/UIConfigure';
-
 export default class CategoryPage extends Component {
 
     _onClick(title) {
@@ -46,9 +46,7 @@ export default class CategoryPage extends Component {
                }
        })
     }
-
     _tabItemSelected(tabIndex:number){
-        console.log('tag','tabIndex='+tabIndex);
         const {tabChanged}=this.props;
         tabChanged(tabIndex);
     }
@@ -59,25 +57,32 @@ export default class CategoryPage extends Component {
 
     }
     _renderTab(data,tabIndex){
-
         return data.map((item,i)=>{
-            let childView = <GridSectionListView resultDto={this.props.resultDto[i]} navigator={this.props.navigator}/>;
+            let childView = <GridSectionListView resultDto={item} navigator={this.props.navigator}/>;
             return (
                 <GridNavigator.Item
                     key={i}
-                    title = {'title'+i}
+                    title={item.name}
                     selected={tabIndex===i}
                     titleStyle={{color:UIConfigure.home.tabTextColor,fontSize:12}}
                     selectedTitleStyle={{color:UIConfigure.home.tabTextColor,fontSize:12}}
                     bacStyle={{backgroundColor:'white'}}
                     onPress={()=> this._tabItemSelected(i)}
-                    selectedBacStyle={{backgroundColor:'white'}}>
+                    selectedBacStyle={{backgroundColor:'#f8f8f8'}}>
                     {childView}
                 </GridNavigator.Item>
             )
         });
     }
     render() {
+        const {resultDto,tabIndex}=this.props;
+        let content=resultDto.length>0?
+            <GridNavigator  style={styles.pageContainer}
+                            sceneStyle={styles.sceneContainer}
+                            hidesTabTouch={true}
+                            tabBarStyle={styles.tabContainer}>
+                {this._renderTab(resultDto,tabIndex)}
+            </GridNavigator>:<ActivityIndicator style={styles.scrollSpinner}/>;
         return (
           <View style={{flex: 1}}>
             <View style={styles.container}>
@@ -91,10 +96,7 @@ export default class CategoryPage extends Component {
                 </View>
             </View>
             <View style={styles.separate}/>
-              <GridNavigator style={styles.pageContainer} sceneStyle={styles.sceneContainer}
-                            hidesTabTouch={true} tabBarStyle={styles.tabContainer}>
-                  {this._renderTab(this.props.resultDto,this.props.tabIndex)}
-              </GridNavigator>
+              {content}
           </View>
         );
     }
@@ -113,8 +115,8 @@ const styles = StyleSheet.create({
   searchBox: {
       height: 28,
       flexDirection: 'row',
-      flex: 1,  // 类似于android中的layout_weight,设置为1即自动拉伸填充
-      borderRadius: 3,  // 设置圆角边
+      flex: 1,
+      borderRadius: 3,
       backgroundColor: 'white',
       borderWidth:0.5,
       borderColor:'#DEDEDE',
@@ -135,8 +137,8 @@ const styles = StyleSheet.create({
       resizeMode: 'stretch'
   },
   separate:{
-    height:1,
-    backgroundColor:'#A7A7AA',
+     height:1,
+     backgroundColor:'#A7A7AA',
   },
   inputText: {
       flex: 1,
@@ -148,10 +150,12 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     },
     tabContainer: {
-        width: UIConfigure.home.tabBarHeight,
+        width: UIConfigure.category.categoryTabWidth,
     },
-
     sceneContainer:{
-        paddingLeft:50,
+        paddingLeft:UIConfigure.category.categoryTabWidth,
+    },
+    scrollSpinner: {
+        marginVertical: 20,
     },
 });

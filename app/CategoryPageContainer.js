@@ -1,7 +1,6 @@
 /**
  * Created by xiayumo on 16/9/20.
  */
-
 'use strict';
 import React from 'react';
 import {connect} from 'react-redux';

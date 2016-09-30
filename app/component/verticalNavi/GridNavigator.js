@@ -15,6 +15,7 @@ import {
 import GridNavigatorItem from './GridNavigatorItem';
 
 export default class GridNavigator extends React.Component {
+
     static propTypes = {
         ...View.propTypes,
         sceneStyle: View.propTypes.style,
@@ -69,7 +70,6 @@ export default class GridNavigator extends React.Component {
                 <SceneContainer key={sceneKey} selected={selected} style={sceneStyle}>
                     {item}
                 </SceneContainer>;
-
             scenes.push(scene);
         });
 
@@ -89,15 +89,13 @@ export default class GridNavigator extends React.Component {
     _renderTab(item) {
         return (
             <TouchableOpacity activeOpacity={0.7} onPress={item.props.onPress}>
-                <View style={styles.itemContainer}>
-                    <Image style={styles.icon} />
-                    <Text style={[styles.showText,item.props.selected?styles.selectText:null]}>name</Text>
+                <View style={[styles.itemContainer,item.props.selected?item.props.selectedBacStyle:null]}>
+                    <Text style={[styles.showText,item.props.selected?styles.selectText:null]}>{item.props.title}</Text>
                 </View>
             </TouchableOpacity>
         );
     }
 }
-
 /**
  * 控制透明度，所以每次都尽心render
  */
@@ -172,25 +170,25 @@ let styles = StyleSheet.create({
     },
     itemContainer:{
         alignItems:'center',
-        paddingTop:5,
-        paddingBottom:5,
+        paddingTop:18,
+        paddingBottom:18,
+        justifyContent:'center',
         borderRightWidth:0.5,
         borderBottomWidth:0.5,
         borderColor:'#F0F0F0',
         backgroundColor:'#ffff',
     },
     showText: {
-        fontSize: 12,
+        fontSize: 14,
         color:'rgb(92, 92, 92)',
     },
     selectText:{
-        fontSize: 12,
+        fontSize: 14,
         color:'rgb(255,0,0)',
     },
-
     tabContainer: {
         backgroundColor: '#f8f8f8',
-        width: 50,
+        width: 90,
         position: 'absolute',
     },
 });

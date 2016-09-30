@@ -56,12 +56,20 @@ let home = {
 let category ={
     categoryTabColor:Constant.colors.lightBlackColor,
     categoryTabSelectColor:Constant.colors.redColor,
+    categoryTabWidth:Constant.window.tabBarWidth,
 }
 
-
+/**
+ * 搜索
+ *
+ */
+let search ={
+    searchTabHeight:Constant.window.indicatorBarHeight,
+}
 
 export default {
     home: home,
     category:category,
+    search,
 }
 

@@ -2,7 +2,7 @@
 
 import React,{ Component,PropTypes } from 'react';
 import {
-  ActivityIndicatorIOS,
+  ActivityIndicator,
   ListView,
   Platform,
   ProgressBarAndroid,
@@ -19,12 +19,6 @@ import Back from '../component/Back';
 
 import Constant from '../common/Constant';
 import Utils from '../common/Utils';
-
-/*
-  dataForQuery:以keword为key，存储对应的缓存缓存数据
-  nextPageNumberForQuery:以keword为key，存储当前缓存对应的页面数
-  loadingStateForQuery:以keword为key，存储对应的加载完所有数据的状态
-*/
 
 let resultsCache = {
   dataForQuery: {},
@@ -48,13 +42,12 @@ export default class ProductListCell extends Component{
     this._onEndReached=this._onEndReached.bind(this);
     this._renderRow=this._renderRow.bind(this);
   }
-  //初始化渲染之后立即调用，这里可以进行网络请求等逻辑
   componentDidMount() {
+    const{paramas}=this.props;
     console.log('tag','componentDidMount');
     InteractionManager.runAfterInteractions(() => {
-      console.log('tag','keyword='+this.props.keyword);
-      if(this.props.keyword){
-          this._searchProduct('keyword='+this.props.keyword + '&' + 'orderBy=' + this.props.orderBy);
+      if(this.props.paramas){
+          this._searchProduct(paramas);
       }else{
           this.setState({
               loading: -1,
@@ -66,23 +59,16 @@ export default class ProductListCell extends Component{
   //接到新的渲染指令后调用，这里调用setState不会二次渲染
   componentWillReceiveProps(nextProps){
    console.log('tag','componentWillReceiveProps');
-    if(nextProps.keyword!==this.props.keyword||nextProps.orderBy!==this.props.orderBy){
+    if(nextProps.paramas!==this.props.paramas){
       InteractionManager.runAfterInteractions(() => {
         this.setState({
               queryNumber: 0,
         });
-        this._searchProduct('keyword='+this.props.keyword + '&' + 'orderBy=' + this.props.orderBy);
+        this._searchProduct(paramas);
       });
     }
   }
-  //防止重复渲染
-  // shouldComponentUpdate(nextProps, nextState){
-    // console.log('tag','shouldComponentUpdate');
-    // return nextProps.keyword !== this.props.keyword;
-  // }
-
   _fetchProduct(query){
-
     let data = query+'&'+'pageSize='+10+'&'+'page='+this.state.queryNumber;
     console.log('tag','搜索参数＝'+data);
 
@@ -144,7 +130,7 @@ export default class ProductListCell extends Component{
         this.setState({
           queryNumber: this.state.queryNumber + 1,
         });
-        this._fetchProduct('keyword='+this.props.keyword + '&' + 'orderBy=' + this.props.orderBy);
+        this._fetchProduct(this.props.paramas);
       });
   }
 
@@ -165,7 +151,7 @@ export default class ProductListCell extends Component{
   }
 
   _renderFooter(){
-    return  Platform.OS === 'ios'? <ActivityIndicatorIOS style={styles.scrollSpinner}/>:
+    return  Platform.OS === 'ios'? <ActivityIndicator style={styles.scrollSpinner}/>:
             <ProgressBarAndroid styleAttr="Inverse" />;
   }
 
@@ -203,7 +189,7 @@ export default class ProductListCell extends Component{
     let content;
     switch (this.state.loading) {
       case 0:
-      content = Platform.OS === 'ios'? <ActivityIndicatorIOS style={styles.scrollSpinner}/>:
+      content = Platform.OS === 'ios'? <ActivityIndicator style={styles.scrollSpinner}/>:
           <ProgressBarAndroid styleAttr="Inverse" style={{marginTop: 50}}/>;
       break;
       case 1:

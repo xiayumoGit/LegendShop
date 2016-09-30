@@ -12,6 +12,7 @@ let Util = {
      * @param failCallback
      */
     httpGet: (url, successCallback, failCallback) => {
+        console.log('tag','请求地址＝'+url);
         fetch(url)
             .then((response) => response.text())
             .then((responseText) => {
@@ -37,6 +38,7 @@ let Util = {
      * @param failCallback
      */
     httpPostForm:(url,data, successCallback, failCallback)=>{
+          console.log('tag','请求地址＝'+url);
           fetch(url, {
             method: 'POST',
             headers: {
@@ -69,6 +71,7 @@ let Util = {
      * @param failCallback
      */
     httpPostJson:(url, data,successCallback, failCallback)=>{
+          console.log('tag','请求地址＝'+url);
           fetch(url,{
               method: 'POST',
               headers: {
@@ -96,7 +99,7 @@ let Util = {
     },
 
     /**
-     * 本地数据保存
+     * 本地数据保存，支持所有类型，包括字符串及json对象，最后都转换成json对象存储
      * @param key
      * @param value
      * @returns {*|Promise}
@@ -108,7 +111,7 @@ let Util = {
         });
     },
     /**
-     * 本地数据获取
+     * 本地数据获取，所有类型均可以，字符串的按原格式输出，json字符串转换成json对象输出
      * @param key
      * @returns {Promise.<TResult>}
      */
@@ -121,7 +124,7 @@ let Util = {
             })
     },
     /**
-     * 更新本地数据
+     * 更新本地数据，针对json对象，字符串更新类型直接调用storageSetItem
      * @param key
      * @param value
      * @returns {Promise.<TResult>}

@@ -10,8 +10,11 @@ let window = {
     width: Platform.OS === 'ios' ? Dimensions.get('window').width : Dimensions.get('screen').width,
     height: Platform.OS === 'ios' ? Dimensions.get('window').height : Dimensions.get('screen').height,
     tabBarHeight:50,
+    indicatorBarHeight:52,
     navigatorBarHeight:60,
     statusBarHeight:20,
+    tabBarWidth:90,
+
 }
 
 /**
@@ -49,7 +52,12 @@ let strings = {
  */
 let storeKeys = {
     //存储跟登录相关的所有配置信息，包括token，账号，密码等
-    LOGIN_INFO_KEY:'LOGIN_INFO_KEY',
+    LOGIN_INFO_KEY:'login_info_key',
+    /**
+     * 存储搜索纪录，以数组方式存储
+     */
+    SEARCH_RECODER_KEY:'search_recoder_key',
+
 }
 
 /**
@@ -57,9 +65,9 @@ let storeKeys = {
  */
 let httpKeys = {
     //域名
-    HOST: 'http://react.legendshop.cn',
+    HOST: 'http://app.legendshop.cn',
     //图片前缀
-    IMAGE_API_HOST: 'http://react.legendshop.cn/photoserver/photo/',
+    IMAGE_API_HOST: 'http://app.legendshop.cn/photoserver/photo/',
     //首页
     HOME_API_KEY:'/index?',
     //注册使用短信验证码

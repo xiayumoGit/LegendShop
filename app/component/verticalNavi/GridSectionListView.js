@@ -17,6 +17,7 @@ import  {
 
 import UIConfigure from '../../common/UIConfigure';
 import Utils from '../../common/Utils';
+import Constant from '../../common/Constant';
 
 
 export default class LeftRightTab extends Component {
@@ -42,26 +43,6 @@ export default class LeftRightTab extends Component {
         this.renderRow=this.renderRow.bind(this);
     }
 
-    // _renderTab(data){
-    //     const {tabIndex} =this.props;
-    //     return data.map((item,i)=>{
-    //         let picUri= 'http://react.legendshop.cn/photoserver/photo/'+item.pic;
-    //         return (
-    //             <TouchableOpacity key={i} activeOpacity={0.7} onPress = {()=> this._tabItemSelected(i)}>
-    //                 <View style={styles.tabContainer}>
-    //                     <Image style={styles.icon} source={{uri: picUri}}/>
-    //                     <Text style={[styles.showText,tabIndex==i?styles.selectText:null]}>{item.name}</Text>
-    //                 </View>
-    //             </TouchableOpacity>
-    //         )
-    //     });
-    // }
-
-    _tabItemSelected(tabIndex:string){
-        const {tabChanged}=this.props;
-        tabChanged(tabIndex);
-    }
-
     _itemPress(){
 
     }
@@ -72,9 +53,9 @@ export default class LeftRightTab extends Component {
                 <TouchableOpacity key={i} onPress={()=>this._itemPress()} activeOpacity={0.7}>
                     <View>
                         <View style={styles.row}>
-                            <Image style={styles.icon} source={require('../../image/icon_home_center_tag1_@2x.png')} />
+                            <Image style={styles.icon} source={{uri:Constant.httpKeys.IMAGE_API_HOST+item.pic}} />
                             <Text style={{marginTop:5,fontSize:12,}}>
-                                {rowData[i].name}
+                                {item.name}
                             </Text>
                         </View>
                     </View>
@@ -131,11 +112,7 @@ export default class LeftRightTab extends Component {
         if(!Utils.isEmptyObject(resultDto)){
             return (
                 <View style={styles.parent}>
-                    <View style={styles.separate}/>
-                    <View style={styles.container}>
-                        {/*<ScrollView style={styles.scroll}>*/}
-                            {/*{this._renderTab(resultDto,tabIndex)}*/}
-                        {/*</ScrollView>*/}
+                        <View style={styles.separate}/>
                         <ListView
                             style={{flex:3,paddingLeft:10,paddingRight:10}}
                             dataSource={this._getDataSource(resultDto)}
@@ -143,19 +120,16 @@ export default class LeftRightTab extends Component {
                             renderRow={this.renderRow}
                             initialListSize={10}
                             pageSize={4}
-                            scrollRenderAheadDistance={500}
-                        />
-                    </View>
+                            scrollRenderAheadDistance={500}/>
                 </View>
             );
         }else{
-            return <ActivityIndicator style={styles.scrollSpinner}/>;
+            return null;
         }
     }
 }
 
 const styles = StyleSheet.create({
-
     parent:{
         flex:1,
         backgroundColor:'#F1F2F6',
@@ -168,16 +142,6 @@ const styles = StyleSheet.create({
         height:0.5,
         backgroundColor:'#F0F0F0',
     },
-    tabContainer:{
-        alignItems:'center',
-        flex:1,
-        paddingTop:5,
-        paddingBottom:5,
-        borderRightWidth:0.5,
-        borderBottomWidth:0.5,
-        borderColor:'#F0F0F0',
-        backgroundColor:'#ffff',
-    },
     row: {
         flex:1,
         justifyContent: 'center',
@@ -187,22 +151,9 @@ const styles = StyleSheet.create({
         height: 85,
         alignItems: 'center',
     },
-    scroll:{
-        flex:1,
-    },
     icon: {
         width: 48,
         height: 48,
     },
-    showText: {
-        fontSize: 12,
-        color:UIConfigure.category.categoryTabColor,
-    },
-    selectText:{
-        fontSize: 12,
-        color:UIConfigure.category.categoryTabSelectColor,
-    },
-    scrollSpinner: {
-        marginVertical: 20,
-    },
+
 });

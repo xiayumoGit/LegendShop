@@ -23,5 +23,14 @@ export const HOME_DATA_REFRESH_RECEIVE= 'home_data_refresh_fetch';
  */
 export const CATEGORY_DATA_FETCH= 'category_data_fetch';
 export const CATEGORY_DATA_RECEIVE= 'category_data_receive';
-
 export const CATEGORY_TAB_CHANGED= 'category_tab_changed';
+
+
+/**
+ * 搜索商品，包括搜索纪录的增加以及清除，关键词搜索商品结果展示
+ */
+
+export const SEARCH_RECODER_CHANGED = 'search_recoder_changed';
+export const SEARCH_RESULT_FETCH= 'search_result_fetch';
+export const SEARCH_RESULT_RECEIVE = 'search_result_receive';
+export const SEARCH_TAB_CHANGED = 'search_tab_changed';

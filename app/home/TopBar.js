@@ -11,7 +11,7 @@ import {
     StyleSheet
 } from 'react-native';
 
-import ProductSearch from '../product/ProductSearch';
+import ProductSearchContainer1 from '../product/ProductSearch1Container';
 import UIConfigure from '../common/UIConfigure';
 
 export default class TopBar extends Component {
@@ -56,7 +56,7 @@ export default class TopBar extends Component {
         const {navigator} = this.props;
         navigator.push({
             name: title,
-            component: ProductSearch,
+            component: ProductSearchContainer1,
             params: {
                 title:title,
             }
@@ -86,7 +86,7 @@ export default class TopBar extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',   // 水平排布
+        flexDirection: 'row',
         paddingLeft: 5,
         paddingRight: 5,
         paddingTop:UIConfigure.home.statusBarHeight,

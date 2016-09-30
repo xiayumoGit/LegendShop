@@ -6,76 +6,54 @@ import {
   View,
   Platform,
   TextInput,
-  ActivityIndicatorIOS,
+  ActivityIndicator,
   Text,
   Image,
   TouchableOpacity,
 } from 'react-native';
 
-import Back from '../component/Back';
 import ProductListCell from './ProductListCell';
 import Constant from '../common/Constant';
+import UIConfigure  from '../common/UIConfigure';
+
+import IndicatorNavigator from '../component/indicatorNavi/IndicatorNavigator';
 
 let defaultTab=Constant.strings.searchTabStringArray;
 let orderByKey=Constant.strings.orderByStringArray;
 
 export default class ProductSearch extends Component{
 
- constructor(props) {
-    super(props);
-    this.state={
-      keyword:'',
-      isLoading:false,
-      tabIndex:0,
-      orderBy:'buys',
-    };
-
-  }
   _onClick() {
     this.props.navigator.pop();
   }
 
-  _onSearch(){
-    this.setState({
-        isLoading:true,
-        orderBy:'buys',
-    });
+  _tabItemSelected(tabIndex:number){
+        const {tabChanged}=this.props;
+        tabChanged(tabIndex);
   }
 
-  _onLoading(){
-      this.setState({
-          isLoading:false,
+  _renderTab(keyword:String,tabIndex:String){
+      return defaultTab.map((item,i)=>{
+          let childView = <ProductListCell paramas={'keyword='+keyword + '&' + 'orderBy=' + orderByKey[i]}
+                                           navigator={this.props.navigator}/>;
+          return (
+              <IndicatorNavigator.Item
+                  key={i}
+                  title={item}
+                  selected={tabIndex===i}
+                  titleStyle={{color:UIConfigure.home.tabTextColor,fontSize:12}}
+                  selectedTitleStyle={{color:UIConfigure.home.tabTextColor,fontSize:12}}
+                  bacStyle={{backgroundColor:'white'}}
+                  onPress={()=> this._tabItemSelected(i)}
+                  selectedBacStyle={{backgroundColor:'#f8f8f8'}}>
+                  {childView}
+              </IndicatorNavigator.Item>
+          )
       });
   }
 
-  _renderTab(){
-    if(!this.state.keyword)return;
-    let tab = defaultTab.map((item,i)=>{
-          return (
-            <TouchableOpacity key={i} activeOpacity={0.7} onPress = {()=> this.setState(
-              {tabIndex: i,orderBy:orderByKey[i]})}>
-              <View style={{alignItems:'center',paddingTop:12}}>
-                  <Text style={[styles.defaultText,this.state.tabIndex==i?styles.selectText:null]}>{item}</Text>
-                  <View style={[styles.defaultLine,this.state.tabIndex==i?styles.selectLine:null]}/>
-              </View>
-            </TouchableOpacity>
-             )
-        });
-    return (
-          <View style={{flexDirection:'row',justifyContent:'space-around',marginTop:8,backgroundColor:'white'}}>
-            {tab}
-          </View>
-    );
-  }
-
   render(){
-    let searchTitle =this.state.isLoading?
-      <ActivityIndicatorIOS style={{marginRight:10}}/>:
-      <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onSearch()}>
-        <Text style={{fontSize:13,marginRight:5}}>
-          搜索
-        </Text>
-      </TouchableOpacity>;
+    const{keyword,tabIndex}=this.props;
     return (
       <View style={{flex: 1,backgroundColor:Constant.colors.lightGreyColor}}>
           <View style={styles.container}>
@@ -88,18 +66,17 @@ export default class ProductSearch extends Component{
                   <Image source={require('../image/lib_story_img_search_bt_@2x.png')} style={styles.searchIcon}/>
                   <TextInput
                       keyboardType='web-search'
-                      onEndEditing={(event) =>{
-                        console.log('tag','word='+event.nativeEvent.text);
-                        this.setState({keyword:event.nativeEvent.text})
-                      }
-                      }
                       placeholder='搜索...'
+                      editable={false}
                       style={styles.inputText}/>
               </View>
-              {searchTitle}
           </View>
-          {this._renderTab()}
-          <ProductListCell {...this.state} navigator={this.props.navigator}/>
+          <IndicatorNavigator style={styles.pageContainer}
+                          sceneStyle={styles.sceneContainer}
+                          hidesTabTouch={true}
+                          tabBarStyle={styles.tabContainer}>
+              {this._renderTab(keyword,tabIndex)}
+          </IndicatorNavigator>
       </View>
     );
   }
@@ -107,18 +84,18 @@ export default class ProductSearch extends Component{
 
 let styles = StyleSheet.create({
   container: {
-      flexDirection: 'row',   // 水平排布
+      flexDirection: 'row',
       justifyContent:'space-between',
       paddingTop: 20,
       height: 60,
       backgroundColor: 'white',
-      alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
+      alignItems: 'center'
   },
   searchBox: {
       height: 28,
       flexDirection: 'row',
-      flex: 1,  // 类似于android中的layout_weight,设置为1即自动拉伸填充
-      borderRadius: 3,  // 设置圆角边
+      flex: 1,
+      borderRadius: 3,
       backgroundColor: 'white',
       borderWidth:0.5,
       borderColor:'#DEDEDE',
@@ -167,4 +144,12 @@ let styles = StyleSheet.create({
       marginTop:10,
       width:75,
   },
+    pageContainer:{
+    },
+    tabContainer: {
+        height: UIConfigure.search.searchTabHeight,
+    },
+    sceneContainer:{
+        paddingTop:60,
+    },
 });

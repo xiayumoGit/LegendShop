@@ -24,8 +24,6 @@ import BagActive from './home/BagActive';
 import ClothesActive from './home/ClothesActive';
 import DigitalActive from './home/DigitalActive';
 
-import ProductList from './product/ProductList'
-
 import UIConfigure from './common/UIConfigure';
 import Constant from './common/Constant';
 import Utils from './common/Utils'
@@ -44,16 +42,7 @@ export default class HomePage extends Component {
      * @private
      */
     _onMenuClick(title:string) {
-        const {navigator} = this.props;
-        navigator.push({
-               name: title,
-               component: ProductList,
-               params: {
-                    title:title,
-                    orderBy:'buys',
-                    keyword:'包',
-                }
-        })
+
     }
 
     /**
@@ -61,9 +50,6 @@ export default class HomePage extends Component {
      * @private
      */
     _onRefresh() {
-        /**
-         * 首页刷新数据
-         */
         const {fetchHomeRefreshResult} =this.props;
         fetchHomeRefreshResult();
     }
@@ -78,14 +64,8 @@ export default class HomePage extends Component {
         });
     }
 
-    /**
-     * 获取轮播图片刷新
-     * @returns {*}
-     * @private
-     */
     _renderSwiperCell(swiperArray){
         return swiperArray.map((item,i)=>{
-
             return (
                 <TouchableOpacity key={i} activeOpacity={0.7} onPress={()=>this._onItemClick('商品详情')}>
                     <View style={styles.slide} >
@@ -98,9 +78,7 @@ export default class HomePage extends Component {
     }
 
     render() {
-
         const {isLoading,isRefreshing,resultDto}=this.props;
-
         let content = isLoading ? <ActivityIndicator style={styles.scrollSpinner}/>
             : (!Utils.isEmptyObject(resultDto)?<ScrollView style={styles.container}
                             showsVerticalScrollIndicator={false}
@@ -158,9 +136,7 @@ const styles = StyleSheet.create({
       bottom: 5,
     },
     scrollSpinner: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical:200,
+        marginVertical: 20,
     },
     swiperImg: {
       width:UIConfigure.home.swiperWidth,
