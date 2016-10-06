@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   TouchableNativeFeedback,
   View,
 } from 'react-native';
@@ -21,12 +22,8 @@ export default class ProductCell extends Component{
     let title = this.props.product.name;
     let price = '￥'+this.props.product.price;
 
-    let TouchableElement = TouchableHighlight;
-    if (Platform.OS === 'android') {
-      TouchableElement = TouchableNativeFeedback;
-    }
     return (
-        <TouchableElement
+        <TouchableOpacity activeOpacity={0.7}
           onPress={this.props.onSelect}
           onShowUnderlay={this.props.onHighlight}
           onHideUnderlay={this.props.onUnhighlight}>
@@ -48,11 +45,10 @@ export default class ProductCell extends Component{
               </View>
             </View>
           </View>
-        </TouchableElement>
+        </TouchableOpacity>
     );
   }
 }
-//
 let styles = StyleSheet.create({
   row: {
     alignItems: 'center',

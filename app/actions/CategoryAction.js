@@ -53,10 +53,10 @@ let receiveResult = (isLoading,resultDto)=>{
  * @param index
  * @returns {{type, tabIndex: *}}
  */
-export let tabChanged = (index)=>{
+export let tabChanged = (tabIndex)=>{
     return {
         type: TYPES.CATEGORY_TAB_CHANGED,
-        tabIndex: index,
+        tabIndex: tabIndex,
     }
 }
 

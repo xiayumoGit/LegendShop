@@ -23,6 +23,10 @@ export default class ProductDetail2 extends Component{
      };
   }
 
+    shouldComponentUpdate(nextProps: Object): boolean {
+        return !!nextProps.shouldUpdate;
+    }
+
   render() {
 
     return (

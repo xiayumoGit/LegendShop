@@ -5,42 +5,26 @@ import {
     View,
     Text,
     Image,
-    InteractionManager,
     TouchableOpacity,
-    Alert,
     ActivityIndicator,
     StyleSheet,
     ScrollView,
     TextInput,
-    Platform,
 } from 'react-native';
 
 import GridSectionListView from './component/verticalNavi/GridSectionListView';
-import ProductDetail from './product/ProductDetail';
-import SearchProduct from './product/ProductSearch';
-
+import ProductSearchContainer1 from './product/ProductSearch1Container';
 import GridNavigator from './component/verticalNavi/GridNavigator';
-
 import Constant from './common/Constant';
-
 import UIConfigure from './common/UIConfigure';
+
 export default class CategoryPage extends Component {
 
-    _onClick(title) {
-        let navigator = this.props.navigator;
-        navigator.push({
-                name: title,
-                component: ProductDetail,
-                params: {
-                     title:title,
-                 }
-        })
-    }
     _onSearchClick(title) {
       let navigator = this.props.navigator;
        navigator.push({
               name: title,
-              component: SearchProduct,
+              component: ProductSearchContainer1,
               params: {
                    title:title,
                }
@@ -107,13 +91,13 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       paddingLeft: 5,
       paddingRight: 5,
-      paddingTop: 20,
-      height: 60,
-      backgroundColor: 'white',
+      paddingTop: UIConfigure.category.statusBarHeight,
+      height: UIConfigure.category.navigationBarHeight,
+      backgroundColor: UIConfigure.category.defaultBgColor,
       alignItems: 'center'
   },
   searchBox: {
-      height: 28,
+      height: UIConfigure.category.categorySearchBoxHeight,
       flexDirection: 'row',
       flex: 1,
       borderRadius: 3,

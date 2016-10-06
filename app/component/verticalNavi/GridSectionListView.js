@@ -19,8 +19,9 @@ import UIConfigure from '../../common/UIConfigure';
 import Utils from '../../common/Utils';
 import Constant from '../../common/Constant';
 
+import ProductSearchContainer from '../../product/ProductSearchContainer';
 
-export default class LeftRightTab extends Component {
+export default class GridSectionListView extends Component {
 
     constructor(props) {
         super(props);0
@@ -43,14 +44,22 @@ export default class LeftRightTab extends Component {
         this.renderRow=this.renderRow.bind(this);
     }
 
-    _itemPress(){
-
+    _pressItem(title:string,keyword:number) {
+        const {navigator} = this.props;
+        navigator.push({
+            name: title,
+            component: ProductSearchContainer,
+            params: {
+                title:title,
+                keyword:keyword,
+            }
+        })
     }
 
     _renderItem(rowData: Array){
         return rowData.map((item,i)=>{
             return (
-                <TouchableOpacity key={i} onPress={()=>this._itemPress()} activeOpacity={0.7}>
+                <TouchableOpacity key={i} onPress={()=>this._pressItem('搜索',item.name)} activeOpacity={0.7}>
                     <View>
                         <View style={styles.row}>
                             <Image style={styles.icon} source={{uri:Constant.httpKeys.IMAGE_API_HOST+item.pic}} />

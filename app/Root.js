@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * 导入Provider
  */
@@ -9,7 +8,6 @@ import App from './App';
 
 import configureStore from './store/store'
 const store = configureStore();
-
 /**
  * 配置store
  */

@@ -28,7 +28,7 @@ export default class TabBar extends React.Component {
 
 let styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f8f8f8',
+    backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-around',
     height: Layout.tabBarHeight,

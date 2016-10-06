@@ -30,7 +30,6 @@ let HomeReducer = (state = initialState, action)=>{
                 isRefreshing:false,
                 resultDto:action.resultDto
             })
-
         default:
             return state
     }

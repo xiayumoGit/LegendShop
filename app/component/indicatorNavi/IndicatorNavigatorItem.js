@@ -9,24 +9,17 @@ import {
     View,
 } from 'react-native';
 
-export default class GridNavigatorItem extends React.Component {
+export default class IndicatorNavigatorItem extends React.Component {
     static propTypes = {
-        renderIcon: PropTypes.func.isRequired,
-        renderSelectedIcon: PropTypes.func,
-        badgeText: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        renderBadge: PropTypes.func,
         title: PropTypes.string,
         titleStyle: Text.propTypes.style,
         selectedTitleStyle: Text.propTypes.style,
         bacStyle: View.propTypes.style,
         selectedBacStyle: View.propTypes.style,
+        lineStyle:View.propTypes.style,
+        selectLineStyle:View.propTypes.style,
         selected: PropTypes.bool,
         onPress: PropTypes.func,
-        allowFontScaling: PropTypes.bool
-    };
-    //定义了必需传递的props
-    static defaultProps = {
-        renderIcon: () => <View />,
     };
 
     render() {

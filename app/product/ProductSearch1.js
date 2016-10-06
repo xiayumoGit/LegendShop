@@ -1,6 +1,6 @@
 'use strict';
 
-import React,{ Component,PropTypes } from 'react';
+import React,{ Component } from 'react';
 import {
     StyleSheet,
     View,
@@ -10,11 +10,10 @@ import {
     Image,
     ScrollView,
     TouchableOpacity,
-    InteractionManager,
 } from 'react-native';
 
 import ProductSearchContainer from './ProductSearchContainer';
-import Constant from '../common/Constant';
+import UIConfigure from '../common/UIConfigure';
 
 let currentKeyword='';
 
@@ -78,9 +77,9 @@ export default class ProductSearch1 extends Component{
     render(){
         const {keywords}=this.props;
         return (
-            <ScrollView style={{flex:1,backgroundColor:Constant.colors.lightGreyColor}}
+            <ScrollView style={{flex:1,backgroundColor:UIConfigure.search.defaultBgColor}}
                         keyboardShouldPersistTaps={false}>
-            <View style={{flex: 1,backgroundColor:Constant.colors.lightGreyColor}}>
+            <View style={{flex: 1,backgroundColor:UIConfigure.search.defaultBgColor}}>
                 <View style={styles.container}>
                     <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onBackPress()}>
                         <View >
@@ -131,8 +130,8 @@ let styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent:'space-between',
-        paddingTop: 20,
-        height: 60,
+        paddingTop: UIConfigure.search.statusBarHeight,
+        height: UIConfigure.search.navigationBarHeight,
         alignItems: 'center'
     },
     historyContainer: {
@@ -143,7 +142,7 @@ let styles = StyleSheet.create({
         padding:10,
     },
     itemContainer:{
-        height:35,
+        height:UIConfigure.search.searchRecodeItemHeight,
         backgroundColor:'white',
         justifyContent:'center',
         alignItems:'center',
@@ -152,7 +151,7 @@ let styles = StyleSheet.create({
         marginLeft:10
     },
     searchBox: {
-        height: 28,
+        height:  UIConfigure.search.searchBoxHeight,
         flexDirection: 'row',
         flex: 1,
         borderRadius: 3,

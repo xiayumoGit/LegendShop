@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component,PropTypes } from 'react';
+import React, { Component } from 'react';
 import {StyleSheet, Image, Text, View} from 'react-native';
 
 import UIConfigure from './common/UIConfigure';
@@ -13,9 +13,10 @@ import MinePage from './MinePage';
 export default class MainScreen extends Component {
 
     componentDidMount(){
-
+        /**
+         * 处理一些默认全局加载的比如判断更新等
+         */
     }
-
     _renderTabItem(img,selectedImg,title,childView) {
 
         const {selectedTab, changeTab} = this.props;
@@ -23,10 +24,6 @@ export default class MainScreen extends Component {
             <TabNavigator.Item
                 title = {title}
                 selected={selectedTab== title}
-                titleStyle={{color:UIConfigure.home.tabTextColor,fontSize:12}}
-                selectedTitleStyle={{color:UIConfigure.home.tabTextColor,fontSize:12}}
-                bacStyle={{backgroundColor:'white'}}
-                selectedBacStyle={{backgroundColor:'white'}}
                 renderIcon={() => <Image style={styles.tabIcon} source={img}/>}
                 renderSelectedIcon={() => <Image style={styles.tabIcon} source={selectedImg}/>}
                 onPress={() => changeTab(title)}>
@@ -34,7 +31,6 @@ export default class MainScreen extends Component {
             </TabNavigator.Item>
         );
     }
-
     render() {
         const {navigator}=this.props;
         return (
@@ -59,9 +55,9 @@ const styles = StyleSheet.create({
     },
     tabContainer: {
         height: UIConfigure.home.tabBarHeight,
+        backgroundColor: UIConfigure.home.defaultBgColor,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        backgroundColor: '#333333',
         alignItems: 'center',
         left:0,
         bottom:0,
@@ -70,10 +66,9 @@ const styles = StyleSheet.create({
     sceneContainer:{
         paddingBottom:50,
     },
-
     tabIcon: {
-        width: 28,
-        height: 28,
+        width: UIConfigure.home.tabIconWidth,
+        height: UIConfigure.home.tabIconHeight,
         resizeMode: 'stretch',
         marginTop: 5
     }

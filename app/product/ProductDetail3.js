@@ -40,11 +40,12 @@ export default class ProductDetail3 extends Component{
             </View>
       );
     }
+
   render() {
     return (
       <View style={{flex:1,backgroundColor:'#F1F2F6'}}>
             {this._renderTab()}
-            <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
+            <View style={{flex:1,flexDirection:'row'}}>
               <View style={styles.contentContainer}>
                   <Image source={require('./img/not_result_@2x.png')}/>
                   <Text style={{fontSize:18,marginTop:15}}>该商品未收到任何评价</Text>
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
         contentContainer:{
           flex:1,
           alignItems:'center',
+          marginTop:20,
           backgroundColor:Constant.colors.lightGreyColor,
         },
         selectContainer: {

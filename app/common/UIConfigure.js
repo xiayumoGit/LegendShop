@@ -12,11 +12,13 @@ let home = {
     /**
      * 尺寸配置
      */
-    tabBarHeight:Constant.window.tabBarHeight,
-    navigationBarHeight:Constant.window.navigatorBarHeight,
-    statusBarHeight:Constant.window.statusBarHeight,
-    swiperHeight:200,
-    swiperWidth:Constant.window.width,
+    tabBarHeight:50,
+    navigationBarHeight:60,
+    statusBarHeight:20,
+    carouselHeight:200,
+    carouselWidth:Constant.window.width,
+    tabIconWidth:27,
+    tabIconHeight:27,
     /**
      * 固定文字配置
      */
@@ -54,6 +56,10 @@ let home = {
  *
  */
 let category ={
+    navigationBarHeight:60,
+    statusBarHeight:20,
+    defaultBgColor:Constant.colors.lightGreyColor,
+    categorySearchBoxHeight:28,
     categoryTabColor:Constant.colors.lightBlackColor,
     categoryTabSelectColor:Constant.colors.redColor,
     categoryTabWidth:Constant.window.tabBarWidth,
@@ -64,12 +70,38 @@ let category ={
  *
  */
 let search ={
-    searchTabHeight:Constant.window.indicatorBarHeight,
+    navigationBarHeight:60,
+    statusBarHeight:20,
+    searchBoxHeight:28,
+    searchRecodeItemHeight:35,
+    defaultBgColor:Constant.colors.lightGreyColor,
+    searchTabHeight:45,
+    searchTabText:'black',
+    searchTabSelectedText:Constant.colors.redColor,
+
 }
+
+/**
+ * 详情
+ *
+ */
+let detail ={
+    navigationBarHeight:60,
+    statusBarHeight:20,
+    defaultBgColor:Constant.colors.lightGreyColor,
+    detailTabHeight:45,
+    detailTabText:'black',
+    detailTabSelectedText:Constant.colors.redColor,
+    bottomBarColor:Constant.colors.darkGreyColor,
+    bottomBarHeight:50,
+    cartBgColor:Constant.colors.lightRedColor,
+}
+
 
 export default {
     home: home,
     category:category,
-    search,
+    search:search,
+    detail:detail,
 }
 

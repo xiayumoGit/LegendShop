@@ -10,7 +10,8 @@ let window = {
     width: Platform.OS === 'ios' ? Dimensions.get('window').width : Dimensions.get('screen').width,
     height: Platform.OS === 'ios' ? Dimensions.get('window').height : Dimensions.get('screen').height,
     tabBarHeight:50,
-    indicatorBarHeight:52,
+    indicatorBarHeight:60,
+    indicatorBarHeight1:60,
     navigatorBarHeight:60,
     statusBarHeight:20,
     tabBarWidth:90,
@@ -26,8 +27,11 @@ let colors = {
      */
     lightGreyColor:'rgb(240, 242, 245)',
     lightGreyColor1:'rgb(238, 238, 238)',
+    darkGreyColor:'rgb(82, 82, 82)',
+    darkGreyColor1:'rgb(160, 160, 160)',
     lightColor:'rgb(206, 206, 211)',
     redColor:'rgb(255,0,0)',
+    lightRedColor:'rgb(241,83,83)',
     lightBlackColor:'rgb(92, 92, 92)',
 }
 
@@ -41,8 +45,8 @@ let strings = {
     mineString : '我的',
     menuStringArray:['收藏','订单','财产','精品'],
     searchTabStringArray:['默认','销量','评论数','价格'],
-    orderByStringArray:['buys','buys','comments','cash'],
-    detailTabStringAarray:['商品','详情','评价'],
+    orderByStringArray:['buys','comments','comments','cash'],
+    detailTabStringArray:['商品','详情','评价'],
     judgeTabStringArray:['全部评价','好评','中评','差评'],
 }
 

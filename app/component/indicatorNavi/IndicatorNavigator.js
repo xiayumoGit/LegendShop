@@ -30,7 +30,6 @@ export default class IndicatorNavigator extends React.Component {
         this._renderTab = this._renderTab.bind(this);
     }
     componentWillReceiveProps(nextProps) {
-        console.log('tag','componentWillReceiveProps');
         let { renderedSceneKeys } = this.state;
         this.setState({
             renderedSceneKeys: this._updateRenderedSceneKeys(
@@ -56,7 +55,6 @@ export default class IndicatorNavigator extends React.Component {
     }
 
     render() {
-        console.log('tag','render');
         let { style, children, tabBarStyle, sceneStyle, ...props } = this.props;
         let scenes = [];
         React.Children.forEach(children, (item, index) => {
@@ -78,18 +76,18 @@ export default class IndicatorNavigator extends React.Component {
                 <View style={[styles.tabContainer,tabBarStyle]}>
                     {React.Children.map(children, this._renderTab)}
                 </View>
-
             </View>
-
         );
     }
 
     _renderTab(item) {
         return (
             <TouchableOpacity activeOpacity={0.7} onPress={item.props.onPress}>
-                <View style={{alignItems:'center',paddingTop:20}}>
-                    <Text style={[styles.defaultText,item.props.selected?styles.selectText:null]}>{item.props.title}</Text>
-                    <View style={[styles.defaultLine,item.props.selected?styles.selectLine:null]}/>
+                <View style={{alignItems:'center',paddingTop:15}}>
+                    <Text style={[styles.defaultText,item.props.selected?
+                        item.props.selectedTitleStyle:item.props.titleStyle]}>{item.props.title}</Text>
+                    <View style={[styles.defaultLine,item.props.selected?
+                    item.props.selectLineStyle:item.props.lineStyle]}/>
                 </View>
             </TouchableOpacity>
         );
@@ -128,6 +126,10 @@ class SceneContainer extends React.Component {
 }
 /**
  * 做为真正的内容载体，可以根据shouldComponentUpdate来决定是否渲染以及缓存
+ * 如果类似分类页面的静态加载，这里可以直接返回false，数据由父组件获取后直接传递
+ * 如果类似搜索页面的本页面可能修改state，则返回!!nextProps.shouldUpdate来
+ * 决定是否对自身进行render来重绘改动后的页面，这一点非常非常重要，可以对页面的
+ * 渲染机制和缓存机制进行掌握
  */
 class StaticContainer extends React.Component {
     static propTypes = {
@@ -135,9 +137,8 @@ class StaticContainer extends React.Component {
     };
 
     shouldComponentUpdate(nextProps: Object): boolean {
-        return false;
+        return !!nextProps.shouldUpdate;
     }
-
     render() {
         let { children } = this.props;
         return children ? React.Children.only(children) : null;
@@ -160,46 +161,19 @@ let styles = StyleSheet.create({
         overflow: 'hidden',
         opacity: 0,
     },
-    defaultSelectedTitle: {
-        color: 'rgb(0, 122, 255)',
-    },
-    defaultSelectedIcon: {
-        tintColor: 'rgb(0, 122, 255)',
-    },
-    itemContainer:{
-        alignItems:'center',
-        paddingTop:18,
-        paddingBottom:18,
-        justifyContent:'center',
-        borderRightWidth:0.5,
-        borderBottomWidth:0.5,
-        borderColor:'#F0F0F0',
-        backgroundColor:'#ffff',
-    },
     tabContainer: {
         flexDirection:'row',
         justifyContent:'space-around',
-        marginTop:8,
         backgroundColor:'white'
-    },
-    selectText:{
-        color:Constant.colors.redColor,
-        fontSize:16,
     },
     defaultText: {
         fontSize: 16,
         color:'#6E6E6E',
     },
-    selectLine:{
-        backgroundColor:Constant.colors.redColor,
-        height:2,
-        marginTop:10,
-        width:75,
-    },
     defaultLine: {
         backgroundColor:'transparent',
         height:2,
-        marginTop:12,
+        marginTop:10,
         width:75,
     },
 });

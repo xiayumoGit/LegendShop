@@ -1,14 +1,11 @@
 'use strict';
 
-import React, { Component,PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
-  Platform,
   Image,
-  InteractionManager,
   Text,
-  Dimensions,
 } from 'react-native';
 
 import MainScreenContainer from './MainScreenContainer';
@@ -19,7 +16,7 @@ export default class Splash extends Component {
   constructor(props){
         super(props);
         this.state = {
-            count: 3,
+            count: 2,
         };
   }
 
@@ -27,10 +24,7 @@ export default class Splash extends Component {
       this.interval = setInterval(
           () => {
               if(this.state.count===1){
-                  this.props.navigator.replace({
-                      name: '首页',
-                      component: MainScreenContainer,
-                  });
+                  this._navigatorToHome();
               }else{
                   this.setState({
                       count:this.state.count-1,
@@ -39,14 +33,13 @@ export default class Splash extends Component {
           },
           1000
       );
-
   }
 
   componentWillUnmount() {
       this.interval && clearInterval(this.interval);
   }
 
-  _goToHome(){
+  _navigatorToHome(){
       this.props.navigator.replace({
           name: '首页',
           component: MainScreenContainer,
@@ -54,7 +47,6 @@ export default class Splash extends Component {
   }
 
   render() {
-
     return (
       <View style={styles.container}>
         <Image
@@ -64,7 +56,7 @@ export default class Splash extends Component {
             width: Constant.window.width,
             height: 1,
           }} />
-          <Text style={styles.text} onPress={()=>this._goToHome()}>
+          <Text style={styles.pressText} onPress={()=>this._navigatorToHome()}>
               {'点击跳过'+this.state.count+ 's'}
           </Text>
       </View>
@@ -74,15 +66,10 @@ export default class Splash extends Component {
 
 let styles = StyleSheet.create({
 	container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  cover: {
-    flex: 1,
-    width: 200,
-    height: 1,
-  },
-  text: {
+      flex: 1,
+      flexDirection: 'column',
+    },
+    pressText: {
       position:'absolute',
       top:30,
       color:'white',

@@ -9,33 +9,33 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import ProductDetail from '../product/ProductDetail';
+import ProductSearchContainer from '../product/ProductSearchContainer';
+import ProductDetailContainer from '../product/ProductDetailContainer';
 import Constant from '../common/Constant';
 
 export default class DigitalAcitve extends Component {
 
-    /**
-     *  进入详情
-     * @param title
-     * @private
-     */
-    _onItemClick(title:string){
+    _itemPress(title:string,prodId:number) {
         const {navigator} = this.props;
         navigator.push({
             name: title,
-            component: ProductDetail,
+            component: ProductDetailContainer,
             params: {
                 title:title,
+                prodId:prodId,
             }
         })
     }
-    /**
-     *  进入更多
-     * @param title
-     * @private
-     */
-    _onMoreClick(title:string){
-
+    _morePress(title:string,keyword:number) {
+        const {navigator} = this.props;
+        navigator.push({
+            name: title,
+            component: ProductSearchContainer,
+            params: {
+                title:title,
+                keyword:keyword,
+            }
+        })
     }
 
     render() {
@@ -46,7 +46,7 @@ export default class DigitalAcitve extends Component {
                     <Text style={styles.title1}>
                         {resultDto.mobileFloorList[2].name}
                     </Text>
-                    <TouchableOpacity onPress={()=>this._onMoreClick(resultDto.mobileFloorList[2].name)} activeOpacity={0.7}>
+                    <TouchableOpacity onPress={()=>this._morePress('搜索',resultDto.mobileFloorList[2].name)} activeOpacity={0.7}>
                         <Text style={styles.title2}>
                             更多>
                         </Text>
@@ -55,17 +55,17 @@ export default class DigitalAcitve extends Component {
                 <View style={[styles.separate,{marginTop:3}]}/>
                 <View style={styles.container2}>
                     <View style={styles.container1}>
-                        <TouchableOpacity onPress={()=>this._onItemClick('商品详情')} activeOpacity={0.7}>
+                        <TouchableOpacity onPress={()=>this._itemPress('商品详情',resultDto.mobileFloorList[2].floorItemList[2].linkPath)} activeOpacity={0.7}>
                             <Image source={{uri:Constant.httpKeys.IMAGE_API_HOST+resultDto.mobileFloorList[2].floorItemList[2].pic}} style={styles.image1}/>
                         </TouchableOpacity>
                         <View style={styles.separate}/>
-                        <TouchableOpacity onPress={()=>this._onItemClick('商品详情')} activeOpacity={0.7}>
+                        <TouchableOpacity onPress={()=>this._itemPress('商品详情',resultDto.mobileFloorList[2].floorItemList[1].linkPath)} activeOpacity={0.7}>
                             <Image source={{uri:Constant.httpKeys.IMAGE_API_HOST+resultDto.mobileFloorList[2].floorItemList[1].pic}} style={styles.image1}/>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.separate1}/>
                     <View style={styles.container1}>
-                        <TouchableOpacity onPress={()=>this._onItemClick('商品详情')} activeOpacity={0.7}>
+                        <TouchableOpacity onPress={()=>this._itemPress('商品详情',resultDto.mobileFloorList[2].floorItemList[0].linkPath)} activeOpacity={0.7}>
                             <Image source={{uri:Constant.httpKeys.IMAGE_API_HOST+resultDto.mobileFloorList[2].floorItemList[0].pic}} style={styles.image2}/>
                         </TouchableOpacity>
                     </View>

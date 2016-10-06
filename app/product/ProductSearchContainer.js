@@ -5,10 +5,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ProductSearch from './ProductSearch';
-import {fetchSearchResult,tabChanged} from '../actions/SearchAciton';
+import {tabChanged,searchProduct,fetchSearchResult,clearState} from '../actions/SearchAciton';
 
-
-export class ProductSearchContainer1 extends React.Component {
+export class ProductSearchContainer extends React.Component {
     render() {
         return (
             <ProductSearch {...this.props} />
@@ -23,9 +22,11 @@ export class ProductSearchContainer1 extends React.Component {
  */
 const mapStateToProps = (state) => {
     return {
-        isLoading: state.SearchReducer.isLoading,
-        resultDto: state.SearchReducer.resultDto,
         tabIndex:state.SearchReducer.tabIndex,
+        loadingStatuses: state.SearchReducer.loadingStatuses,
+        resultDto: state.SearchReducer.resultDto,
+        queryNumbers: state.SearchReducer.queryNumbers,
+        isChanged: state.SearchReducer.isChanged,
     };
 }
 
@@ -36,12 +37,16 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSearchResult: (keyword) => dispatch(fetchSearchResult(keyword)),
         tabChanged: (tabIndex) => dispatch(tabChanged(tabIndex)),
+        searchProduct: (condition,loadingStatuses,queryNumbers,tabIndex) =>
+            dispatch(searchProduct(condition,loadingStatuses,queryNumbers,tabIndex)),
+        fetchSearchResult: (condition,loadingStatuses,queryNumbers,tabIndex) =>
+            dispatch(fetchSearchResult(condition,loadingStatuses,queryNumbers,tabIndex)),
+        clearState: () => dispatch(clearState()),
     };
 }
 
 /**
  * connect连接之后container将会接受store里的全局state以及一个可操作的dispatch
  */
-export default connect(mapStateToProps, mapDispatchToProps)(ProductSearchContainer1);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductSearchContainer);

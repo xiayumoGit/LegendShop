@@ -1,14 +1,12 @@
 /**
  * Created by xiayumo on 16/9/19.
  */
-
 'use strict';
 import React from 'react';
 import {connect} from 'react-redux';
 import HomePage from './HomePage';
 
 import {fetchHomeResult,fetchHomeRefreshResult} from './actions/HomeAction';
-
 
 class HomePageContainer extends React.Component {
     render() {
@@ -17,7 +15,6 @@ class HomePageContainer extends React.Component {
         )
     }
 }
-
 /**
  * 定义子组件接收的state
  * @param state

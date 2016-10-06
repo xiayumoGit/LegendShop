@@ -8,16 +8,12 @@ import {
     StyleSheet,
     ScrollView,
     ActivityIndicator,
-    Alert,
-    StatusBar,
     RefreshControl,
     TouchableOpacity,
-    InteractionManager,
-    TouchableHighlight,
 } from 'react-native';
 
 import TopBar from './home/TopBar';
-import Swiper from 'react-native-swiper';
+import Carousel from 'react-native-swiper';
 import MenuButton from './component/MenuButton';
 
 import BagActive from './home/BagActive';
@@ -35,20 +31,14 @@ export default class HomePage extends Component {
         fetchHomeResult();
     }
 
-    /**
-     *
-     * 进入收藏，订单，财产，精品
-     * @param title
-     * @private
-     */
+    _onItemClick(title:string) {
+
+    }
+
     _onMenuClick(title:string) {
 
     }
 
-    /**
-     * 下拉刷新
-     * @private
-     */
     _onRefresh() {
         const {fetchHomeRefreshResult} =this.props;
         fetchHomeRefreshResult();
@@ -64,13 +54,13 @@ export default class HomePage extends Component {
         });
     }
 
-    _renderSwiperCell(swiperArray){
-        return swiperArray.map((item,i)=>{
+    _renderCarousel(data:Array){
+        return data.map((item,i)=>{
             return (
                 <TouchableOpacity key={i} activeOpacity={0.7} onPress={()=>this._onItemClick('商品详情')}>
                     <View style={styles.slide} >
                         <Image source={{uri:Constant.httpKeys.IMAGE_API_HOST+item.img}}
-                              style={styles.swiperImg}/>
+                              style={styles.carouselImg}/>
                     </View>
                 </TouchableOpacity>
             )
@@ -87,11 +77,11 @@ export default class HomePage extends Component {
                               refreshing={isRefreshing}
                               onRefresh={()=>this._onRefresh()}
                           />}>
-            <Swiper style={styles.wrapper} height={UIConfigure.home.swiperHeight} autoplay={true} autoplayTimeout={5}
+            <Carousel style={styles.wrapper} height={UIConfigure.home.carouselHeight} autoplay={true} autoplayTimeout={5}
                     paginationStyle={styles.paginationStyle}
                     loop={true}>
-                {this._renderSwiperCell(resultDto.indexjpgDto)}
-            </Swiper>
+                {this._renderCarousel(resultDto.indexjpgDto)}
+            </Carousel>
 
             <View style={styles.menuView}>
                 {this._renderMenuView()}
@@ -117,7 +107,7 @@ const styles = StyleSheet.create({
     },
     slide: {
       flex: 1,
-      height:UIConfigure.home.swiperHeight,
+      height:UIConfigure.home.carouselHeight,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
@@ -138,9 +128,9 @@ const styles = StyleSheet.create({
     scrollSpinner: {
         marginVertical: 20,
     },
-    swiperImg: {
-      width:UIConfigure.home.swiperWidth,
-      height:UIConfigure.home.swiperHeight,
+    carouselImg: {
+      width:UIConfigure.home.carouselWidth,
+      height:UIConfigure.home.carouselHeight,
       resizeMode:'cover',
     }
 

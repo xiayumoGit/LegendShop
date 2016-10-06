@@ -93,7 +93,7 @@ let styles = StyleSheet.create({
   },
   title: {
     color: '#929292',
-    fontSize: 10,
+    fontSize: 12,
     fontWeight:'bold',
     textAlign: 'center',
     alignSelf: 'stretch',

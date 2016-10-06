@@ -122,14 +122,13 @@ export default class TabNavigator extends React.Component {
       <Tab
         testID={item.props.testID}
         title={item.props.title}
-        bacStyle={bacStyle}
+        bacStyle={[styles.defaultBacStyle,bacStyle]}
         allowFontScaling={item.props.allowFontScaling}
         titleStyle={[
-          item.props.titleStyle,
-          item.props.selected ? [
-            styles.defaultSelectedTitle,
-            item.props.selectedTitleStyle,
-          ] : null,
+          styles.defaultTitleText,
+          item.props.selected ?
+            item.props.selectedTitleStyle:
+            item.props.titleStyle,
         ]}
         badge={badge}
         onPress={item.props.onPress}
@@ -206,8 +205,14 @@ let styles = StyleSheet.create({
     overflow: 'hidden',
     opacity: 0,
   },
-  defaultSelectedTitle: {
-    color: 'rgb(0, 122, 255)',
+  defaultBacStyle: {
+    backgroundColor:'white'
+  },
+  defaultSelectedBacStyle: {
+    backgroundColor:'white'
+  },
+  defaultTitleText: {
+    color: 'rgb(92, 92, 92)',
   },
   defaultSelectedIcon: {
     tintColor: 'rgb(0, 122, 255)',

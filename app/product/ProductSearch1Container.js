@@ -36,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getKeywords: () => dispatch(getKeywords()),
         addKeywords: (keyword) => dispatch(addKeywords(keyword)),
-        clearKeywords: (keyword) => dispatch(clearKeywords()),
+        clearKeywords: () => dispatch(clearKeywords()),
     };
 }
 
