@@ -8,6 +8,8 @@ import {
     TouchableOpacity,
     Image,
     Text,
+    Platform,
+    Dimensions,
     ScrollView,
 } from 'react-native';
 
@@ -77,7 +79,8 @@ export default class GridNavigator extends React.Component {
             <View {...props} style={[styles.container, style]}>
                 {scenes}
                 <View style={[styles.tabContainer,tabBarStyle]}>
-                    <ScrollView style={{flex:1}}>
+                    <ScrollView style={{height:Platform.OS === 'ios' ?
+                    Dimensions.get('window').height-120 : Dimensions.get('screen').height-180}}>
                         {React.Children.map(children, this._renderTab)}
                     </ScrollView>
                 </View>
@@ -90,7 +93,7 @@ export default class GridNavigator extends React.Component {
         return (
             <TouchableOpacity activeOpacity={0.7} onPress={item.props.onPress}>
                 <View style={[styles.itemContainer,item.props.selected?item.props.selectedBacStyle:null]}>
-                    <Text style={[styles.showText,item.props.selected?styles.selectText:null]}>{item.props.title}</Text>
+                    <Text numberOfLines={1} style={[styles.showText,item.props.selected?styles.selectText:null]}>{item.props.title}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -149,7 +152,6 @@ class StaticContainer extends React.Component {
 let styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection:'row',
     },
     sceneContainer: {
         position: 'absolute',
@@ -170,8 +172,8 @@ let styles = StyleSheet.create({
     },
     itemContainer:{
         alignItems:'center',
-        paddingTop:18,
-        paddingBottom:18,
+        paddingTop:Platform.OS === 'ios'?18:12,
+        paddingBottom:Platform.OS === 'ios'?18:12,
         justifyContent:'center',
         borderRightWidth:0.5,
         borderBottomWidth:0.5,
@@ -189,6 +191,7 @@ let styles = StyleSheet.create({
     tabContainer: {
         backgroundColor: '#f8f8f8',
         width: 90,
+        flex:1,
         position: 'absolute',
     },
 });

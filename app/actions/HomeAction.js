@@ -25,7 +25,7 @@ export let fetchHomeResult = ()=> {
  * 下拉刷新，从新获取数据
  * @returns {function(*)}
  */
-export let 哄mefetchHomeRefreshResult = ()=> {
+export let fetchHomeRefreshResult = ()=> {
     return dispatch => {
         dispatch(fetchRefreshing(true));
         Utils.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.HOME_API_KEY,'',

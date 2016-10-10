@@ -25,16 +25,21 @@ import Constant from '../common/Constant';
              }
          })
      }
-     _morePress(title:string,keyword:number) {
+     _morePress(title:string,categoryId:string) {
          const {navigator} = this.props;
          navigator.push({
              name: title,
              component: ProductSearchContainer,
              params: {
                  title:title,
-                 keyword:keyword,
+                 categoryId:categoryId,
              }
          })
+     }
+
+     _getCategoryId(url:string){
+         let array=url.split('=');
+         return array[array.length-1];
      }
 
       render() {
@@ -45,7 +50,8 @@ import Constant from '../common/Constant';
                     <Text style={styles.title1}>
                         {resultDto.mobileFloorList[1].name}
                     </Text>
-                    <TouchableOpacity onPress={()=>this._morePress('搜索',resultDto.mobileFloorList[1].name)} activeOpacity={0.7}>
+                    <TouchableOpacity onPress={()=>this._morePress('搜索',this._getCategoryId(resultDto.mobileFloorList[1].url))}
+                                      activeOpacity={0.7}>
                       <Text style={styles.title2}>
                         更多>
                       </Text>

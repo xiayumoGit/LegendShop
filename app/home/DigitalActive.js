@@ -26,17 +26,23 @@ export default class DigitalAcitve extends Component {
             }
         })
     }
-    _morePress(title:string,keyword:number) {
+    _morePress(title:string,categoryId:string) {
         const {navigator} = this.props;
         navigator.push({
             name: title,
             component: ProductSearchContainer,
             params: {
                 title:title,
-                keyword:keyword,
+                categoryId:categoryId,
             }
         })
     }
+
+    _getCategoryId(url:string){
+        let array=url.split('=');
+        return array[array.length-1];
+    }
+
 
     render() {
         const {resultDto} =this.props;
@@ -46,7 +52,7 @@ export default class DigitalAcitve extends Component {
                     <Text style={styles.title1}>
                         {resultDto.mobileFloorList[2].name}
                     </Text>
-                    <TouchableOpacity onPress={()=>this._morePress('搜索',resultDto.mobileFloorList[2].name)} activeOpacity={0.7}>
+                    <TouchableOpacity onPress={()=>this._morePress('搜索',this._getCategoryId(resultDto.mobileFloorList[2].url))} activeOpacity={0.7}>
                         <Text style={styles.title2}>
                             更多>
                         </Text>

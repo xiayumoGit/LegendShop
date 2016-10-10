@@ -15,6 +15,7 @@ import {
 
   import CartCell from './cart/CartCell';
   import ProductDetail from './product/ProductDetail';
+  import Constant from './common/Constant';
 
   //购物车测试数据
   const CART_DATAS=[
@@ -149,15 +150,17 @@ export default class CartPage extends Component {
     }
     render() {
 
-      let content = this.state.dataSource.getRowCount() === 0 ?
-        <ActivityIndicatorIOS style={styles.scrollSpinner} />:
-        <ListView
-          ref="listview"
-          renderSeparator={this._renderSeparator}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          renderSectionHeader={this._renderSectionHeader}
-        />;
+      // let content = this.state.dataSource.getRowCount() === 0 ?
+      //   <ActivityIndicatorIOS style={styles.scrollSpinner} />:
+      //   <ListView
+      //     ref="listview"
+      //     renderSeparator={this._renderSeparator}
+      //     dataSource={this.state.dataSource}
+      //     renderRow={this._renderRow}
+      //     renderSectionHeader={this._renderSectionHeader}
+      //   />;
+
+
         return (
           <View style={{flex: 1}}>
             <View style={styles.container}>
@@ -167,9 +170,9 @@ export default class CartPage extends Component {
             </View>
             <View style={styles.separate}/>
             <View style={styles.container1}>
-              {content}
+                <Text>购物车</Text>
             </View>
-            <View  style={styles.bottom}>
+           {/* <View  style={styles.bottom}>
               <TouchableOpacity activeOpacity={0.7}>
                 <View style={styles.bottomContainer1}>
                     <Image source={require('./image/icon_button_i_01.png')} style={styles.icon}/>
@@ -183,7 +186,7 @@ export default class CartPage extends Component {
                     </View>
                 </TouchableOpacity>
               </View>
-            </View>
+            </View>*/}
           </View>
         );
     }
@@ -195,13 +198,15 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       paddingLeft: 5,
       paddingRight: 5,
-      paddingTop: 20,  // 处理iOS状态栏
-      height: 60,   // 处理iOS状态栏
+      paddingTop:Constant.window.statusBarHeight,
+      height: Constant.window.navigatorBarHeight,
       backgroundColor: 'white',
       alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
   },
   container1:{
     flex:1,
+    justifyContent:'center',
+    alignItems: 'center',
     backgroundColor:'#F1F2F6',
   },
   rowSeparator: {

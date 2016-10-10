@@ -7,6 +7,7 @@ import {
     Image,
     TouchableOpacity,
     ActivityIndicator,
+    Platform,
     StyleSheet,
     ScrollView,
     TextInput,
@@ -66,7 +67,7 @@ export default class CategoryPage extends Component {
                             hidesTabTouch={true}
                             tabBarStyle={styles.tabContainer}>
                 {this._renderTab(resultDto,tabIndex)}
-            </GridNavigator>:<ActivityIndicator style={styles.scrollSpinner}/>;
+            </GridNavigator>:<ActivityIndicator size={Platform.OS ==='ios'?'small':'large'} style={styles.scrollSpinner}/>;
         return (
           <View style={{flex: 1}}>
             <View style={styles.container}>
@@ -91,8 +92,8 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       paddingLeft: 5,
       paddingRight: 5,
-      paddingTop: UIConfigure.category.statusBarHeight,
-      height: UIConfigure.category.navigationBarHeight,
+      paddingTop:Constant.window.statusBarHeight,
+      height: Constant.window.navigatorBarHeight,
       backgroundColor: UIConfigure.category.defaultBgColor,
       alignItems: 'center'
   },

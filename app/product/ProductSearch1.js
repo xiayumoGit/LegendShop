@@ -15,6 +15,8 @@ import {
 import ProductSearchContainer from './ProductSearchContainer';
 import UIConfigure from '../common/UIConfigure';
 
+import Constant from '../common/Constant';
+
 let currentKeyword='';
 
 export default class ProductSearch1 extends Component{
@@ -79,49 +81,50 @@ export default class ProductSearch1 extends Component{
         return (
             <ScrollView style={{flex:1,backgroundColor:UIConfigure.search.defaultBgColor}}
                         keyboardShouldPersistTaps={false}>
-            <View style={{flex: 1,backgroundColor:UIConfigure.search.defaultBgColor}}>
-                <View style={styles.container}>
-                    <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onBackPress()}>
-                        <View >
-                            <Image source={require('../image/ic_arrow_back_black_@2x.png')}/>
+                <View style={{flex: 1,backgroundColor:UIConfigure.search.defaultBgColor}}>
+                    <View style={styles.container}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onBackPress()}>
+                            <View >
+                                <Image source={require('../image/ic_arrow_back_black_@2x.png')}/>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={styles.searchBox}>
+                            <Image source={require('../image/lib_story_img_search_bt_@2x.png')} style={styles.searchIcon}/>
+                            <TextInput
+                                clearButtonMode='while-editing'
+                                keyboardType='web-search'
+                                onEndEditing={(event) =>{
+                                currentKeyword=event.nativeEvent.text;
+                                    }
+                                }
+                                onSubmitEditing={(event) =>{
+                                console.log('tag','word='+event.nativeEvent.text);
+                                this._addSearchKeyword(event.nativeEvent.text);
+                                    }
+                                }
+                                multiline={false}
+                                placeholder='搜索...'
+                                style={styles.inputText}/>
                         </View>
-                    </TouchableOpacity>
-                    <View style={styles.searchBox}>
-                        <Image source={require('../image/lib_story_img_search_bt_@2x.png')} style={styles.searchIcon}/>
-                        <TextInput
-                            keyboardType='web-search'
-                            onEndEditing={(event) =>{
-                            currentKeyword=event.nativeEvent.text;
-                                }
-                            }
-                            onSubmitEditing={(event) =>{
-                            console.log('tag','word='+event.nativeEvent.text);
-                            this._addSearchKeyword(event.nativeEvent.text);
-                                }
-                            }
-                            multiline={false}
-                            placeholder='搜索...'
-                            style={styles.inputText}/>
+                        <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onSearch()}>
+                            <Text style={{fontSize:13,marginRight:5}}>
+                                搜索
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onSearch()}>
-                        <Text style={{fontSize:13,marginRight:5}}>
-                            搜索
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.separate}/>
-                <View style={styles.historyContainer}>
-                    <Text style={{color:'black',fontSize:15}}>搜索历史</Text>
-                    <TouchableOpacity activeOpacity={0.7} onPress={()=>this._clearSearchKeywords()}>
-                        <Text style={{color:'rgb(75,184,248)',fontSize:14}}>清除</Text>
-                    </TouchableOpacity>
-                </View>
+                    <View style={styles.separate}/>
+                    <View style={styles.historyContainer}>
+                        <Text style={{color:'black',fontSize:15}}>搜索历史</Text>
+                        <TouchableOpacity activeOpacity={0.7} onPress={()=>this._clearSearchKeywords()}>
+                            <Text style={{color:'rgb(75,184,248)',fontSize:14}}>清除</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                <View style={{height:75,flexDirection:'row',flexWrap:'wrap',paddingTop:15,paddingBottom:15,}}>
-                    {this._renderItem(keywords)}
-                 </View>
-            </View>
-                </ScrollView>
+                    <View style={{height:75,flexDirection:'row',flexWrap:'wrap',paddingTop:15,paddingBottom:15,}}>
+                        {this._renderItem(keywords)}
+                     </View>
+                </View>
+            </ScrollView>
         );
     }
 }
@@ -130,8 +133,8 @@ let styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent:'space-between',
-        paddingTop: UIConfigure.search.statusBarHeight,
-        height: UIConfigure.search.navigationBarHeight,
+        paddingTop:Constant.window.statusBarHeight,
+        height: Constant.window.navigatorBarHeight,
         alignItems: 'center'
     },
     historyContainer: {
@@ -151,7 +154,7 @@ let styles = StyleSheet.create({
         marginLeft:10
     },
     searchBox: {
-        height:  UIConfigure.search.searchBoxHeight,
+        height:  35,
         flexDirection: 'row',
         flex: 1,
         borderRadius: 3,

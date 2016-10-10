@@ -60,7 +60,7 @@ export default class ProductListView extends Component{
   }
 
   _renderFooter(){
-    return <ActivityIndicator style={styles.scrollSpinner}/>;
+    return <ActivityIndicator size={Platform.OS ==='ios'?'small':'large'} style={styles.scrollSpinner}/>;
   }
   _renderSeparator(
     sectionID: number | string,
@@ -95,7 +95,7 @@ export default class ProductListView extends Component{
     let content;
     switch (loadingStatuses[tabIndex]) {
       case 0:
-      content = <ActivityIndicator style={styles.scrollSpinner}/>;
+      content = <ActivityIndicator size={Platform.OS ==='ios'?'small':'large'} style={styles.scrollSpinner}/>;
       break;
       case 1:
       content = <ListView

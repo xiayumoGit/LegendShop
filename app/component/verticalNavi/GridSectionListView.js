@@ -44,14 +44,14 @@ export default class GridSectionListView extends Component {
         this.renderRow=this.renderRow.bind(this);
     }
 
-    _pressItem(title:string,keyword:number) {
+    _pressItem(title:string,categoryId:number) {
         const {navigator} = this.props;
         navigator.push({
             name: title,
             component: ProductSearchContainer,
             params: {
                 title:title,
-                keyword:keyword,
+                categoryId:categoryId,
             }
         })
     }
@@ -59,7 +59,7 @@ export default class GridSectionListView extends Component {
     _renderItem(rowData: Array){
         return rowData.map((item,i)=>{
             return (
-                <TouchableOpacity key={i} onPress={()=>this._pressItem('搜索',item.name)} activeOpacity={0.7}>
+                <TouchableOpacity key={i} onPress={()=>this._pressItem('搜索',item.id)} activeOpacity={0.7}>
                     <View>
                         <View style={styles.row}>
                             <Image style={styles.icon} source={{uri:Constant.httpKeys.IMAGE_API_HOST+item.pic}} />

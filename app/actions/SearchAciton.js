@@ -37,7 +37,7 @@ export let searchProduct = (condition:string,loadingStatuses:Array,queryNumbers:
 }
 
 /**
- * 获取搜索结果
+ * 获取搜索结果，注意这里是混合搜索，接收来自搜索关键词，首页更多以及分类页面的类型，参数是冗余传递
  * @param paramas
  * @returns {function(*)}
  */
@@ -47,7 +47,8 @@ export let fetchSearchResult = (condition,loadingStatuses,queryNumbers,tabIndex)
             loadingStatuses[tabIndex]=0;
             dispatch(fetchLoading(loadingStatuses));
         }
-        let data = condition+'&'+'pageSize='+PAGE_SIZE+'&'+'page='+queryNumbers[tabIndex];
+        let data = condition+'&'+'pageSize='+PAGE_SIZE+'&'+'page='+queryNumbers[tabIndex]
+            +'&'+'curPageNo='+queryNumbers[tabIndex];
         console.log('tag','搜索参数＝'+data);
         Utils.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.SEARCH_API_KEY,data,
             (response) => {

@@ -30,7 +30,7 @@ export default class ProductDetail extends React.Component{
             pageIndex:0,
             sortTypeViewY: new Animated.Value(0),
             coverViewOpacity: new Animated.Value(0),
-            isDrop:true,
+            isDrop:false,
         };
     }
     _onBackPress() {
@@ -49,36 +49,35 @@ export default class ProductDetail extends React.Component{
     _onFollowClick(){
 
     }
-    renderSortTypesView() {
-        let typesStyle = [styles.sortTypesView];
-        typesStyle.push({
-            top: this.state.sortTypeViewY.interpolate({
-                inputRange: [0, 1],
-                outputRange: [Constant.window.height, Constant.window.height/3]
-            })
-        })
-        return (
-            <Animated.View style={typesStyle}>
-                <View style={{backgroundColor:'white',
-                height:Constant.window.height-Constant.window.height/3}}>
-                </View>
-            </Animated.View>
-        )
-    }
+    // renderSortTypesView() {
+    //     let typesStyle = [styles.sortTypesView];
+    //     typesStyle.push({
+    //         top: this.state.sortTypeViewY.interpolate({
+    //             inputRange: [0, 1],
+    //             outputRange: [Constant.window.height, Constant.window.height/3]
+    //         })
+    //     })
+    //     return (
+    //         <Animated.View style={typesStyle}>
+    //             <View style={{backgroundColor:'white',
+    //             height:Constant.window.height-Constant.window.height/3}}>
+    //             </View>
+    //         </Animated.View>
+    //     )
+    // }
 
     renderCoverView() {
         return (
             <TouchableOpacity
                 style={{position: 'absolute',top: 0}}
                 activeOpacity={1}
-                onPress={()=>this.handleSortTypesViewAnimation()}
-            >
+                onPress={()=>this.handleSortTypesViewAnimation()}>
                 <Animated.View
                     style={{
                         width: Constant.window.width,
                         height: Constant.window.height,
-                        backgroundColor: 'rgba(131, 131, 131, 0.5)',
-                        opacity: this.state.coverViewOpacity,
+                        backgroundColor: 'black',
+                        opacity: 0.5,
                     }}
                 />
             </TouchableOpacity>
@@ -97,7 +96,7 @@ export default class ProductDetail extends React.Component{
                 case 0:
                     childView = <View style={{flex:1}}>
                         <ProductDetail1 {...this.props}/>
-                         {this.renderCoverView()}
+                         {/*{this.state.isDrop?this.renderCoverView():null}*/}
                         <View style={styles.separate}/>
                         <View style={styles.bottom}>
                             <View style={{flex:3,flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
@@ -127,7 +126,7 @@ export default class ProductDetail extends React.Component{
                                  </View>
                             </TouchableOpacity>
                         </View>
-                        {this.renderSortTypesView()}
+                        {/*{this.renderSortTypesView()}*/}
                     </View>;
                     break;
                 case 1:
@@ -157,11 +156,11 @@ export default class ProductDetail extends React.Component{
     render() {
         Animated.parallel([
             Animated.timing(this.state.sortTypeViewY, {
-                toValue: this.state.isDrop ? 0 : 1,
+                toValue: this.state.isDrop ? 1 : 0,
                 duration: 300,
             }),
             Animated.timing(this.state.coverViewOpacity, {
-                toValue: this.state.isDrop ? 0 : 1,
+                toValue: this.state.isDrop ? 1 : 0,
                 duration: 300,
             }),
         ]).start();
@@ -176,7 +175,7 @@ export default class ProductDetail extends React.Component{
                         {this._renderTab(tabIndex)}
                     </IndicatorNavigator>
                 </View>
-                <TouchableOpacity  style={{position:'absolute',top:30,left:5,}}
+                <TouchableOpacity  style={{position:'absolute',top:10,left:5,}}
                                    activeOpacity={0.7} onPress={()=>this._onBackPress()}>
                     <Image  source={require('../image/ic_arrow_back_black_@2x.png')}/>
                 </TouchableOpacity>
@@ -218,12 +217,12 @@ const styles = StyleSheet.create({
     pageContainer:{
     },
     tabContainer: {
-        marginTop:UIConfigure.detail.statusBarHeight,
         justifyContent:'center',
-        height: UIConfigure.detail.detailTabHeight,
+        paddingTop:Constant.window.statusBarHeight,
+        height: Constant.window.navigatorBarHeight+5,
         backgroundColor:'white'
     },
     sceneContainer:{
-        paddingTop:UIConfigure.detail.detailTabHeight+UIConfigure.detail.statusBarHeight,
+        paddingTop:Constant.window.statusBarHeight+Constant.window.navigatorBarHeight,
     },
 });

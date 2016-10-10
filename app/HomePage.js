@@ -7,6 +7,7 @@ import {
     Image,
     StyleSheet,
     ScrollView,
+    Platform,
     ActivityIndicator,
     RefreshControl,
     TouchableOpacity,
@@ -69,8 +70,10 @@ export default class HomePage extends Component {
 
     render() {
         const {isLoading,isRefreshing,resultDto}=this.props;
-        let content = isLoading ? <ActivityIndicator style={styles.scrollSpinner}/>
-            : (!Utils.isEmptyObject(resultDto)?<ScrollView style={styles.container}
+        let content = isLoading ? <ActivityIndicator size={Platform.OS ==='ios'?'small':'large'} style={styles.scrollSpinner}/>
+            : (!Utils.isEmptyObject(resultDto)?
+            <ScrollView
+                            style={styles.container}
                             showsVerticalScrollIndicator={false}
                             refreshControl={
                             <RefreshControl

@@ -1,7 +1,6 @@
 'use strict';
 
 import Md5 from 'md5';
-
 import { AsyncStorage } from 'react-native';
 
 let Util = {
@@ -143,7 +142,10 @@ let Util = {
     storageClearItem: (key) => {
         return AsyncStorage.removeItem(key);
     },
-    //md5加密
+    /**
+     * md5加密
+     * @param value
+     */
     md5:(value)=>{
       return Md5(value);
     },

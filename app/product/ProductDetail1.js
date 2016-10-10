@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   ScrollView,
+  Platform,
   ActivityIndicator,
   Animated,
   TouchableOpacity,
@@ -37,7 +38,7 @@ export default class ProductDetail1 extends Component{
       let content;
       switch (loadingStatuses[tabIndex]) {
           case 0:
-              content = <ActivityIndicator style={styles.scrollSpinner}/>;
+              content = <ActivityIndicator size={Platform.OS ==='ios'?'small':'large'} style={styles.scrollSpinner}/>;
               break;
           case 1:
               content=<ScrollView style={{backgroundColor:'white'}}>

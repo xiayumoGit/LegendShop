@@ -34,10 +34,10 @@ export default class ProductSearch extends Component{
         tabChanged(tabIndex);
   }
 
-  _renderTab(keyword:String,tabIndex:number){
+  _renderTab(parameter:String,tabIndex:number){
       return defaultTab.map((item,i)=>{
           let childView = <ProductListView {...this.props}
-              condition={'keyword='+keyword + '&' + 'orderBy=' + orderByKey[i]}
+              condition={parameter + '&' + 'orderBy=' + orderByKey[i]}
           />;
           return (
               <IndicatorNavigator.Item
@@ -71,7 +71,7 @@ export default class ProductSearch extends Component{
         })
    }
   render(){
-    const{keyword,tabIndex}=this.props;
+    const{keyword,categoryId,tabIndex}=this.props;
     return (
       <View style={{flex: 1,backgroundColor:UIConfigure.search.defaultBgColor}}>
           <View style={styles.container}>
@@ -95,7 +95,7 @@ export default class ProductSearch extends Component{
                           sceneStyle={styles.sceneContainer}
                           hidesTabTouch={true}
                           tabBarStyle={styles.tabContainer}>
-              {this._renderTab(keyword,tabIndex)}
+              {this._renderTab(categoryId?'categoryId='+categoryId:'keyword='+keyword,tabIndex)}
           </IndicatorNavigator>
       </View>
     );
@@ -106,8 +106,8 @@ let styles = StyleSheet.create({
   container: {
       flexDirection: 'row',
       justifyContent:'space-between',
-      paddingTop: UIConfigure.search.statusBarHeight,
-      height: UIConfigure.search.navigationBarHeight,
+      paddingTop:Constant.window.statusBarHeight,
+      height: Constant.window.navigatorBarHeight,
       backgroundColor:UIConfigure.search.defaultBgColor,
       alignItems: 'center'
   },

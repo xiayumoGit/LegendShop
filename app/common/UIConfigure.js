@@ -14,7 +14,7 @@ let home = {
      */
     tabBarHeight:50,
     navigationBarHeight:60,
-    statusBarHeight:20,
+    statusBarHeight:Constant.window.statusBarHeight,
     carouselHeight:200,
     carouselWidth:Constant.window.width,
     tabIconWidth:27,
@@ -44,7 +44,6 @@ let home = {
     cartFocusIcon:require('../image/icon_shopcar_red_@2x.png'),
     mineNormalIcon:require('../image/icon_mine_@2x.png'),
     mineFocusIcon:require('../image/icon_mine_red_@2x.png'),
-
     menuIconArray:[require('../image/icon_home_center_tag1_@2x.png'),
                     require('../image/icon_home_center_tag2_@2x.png'),
                     require('../image/icon_home_center_tag3_@2x.png'),
@@ -57,9 +56,9 @@ let home = {
  */
 let category ={
     navigationBarHeight:60,
-    statusBarHeight:20,
+    statusBarHeight:Constant.window.statusBarHeight,
     defaultBgColor:Constant.colors.lightGreyColor,
-    categorySearchBoxHeight:28,
+    categorySearchBoxHeight:30,
     categoryTabColor:Constant.colors.lightBlackColor,
     categoryTabSelectColor:Constant.colors.redColor,
     categoryTabWidth:Constant.window.tabBarWidth,
@@ -71,11 +70,11 @@ let category ={
  */
 let search ={
     navigationBarHeight:60,
-    statusBarHeight:20,
-    searchBoxHeight:28,
+    statusBarHeight:Constant.window.statusBarHeight,
+    searchBoxHeight:30,
     searchRecodeItemHeight:35,
     defaultBgColor:Constant.colors.lightGreyColor,
-    searchTabHeight:45,
+    searchTabHeight:Constant.window.indicatorBarHeight,
     searchTabText:'black',
     searchTabSelectedText:Constant.colors.redColor,
 
@@ -87,9 +86,9 @@ let search ={
  */
 let detail ={
     navigationBarHeight:60,
-    statusBarHeight:20,
+    statusBarHeight:Constant.window.statusBarHeight,
     defaultBgColor:Constant.colors.lightGreyColor,
-    detailTabHeight:45,
+    detailTabHeight:Constant.window.indicatorBarHeight,
     detailTabText:'black',
     detailTabSelectedText:Constant.colors.redColor,
     bottomBarColor:Constant.colors.darkGreyColor,

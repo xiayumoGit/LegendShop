@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     tabIcon: {
         width: UIConfigure.home.tabIconWidth,
         height: UIConfigure.home.tabIconHeight,
-        resizeMode: 'stretch',
         marginTop: 5
     }
 });

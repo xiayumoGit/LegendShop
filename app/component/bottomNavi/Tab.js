@@ -30,11 +30,8 @@ export default class Tab extends React.Component {
   }
 
   render() {
-    //badge类型是组件
     let { title, badge } = this.props;
-    //获取存在的子组件
     let icon = React.Children.only(this.props.children);
-    //如果传入属性存在title则提供title组件并返回
     if (title) {
       title =
         <Text
@@ -46,12 +43,10 @@ export default class Tab extends React.Component {
     }
 
     if (badge) {
-      //克隆新的气泡组件并设置样式
       badge = React.cloneElement(badge, {
         style: [styles.badge, badge.props.style],
       });
     }
-    //这里返回一个tab的组件
     return (
       <TouchableOpacity
         testID={this.props.testID}

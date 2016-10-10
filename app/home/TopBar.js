@@ -14,6 +14,8 @@ import {
 import ProductSearchContainer1 from '../product/ProductSearch1Container';
 import UIConfigure from '../common/UIConfigure';
 
+import Constant from '../common/Constant';
+
 export default class TopBar extends Component {
 
   constructor(props){
@@ -89,8 +91,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: 5,
         paddingRight: 5,
-        paddingTop:UIConfigure.home.statusBarHeight,
-        height: UIConfigure.home.navigationBarHeight,
+        paddingTop:Constant.window.statusBarHeight,
+        height: Constant.window.navigatorBarHeight,
         backgroundColor: UIConfigure.home.defaultBgColor,
         alignItems: 'center'
     },
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch'
     },
     searchBox: {
-        height: 25,
+        height: 28,
         flexDirection: 'row',
         flex: 1,
         borderRadius: 12,

@@ -56,9 +56,11 @@ export default class Splash extends Component {
             width: Constant.window.width,
             height: 1,
           }} />
-          <Text style={styles.pressText} onPress={()=>this._navigatorToHome()}>
-              {'点击跳过'+this.state.count+ 's'}
-          </Text>
+          <View style={styles.rectStyle}>
+              <Text style={{color:'white'}}  onPress={()=>this._navigatorToHome()}>
+                  {'点击跳过'+this.state.count+ 's'}
+              </Text>
+          </View>
       </View>
     );
   }
@@ -69,11 +71,11 @@ let styles = StyleSheet.create({
       flex: 1,
       flexDirection: 'column',
     },
-    pressText: {
+    rectStyle: {
       position:'absolute',
       top:30,
       color:'white',
-      borderWidth:0.8,
+      borderWidth:1,
       borderRadius:5,
       borderColor:'white',
       right:10,
