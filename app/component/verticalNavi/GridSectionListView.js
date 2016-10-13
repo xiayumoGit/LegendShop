@@ -96,20 +96,25 @@ export default class GridSectionListView extends Component {
         let dataBlob = {};
         let sectionIDs = [];
         let rowIDs = [];
-        for (let ii = 0; ii < resultDto.childrenList.length; ii++) {
-            let sectionName = resultDto.childrenList[ii].name;
-            sectionIDs.push(sectionName);
-            dataBlob[sectionName] = sectionName;
-            rowIDs[ii] = [];
-            let rowData=[];
-            let sectionArray= resultDto.childrenList[ii];
-            for (let jj = 0; jj <sectionArray.childrenList.length; jj++) {
-                rowData.push(sectionArray.childrenList[jj]);
-                if(jj!==0&&(jj+1)%3===0||jj==sectionArray.childrenList.length-1){
-                    let rowName = ii+sectionName+jj;
-                    rowIDs[ii].push(rowName);
-                    dataBlob[rowName] = rowData;
-                    rowData=[];
+
+        if(!Utils.isEmptyObject(resultDto.childrenList)){
+            for (let ii = 0; ii < resultDto.childrenList.length; ii++) {
+                let sectionName = resultDto.childrenList[ii].name;
+                sectionIDs.push(sectionName);
+                dataBlob[sectionName] = sectionName;
+                rowIDs[ii] = [];
+                let rowData=[];
+                let sectionArray= resultDto.childrenList[ii];
+                if(!Utils.isEmptyObject(sectionArray.childrenList)){
+                    for (let jj = 0; jj <sectionArray.childrenList.length; jj++) {
+                        rowData.push(sectionArray.childrenList[jj]);
+                        if(jj!==0&&(jj+1)%3===0||jj==sectionArray.childrenList.length-1){
+                            let rowName = ii+sectionName+jj;
+                            rowIDs[ii].push(rowName);
+                            dataBlob[rowName] = rowData;
+                            rowData=[];
+                        }
+                    }
                 }
             }
         }
