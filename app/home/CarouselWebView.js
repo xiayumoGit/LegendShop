@@ -3,7 +3,7 @@
  */
 'use strict';
 
-import React,{ Component,PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
     Image,
     StyleSheet,
@@ -17,13 +17,11 @@ import {
 import Back from '../component/Back';
 import Constant from '../common/Constant'
 
-export default class CarouselWebView extends Component{
+export default class CarouselWebView extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-
-        };
+        this.state = {};
     }
 
     _onClick() {
@@ -39,7 +37,7 @@ export default class CarouselWebView extends Component{
         return (
             <View style={{flex:1,backgroundColor:Constant.colors.lightGreyColor}}>
                 <Back title={this.props.title} _onClick={()=>this._onClick()}
-                      />
+                />
                 <WebView
                     automaticallyAdjustContentInsets={false}
                     source={{uri: 'https://www.hao123.com/'}}
@@ -52,8 +50,6 @@ export default class CarouselWebView extends Component{
         );
     }
 }
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
 
 

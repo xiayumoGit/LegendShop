@@ -1,6 +1,6 @@
 'use strict';
 
-import React,{ Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
@@ -18,16 +18,16 @@ import UIConfigure from '../common/UIConfigure';
 
 import Constant from '../common/Constant';
 
-let currentKeyword='';
+let currentKeyword = '';
 
-export default class ProductSearch1 extends Component{
+export default class ProductSearch1 extends Component {
 
     componentDidMount() {
-       const {getKeywords} =this.props;
+        const {getKeywords} =this.props;
         getKeywords();
     }
 
-    _onSearch(){
+    _onSearch() {
         this._addSearchKeyword(currentKeyword);
     }
 
@@ -40,33 +40,33 @@ export default class ProductSearch1 extends Component{
      * @param keyword
      * @private
      */
-    _addSearchKeyword(keyword:String){
+    _addSearchKeyword(keyword: String) {
         InteractionManager.runAfterInteractions(() => {
             const {navigator} = this.props;
             navigator.push({
                 component: ProductSearchContainer,
-                params: {keyword:keyword},
+                params: {keyword: keyword},
             })
         });
 
-         if(keyword.length>0){
-             const {addKeywords} =this.props;
-             addKeywords(keyword);
-         }
+        if (keyword.length > 0) {
+            const {addKeywords} =this.props;
+            addKeywords(keyword);
+        }
     }
 
-    _itemPress(keyword:String){
+    _itemPress(keyword: String) {
         InteractionManager.runAfterInteractions(() => {
             const {navigator} = this.props;
             navigator.push({
                 component: ProductSearchContainer,
-                params: {keyword:keyword},
+                params: {keyword: keyword},
             })
         });
     }
 
-    _renderItem(data:Array){
-        return data.map((item,i)=>{
+    _renderItem(data: Array) {
+        return data.map((item, i)=> {
             return (
                 <TouchableOpacity key={i} onPress={()=>this._itemPress(item)} activeOpacity={0.7}>
                     <View style={styles.itemContainer}>
@@ -77,12 +77,12 @@ export default class ProductSearch1 extends Component{
         });
     }
 
-    _clearSearchKeywords(){
+    _clearSearchKeywords() {
         const {clearKeywords} =this.props;
         clearKeywords();
     }
 
-    render(){
+    render() {
         const {keywords}=this.props;
         return (
             <ScrollView style={{flex:1,backgroundColor:UIConfigure.search.defaultBgColor}}
@@ -95,7 +95,8 @@ export default class ProductSearch1 extends Component{
                             </View>
                         </TouchableOpacity>
                         <View style={styles.searchBox}>
-                            <Image source={require('../image/lib_story_img_search_bt_@2x.png')} style={styles.searchIcon}/>
+                            <Image source={require('../image/lib_story_img_search_bt_@2x.png')}
+                                   style={styles.searchIcon}/>
                             <TextInput
                                 clearButtonMode='while-editing'
                                 keyboardType='web-search'
@@ -128,7 +129,7 @@ export default class ProductSearch1 extends Component{
 
                     <View style={{height:75,flexDirection:'row',flexWrap:'wrap',paddingTop:15,paddingBottom:15,}}>
                         {this._renderItem(keywords)}
-                     </View>
+                    </View>
                 </View>
             </ScrollView>
         );
@@ -138,37 +139,37 @@ export default class ProductSearch1 extends Component{
 let styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        justifyContent:'space-between',
-        paddingTop:Constant.window.statusBarHeight,
+        justifyContent: 'space-between',
+        paddingTop: Constant.window.statusBarHeight,
         height: Constant.window.navigatorBarHeight,
         alignItems: 'center'
     },
     historyContainer: {
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'space-between',
-        backgroundColor:'white',
-        padding:10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        padding: 10,
     },
-    itemContainer:{
-        height:UIConfigure.search.searchRecodeItemHeight,
-        backgroundColor:'white',
-        justifyContent:'center',
-        alignItems:'center',
-        paddingLeft:10,
-        paddingRight:10,
-        marginLeft:10
+    itemContainer: {
+        height: UIConfigure.search.searchRecodeItemHeight,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginLeft: 10
     },
     searchBox: {
-        height:  35,
+        height: 35,
         flexDirection: 'row',
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
         flex: 1,
         borderRadius: 3,
         backgroundColor: 'white',
-        borderWidth:0.5,
-        borderColor:'#DEDEDE',
-        alignItems:'center',
+        borderWidth: 0.5,
+        borderColor: '#DEDEDE',
+        alignItems: 'center',
         marginLeft: 10,
         marginRight: 10,
     },
@@ -184,9 +185,9 @@ let styles = StyleSheet.create({
         height: 10,
         resizeMode: 'stretch'
     },
-    separate:{
-        height:1,
-        backgroundColor:'#A7A7AA',
+    separate: {
+        height: 1,
+        backgroundColor: '#A7A7AA',
     },
     inputText: {
         flex: 1,

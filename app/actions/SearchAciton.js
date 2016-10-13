@@ -16,7 +16,7 @@ let resultsCache = {
     nextPageNumberForQuery: {},
 };
 
-const PAGE_SIZE=10;
+const PAGE_SIZE = 10;
 
 /**
  * 每次重新进入页面时判断缓存，避免大量的网络加载
@@ -24,14 +24,14 @@ const PAGE_SIZE=10;
  * @param queryNumbers
  * @returns {function(*)}
  */
-export let searchProduct = (condition:string,loadingStatuses:Array,queryNumbers:Array,tabIndex:Number)=>{
+export let searchProduct = (condition: string, loadingStatuses: Array, queryNumbers: Array, tabIndex: Number)=> {
     return dispatch => {
-        let cacheData = resultsCache.dataForQuery[condition+tabIndex];
+        let cacheData = resultsCache.dataForQuery[condition + tabIndex];
         if (cacheData) {
-            loadingStatuses[tabIndex]=1;
-            dispatch(receiveResult(loadingStatuses,queryNumbers,cacheData))
-        }else{
-            dispatch(fetchSearchResult(condition,loadingStatuses,queryNumbers,tabIndex));
+            loadingStatuses[tabIndex] = 1;
+            dispatch(receiveResult(loadingStatuses, queryNumbers, cacheData))
+        } else {
+            dispatch(fetchSearchResult(condition, loadingStatuses, queryNumbers, tabIndex));
         }
     }
 }
@@ -41,37 +41,37 @@ export let searchProduct = (condition:string,loadingStatuses:Array,queryNumbers:
  * @param paramas
  * @returns {function(*)}
  */
-export let fetchSearchResult = (condition,loadingStatuses,queryNumbers,tabIndex)=> {
+export let fetchSearchResult = (condition, loadingStatuses, queryNumbers, tabIndex)=> {
     return dispatch => {
-        if(queryNumbers[tabIndex]===0) {
-            loadingStatuses[tabIndex]=0;
+        if (queryNumbers[tabIndex] === 0) {
+            loadingStatuses[tabIndex] = 0;
             dispatch(fetchLoading(loadingStatuses));
         }
-        let data = condition+'&'+'pageSize='+PAGE_SIZE+'&'+'page='+queryNumbers[tabIndex]
-            +'&'+'curPageNo='+queryNumbers[tabIndex];
-        console.log('tag','搜索参数＝'+data);
-        Utils.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.SEARCH_API_KEY,data,
+        let data = condition + '&' + 'pageSize=' + PAGE_SIZE + '&' + 'page=' + queryNumbers[tabIndex]
+            + '&' + 'curPageNo=' + queryNumbers[tabIndex];
+        console.log('tag', '搜索参数＝' + data);
+        Utils.httpPostForm(Constant.httpKeys.HOST + Constant.httpKeys.SEARCH_API_KEY, data,
             (response) => {
-                resultsCache.nextPageNumberForQuery[condition+tabIndex] = queryNumbers[tabIndex];
-                let cacheData = resultsCache.dataForQuery[condition+tabIndex];
-                if(!cacheData){
-                    cacheData=response.resultList;
-                }else{
+                resultsCache.nextPageNumberForQuery[condition + tabIndex] = queryNumbers[tabIndex];
+                let cacheData = resultsCache.dataForQuery[condition + tabIndex];
+                if (!cacheData) {
+                    cacheData = response.resultList;
+                } else {
                     for (let i in response.resultList) {
                         cacheData.push(response.resultList[i]);
                     }
                 }
-                resultsCache.dataForQuery[condition+tabIndex]=cacheData;
+                resultsCache.dataForQuery[condition + tabIndex] = cacheData;
                 /**
                  * 这里加载成功，保存当前页数据，将即将查询的页码＋1用于下次查询
                  */
-                queryNumbers[tabIndex]=queryNumbers[tabIndex]+1;
-                loadingStatuses[tabIndex]=1;
-                dispatch(receiveResult(loadingStatuses,queryNumbers,resultsCache.dataForQuery[condition+tabIndex]))
+                queryNumbers[tabIndex] = queryNumbers[tabIndex] + 1;
+                loadingStatuses[tabIndex] = 1;
+                dispatch(receiveResult(loadingStatuses, queryNumbers, resultsCache.dataForQuery[condition + tabIndex]))
             }, (error) => {
-                loadingStatuses[tabIndex]=-1;
+                loadingStatuses[tabIndex] = -1;
                 dispatch(fetchLoading(loadingStatuses));
-                alert('搜索结果数据返回失败','错误信息＝'+error)
+                alert('搜索结果数据返回失败', '错误信息＝' + error)
             });
     }
 }
@@ -81,7 +81,7 @@ export let fetchSearchResult = (condition,loadingStatuses,queryNumbers,tabIndex)
  * @param isLoading
  * @returns {{type, isLoading: *}}
  */
-let fetchLoading = (loadingStatuses)=>{
+let fetchLoading = (loadingStatuses)=> {
     return {
         type: TYPES.SEARCH_RESULT_FETCH,
         loadingStatuses: loadingStatuses,
@@ -94,11 +94,11 @@ let fetchLoading = (loadingStatuses)=>{
  * @param resultDto
  * @returns {{type, isLoading: *, resultDto: *}}
  */
-let receiveResult = (loadingStatuses,queryNumbers,resultDto)=>{
+let receiveResult = (loadingStatuses, queryNumbers, resultDto)=> {
     return {
         type: TYPES.SEARCH_RESULT_RECEIVE,
         loadingStatuses: loadingStatuses,
-        queryNumbers:queryNumbers,
+        queryNumbers: queryNumbers,
         resultDto: resultDto,
     }
 }
@@ -108,13 +108,13 @@ let receiveResult = (loadingStatuses,queryNumbers,resultDto)=>{
  * 获取搜索纪录
  * @returns {function(*)}
  */
-export let getKeywords = ()=>{
+export let getKeywords = ()=> {
     return dispatch => {
         Utils.storageGetItem(Constant.storeKeys.SEARCH_RECODER_KEY)
             .then((value)=> {
-                console.log('tag','搜索历史记录＝'+value);
-                if(value){
-                    let keywords=value.split(',');
+                console.log('tag', '搜索历史记录＝' + value);
+                if (value) {
+                    let keywords = value.split(',');
                     dispatch(changedKeywords(keywords));
                 }
             });
@@ -126,19 +126,19 @@ export let getKeywords = ()=>{
  * @param keyword
  * @returns {function(*)}
  */
-export let addKeywords = (keyword:String)=>{
+export let addKeywords = (keyword: String)=> {
     return dispatch => {
         Utils.storageGetItem(Constant.storeKeys.SEARCH_RECODER_KEY)
             .then((value)=> {
-                if(value){
-                    let keywords=value.split(',');
+                if (value) {
+                    let keywords = value.split(',');
                     keywords.push(keyword);
-                    Utils.storageSetItem(Constant.storeKeys.SEARCH_RECODER_KEY,keywords.join(','));
+                    Utils.storageSetItem(Constant.storeKeys.SEARCH_RECODER_KEY, keywords.join(','));
                     dispatch(changedKeywords(keywords));
-                }else{
-                    let keywords=[];
+                } else {
+                    let keywords = [];
                     keywords.push(keyword);
-                    Utils.storageSetItem(Constant.storeKeys.SEARCH_RECODER_KEY,keywords.join(','));
+                    Utils.storageSetItem(Constant.storeKeys.SEARCH_RECODER_KEY, keywords.join(','));
                     dispatch(changedKeywords(keywords));
                 }
             });
@@ -148,17 +148,17 @@ export let addKeywords = (keyword:String)=>{
  * 清除所有搜索纪录
  * @returns {function(*)}
  */
-export let clearKeywords = ()=>{
+export let clearKeywords = ()=> {
     return dispatch => {
         Utils.storageClearItem(Constant.storeKeys.SEARCH_RECODER_KEY);
         dispatch(changedKeywords([]));
     }
 }
 
-let changedKeywords = (keywords)=>{
+let changedKeywords = (keywords)=> {
     return {
         type: TYPES.SEARCH_RECODER_CHANGED,
-        keywords:keywords,
+        keywords: keywords,
     }
 }
 
@@ -167,7 +167,7 @@ let changedKeywords = (keywords)=>{
  * @param index
  * @returns {{type, tabIndex: *}}
  */
-export let tabChanged = (tabIndex)=>{
+export let tabChanged = (tabIndex)=> {
     return {
         type: TYPES.SEARCH_TAB_CHANGED,
         tabIndex: tabIndex,
@@ -178,9 +178,9 @@ export let tabChanged = (tabIndex)=>{
  * 缓存只针对当前关键词，其他进入重新进入搜索页面时缓存清除，所有状态回到原始状态
  * @returns {{type, loadingStatuses: number[], queryNumbers: number[], resultDto: Array, keywords: Array, tabIndex: number}}
  */
-export let clearState = ()=>{
-    resultsCache.dataForQuery={};
-    resultsCache.nextPageNumberForQuery={};
+export let clearState = ()=> {
+    resultsCache.dataForQuery = {};
+    resultsCache.nextPageNumberForQuery = {};
     return {
         type: TYPES.SEARCH_CLEAR_CACHE,
     }

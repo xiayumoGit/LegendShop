@@ -3,7 +3,7 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import {
     Text,
     View,
@@ -16,8 +16,8 @@ export default class IndicatorNavigatorItem extends React.Component {
         selectedTitleStyle: Text.propTypes.style,
         bacStyle: View.propTypes.style,
         selectedBacStyle: View.propTypes.style,
-        lineStyle:View.propTypes.style,
-        selectLineStyle:View.propTypes.style,
+        lineStyle: View.propTypes.style,
+        selectLineStyle: View.propTypes.style,
         selected: PropTypes.bool,
         onPress: PropTypes.func,
     };

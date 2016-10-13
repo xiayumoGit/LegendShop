@@ -1,7 +1,7 @@
 'use strict';
 
-import { Set } from 'immutable';
-import React, { PropTypes } from 'react';
+import {Set} from 'immutable';
+import React, {PropTypes} from 'react';
 import {
     StyleSheet,
     View,
@@ -32,9 +32,10 @@ export default class GridNavigator extends React.Component {
 
         this._renderTab = this._renderTab.bind(this);
     }
+
     componentWillReceiveProps(nextProps) {
-        console.log('tag','componentWillReceiveProps');
-        let { renderedSceneKeys } = this.state;
+        console.log('tag', 'componentWillReceiveProps');
+        let {renderedSceneKeys} = this.state;
         this.setState({
             renderedSceneKeys: this._updateRenderedSceneKeys(
                 nextProps.children,
@@ -59,15 +60,15 @@ export default class GridNavigator extends React.Component {
     }
 
     render() {
-        console.log('tag','render');
-        let { style, children, tabBarStyle, sceneStyle, ...props } = this.props;
+        console.log('tag', 'render');
+        let {style, children, tabBarStyle, sceneStyle, ...props} = this.props;
         let scenes = [];
         React.Children.forEach(children, (item, index) => {
             let sceneKey = this._getSceneKey(item, index);
             if (!this.state.renderedSceneKeys.has(sceneKey)) {
                 return;
             }
-            let { selected } = item.props;
+            let {selected} = item.props;
             let scene =
                 <SceneContainer key={sceneKey} selected={selected} style={sceneStyle}>
                     {item}
@@ -93,7 +94,8 @@ export default class GridNavigator extends React.Component {
         return (
             <TouchableOpacity activeOpacity={0.7} onPress={item.props.onPress}>
                 <View style={[styles.itemContainer,item.props.selected?item.props.selectedBacStyle:null]}>
-                    <Text numberOfLines={1} style={[styles.showText,item.props.selected?styles.selectText:null]}>{item.props.title}</Text>
+                    <Text numberOfLines={1}
+                          style={[styles.showText,item.props.selected?styles.selectText:null]}>{item.props.title}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -112,7 +114,7 @@ class SceneContainer extends React.Component {
         /**
          * 通过选中和未选中来实现当前容器的显示和不显示
          */
-        let { selected, ...props } = this.props;
+        let {selected, ...props} = this.props;
         return (
             <View
                 {...props}
@@ -143,7 +145,7 @@ class StaticContainer extends React.Component {
     }
 
     render() {
-        let { children } = this.props;
+        let {children} = this.props;
         return children ? React.Children.only(children) : null;
     }
 }
@@ -170,28 +172,28 @@ let styles = StyleSheet.create({
     defaultSelectedIcon: {
         tintColor: 'rgb(0, 122, 255)',
     },
-    itemContainer:{
-        alignItems:'center',
-        paddingTop:Platform.OS === 'ios'?18:12,
-        paddingBottom:Platform.OS === 'ios'?18:12,
-        justifyContent:'center',
-        borderRightWidth:0.5,
-        borderBottomWidth:0.5,
-        borderColor:'#F0F0F0',
-        backgroundColor:'#ffff',
+    itemContainer: {
+        alignItems: 'center',
+        paddingTop: Platform.OS === 'ios' ? 18 : 12,
+        paddingBottom: Platform.OS === 'ios' ? 18 : 12,
+        justifyContent: 'center',
+        borderRightWidth: 0.5,
+        borderBottomWidth: 0.5,
+        borderColor: '#F0F0F0',
+        backgroundColor: '#ffff',
     },
     showText: {
         fontSize: 14,
-        color:'rgb(92, 92, 92)',
+        color: 'rgb(92, 92, 92)',
     },
-    selectText:{
+    selectText: {
         fontSize: 14,
-        color:'rgb(255,0,0)',
+        color: 'rgb(255,0,0)',
     },
     tabContainer: {
         backgroundColor: '#f8f8f8',
         width: 90,
-        flex:1,
+        flex: 1,
         position: 'absolute',
     },
 });

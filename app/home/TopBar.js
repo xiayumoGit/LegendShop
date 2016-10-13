@@ -1,6 +1,6 @@
 'use strict';
 
-import React,{ Component,PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
     Image,
     TextInput,
@@ -18,33 +18,34 @@ import Constant from '../common/Constant';
 
 export default class TopBar extends Component {
 
-  constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            login:'登录',
+            login: '登录',
         };
-  }
+    }
 
-  componentDidMount() {
-    //查询是否登录
-    // Utils.storageGetItem(Constant.storeKeys.LOGIN_INFO_KEY)
-    //     .then((value)=> {
-    //       if(value){
-    //       console.log('tag','登录信息获取＝'+JSON.stringify(value));
-    //       if(value.accessToken)
-    //         this.setState({
-    //               login:'已登录',
-    //         });
-    //       }
-    //     });
+    componentDidMount() {
+        //查询是否登录
+        // Utils.storageGetItem(Constant.storeKeys.LOGIN_INFO_KEY)
+        //     .then((value)=> {
+        //       if(value){
+        //       console.log('tag','登录信息获取＝'+JSON.stringify(value));
+        //       if(value.accessToken)
+        //         this.setState({
+        //               login:'已登录',
+        //         });
+        //       }
+        //     });
 
-  }
+    }
+
     /**
      *  进入二维码扫描
      * @param title
      * @private
      */
-    _onScanClick(title:string) {
+    _onScanClick(title: string) {
 
     }
 
@@ -54,34 +55,34 @@ export default class TopBar extends Component {
      * @param title
      * @private
      */
-    _onSearchClick(title:string) {
+    _onSearchClick(title: string) {
         const {navigator} = this.props;
         navigator.push({
             name: title,
             component: ProductSearchContainer1,
             params: {
-                title:title,
+                title: title,
             }
         })
     }
 
     render() {
         return (
-          <View>
-            <View style={styles.container}>
-                <Image source={require('../image/home_logo_@2x.png')} style={styles.logo}/>
-                <View style={styles.searchBox}>
-                    <Image source={require('../image/lib_story_img_search_bt_@2x.png')} style={styles.searchIcon}/>
-                    <Text
-                        onPress={()=>this._onSearchClick('搜索')}
-                        style={styles.inputText}>
-                        搜索...
-                    </Text>
+            <View>
+                <View style={styles.container}>
+                    <Image source={require('../image/home_logo_@2x.png')} style={styles.logo}/>
+                    <View style={styles.searchBox}>
+                        <Image source={require('../image/lib_story_img_search_bt_@2x.png')} style={styles.searchIcon}/>
+                        <Text
+                            onPress={()=>this._onSearchClick('搜索')}
+                            style={styles.inputText}>
+                            搜索...
+                        </Text>
+                    </View>
+                    <Image style={{width:28,height:28}} source={require('../image/icon_camera_@2x.png')}/>
                 </View>
-                <Image style={{width:28,height:28}} source={require('../image/icon_camera_@2x.png')}/>
+                <View style={styles.separate}/>
             </View>
-            <View style={styles.separate}/>
-          </View>
         )
     }
 }
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: 5,
         paddingRight: 5,
-        paddingTop:Constant.window.statusBarHeight,
+        paddingTop: Constant.window.statusBarHeight,
         height: Constant.window.navigatorBarHeight,
         backgroundColor: UIConfigure.home.defaultBgColor,
         alignItems: 'center'
@@ -107,11 +108,11 @@ const styles = StyleSheet.create({
         flex: 1,
         borderRadius: 12,
         backgroundColor: 'white',
-        borderWidth:0.5,
-        borderColor:'#DEDEDE',
-        alignItems:'center',
-        marginLeft:10,
-        marginRight:10,
+        borderWidth: 0.5,
+        borderColor: '#DEDEDE',
+        alignItems: 'center',
+        marginLeft: 10,
+        marginRight: 10,
     },
     scanIcon: {
         height: 17,
@@ -127,15 +128,15 @@ const styles = StyleSheet.create({
     },
     inputText: {
         flex: 1,
-        color:UIConfigure.home.searchTextColor,
+        color: UIConfigure.home.searchTextColor,
         backgroundColor: 'transparent',
         fontSize: 10
     },
-    loginText:{
-        fontSize:13,
+    loginText: {
+        fontSize: 13,
     },
-    separate:{
-      height:1,
-      backgroundColor:'#A7A7AA',
+    separate: {
+        height: 1,
+        backgroundColor: '#A7A7AA',
     },
 });

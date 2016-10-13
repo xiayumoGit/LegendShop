@@ -10,41 +10,41 @@ import * as TYPES from '../actions/ActionTypes';
  * @type {{loadingStatus: number, resultDto: Array, keywords: Array, tabIndex: number}}
  */
 const initialState = {
-    loadingStatuses: [0,0,0,0],
-    queryNumbers: [0,0,0,0],
-    resultDto:[],
-    keywords:[],
-    tabIndex:0,
-    isChanged:false,
+    loadingStatuses: [0, 0, 0, 0],
+    queryNumbers: [0, 0, 0, 0],
+    resultDto: [],
+    keywords: [],
+    tabIndex: 0,
+    isChanged: false,
 }
 
-let SearchReducer = (state = initialState, action)=>{
+let SearchReducer = (state = initialState, action)=> {
     switch (action.type) {
         case TYPES.SEARCH_RESULT_FETCH:
             return Object.assign({}, state, {
-                loadingStatuses:action.loadingStatuses,
+                loadingStatuses: action.loadingStatuses,
             })
         case TYPES.SEARCH_RESULT_RECEIVE:
             return Object.assign({}, state, {
-                loadingStatuses:action.loadingStatuses,
-                queryNumbers:action.queryNumbers,
-                resultDto:action.resultDto,
-                isChanged:!state.isChanged
+                loadingStatuses: action.loadingStatuses,
+                queryNumbers: action.queryNumbers,
+                resultDto: action.resultDto,
+                isChanged: !state.isChanged
             })
         case TYPES.SEARCH_RECODER_CHANGED:
             return Object.assign({}, state, {
-                keywords:action.keywords,
+                keywords: action.keywords,
             })
         case TYPES.SEARCH_TAB_CHANGED:
             return Object.assign({}, state, {
-                tabIndex:action.tabIndex,
+                tabIndex: action.tabIndex,
             })
         case TYPES.SEARCH_CLEAR_CACHE:
             return Object.assign({}, state, {
-                loadingStatuses: [0,0,0,0],
-                queryNumbers: [0,0,0,0],
-                resultDto:[],
-                tabIndex:0,
+                loadingStatuses: [0, 0, 0, 0],
+                queryNumbers: [0, 0, 0, 0],
+                resultDto: [],
+                tabIndex: 0,
             })
         default:
             return state

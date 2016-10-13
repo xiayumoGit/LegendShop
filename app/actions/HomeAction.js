@@ -12,13 +12,13 @@ import Constant from '../common/Constant';
 export let fetchHomeResult = ()=> {
     return dispatch => {
         dispatch(fetchLoading(true));
-        Utils.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.HOME_API_KEY,'',
+        Utils.httpPostForm(Constant.httpKeys.HOST + Constant.httpKeys.HOME_API_KEY, '',
             (response) => {
-                dispatch(reciveResult(false,response))
+                dispatch(reciveResult(false, response))
             }, (error) => {
                 dispatch(fetchLoading(false));
-                alert('首页数据获取失败','错误信息＝'+error)
-        });
+                alert('首页数据获取失败', '错误信息＝' + error)
+            });
     }
 }
 /**
@@ -28,11 +28,11 @@ export let fetchHomeResult = ()=> {
 export let fetchHomeRefreshResult = ()=> {
     return dispatch => {
         dispatch(fetchRefreshing(true));
-        Utils.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.HOME_API_KEY,'',
+        Utils.httpPostForm(Constant.httpKeys.HOST + Constant.httpKeys.HOME_API_KEY, '',
             (response) => {
-                dispatch(reciveRefreshingResult(false,response))
+                dispatch(reciveRefreshingResult(false, response))
             }, (error) => {
-                alert('首页下拉刷新失败','错误信息＝'+error)
+                alert('首页下拉刷新失败', '错误信息＝' + error)
             });
     }
 }
@@ -42,7 +42,7 @@ export let fetchHomeRefreshResult = ()=> {
  * @param isLoading
  * @returns {{type, isLoading: *}}
  */
-let fetchLoading = (isLoading)=>{
+let fetchLoading = (isLoading)=> {
     return {
         type: TYPES.HOME_DATA_FETCH,
         isLoading: isLoading,
@@ -55,7 +55,7 @@ let fetchLoading = (isLoading)=>{
  * @param resultDto
  * @returns {{type, isLoading: *, resultDto: *}}
  */
-let reciveResult = (isLoading,resultDto)=>{
+let reciveResult = (isLoading, resultDto)=> {
     return {
         type: TYPES.HOME_DATA_RECEIVE,
         isLoading: isLoading,
@@ -68,7 +68,7 @@ let reciveResult = (isLoading,resultDto)=>{
  * @param isRefreshing
  * @returns {{type, isLoading: *}}
  */
-let fetchRefreshing = (isRefreshing)=>{
+let fetchRefreshing = (isRefreshing)=> {
     return {
         type: TYPES.HOME_DATA_REFRESH_FETCH,
         isRefreshing: isRefreshing,
@@ -81,7 +81,7 @@ let fetchRefreshing = (isRefreshing)=>{
  * @param resultDto
  * @returns {{type, isLoading: *, resultDto: *}}
  */
-let reciveRefreshingResult = (isRefreshing,resultDto)=>{
+let reciveRefreshingResult = (isRefreshing, resultDto)=> {
     return {
         type: TYPES.HOME_DATA_REFRESH_RECEIVE,
         isRefreshing: isRefreshing,

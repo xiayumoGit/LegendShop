@@ -6,7 +6,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import HomePage from './HomePage';
 
-import {fetchHomeResult,fetchHomeRefreshResult} from './actions/HomeAction';
+import {fetchHomeResult, fetchHomeRefreshResult} from './actions/HomeAction';
 
 class HomePageContainer extends React.Component {
     render() {

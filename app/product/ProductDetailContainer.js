@@ -6,7 +6,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ProductDetail from './ProductDetail';
-import {fetchDetailResult,tabChanged} from '../actions/DetailAction';
+import {fetchDetailResult, tabChanged} from '../actions/DetailAction';
 
 
 export class ProductDetailContainer extends React.Component {
@@ -24,10 +24,10 @@ export class ProductDetailContainer extends React.Component {
  */
 const mapStateToProps = (state) => {
     return {
-        resultDto:state.DetailReducer.resultDto,
-        resultComments:state.DetailReducer.resultComments,
-        tabIndex:state.DetailReducer.tabIndex,
-        loadingStatuses:state.DetailReducer.loadingStatuses,
+        resultDto: state.DetailReducer.resultDto,
+        resultComments: state.DetailReducer.resultComments,
+        tabIndex: state.DetailReducer.tabIndex,
+        loadingStatuses: state.DetailReducer.loadingStatuses,
     };
 }
 
@@ -38,7 +38,7 @@ const mapStateToProps = (state) => {
  */
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchDetailResult: (condition,loadingStatuses,tabIndex)=>dispatch(fetchDetailResult(condition,loadingStatuses,tabIndex)),
+        fetchDetailResult: (condition, loadingStatuses, tabIndex)=>dispatch(fetchDetailResult(condition, loadingStatuses, tabIndex)),
         tabChanged: (tabIndex) => dispatch(tabChanged(tabIndex)),
     };
 }

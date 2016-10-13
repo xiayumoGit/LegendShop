@@ -1,7 +1,7 @@
 'use strict';
 
 import Md5 from 'md5';
-import { AsyncStorage } from 'react-native';
+import {AsyncStorage} from 'react-native';
 
 let Util = {
     /**
@@ -11,18 +11,18 @@ let Util = {
      * @param failCallback
      */
     httpGet: (url, successCallback, failCallback) => {
-        console.log('tag','请求地址＝'+url);
+        console.log('tag', '请求地址＝' + url);
         fetch(url)
             .then((response) => response.text())
             .then((responseText) => {
-              let result=JSON.parse(responseText);
-              if(result.status===1){
-                console.log('success: ' + responseText);
-                successCallback(result.result);
-              }else{
-                console.log('fail: ' + responseText);
-                failCallback(result.msg);
-              }
+                let result = JSON.parse(responseText);
+                if (result.status === 1) {
+                    console.log('success: ' + responseText);
+                    successCallback(result.result);
+                } else {
+                    console.log('fail: ' + responseText);
+                    failCallback(result.msg);
+                }
             })
             .catch((err) => {
                 console.log('err: ' + err);
@@ -36,25 +36,25 @@ let Util = {
      * @param successCallback
      * @param failCallback
      */
-    httpPostForm:(url,data, successCallback, failCallback)=>{
-          console.log('tag','请求地址＝'+url);
-          fetch(url, {
+    httpPostForm: (url, data, successCallback, failCallback)=> {
+        console.log('tag', '请求地址＝' + url);
+        fetch(url, {
             method: 'POST',
             headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/x-www-form-urlencoded'
-           },
-            body:data+''
-          })
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data + ''
+        })
             .then((response) => response.text())
             .then((responseText) => {
-                let result=JSON.parse(responseText);
-                if(result.status===1){
-                  console.log('success: ' + responseText);
-                  successCallback(result.result);
-                }else{
-                  console.log('fail: ' + responseText);
-                  failCallback(result.msg);
+                let result = JSON.parse(responseText);
+                if (result.status === 1) {
+                    console.log('success: ' + responseText);
+                    successCallback(result.result);
+                } else {
+                    console.log('fail: ' + responseText);
+                    failCallback(result.msg);
                 }
             })
             .catch((err) => {
@@ -69,26 +69,26 @@ let Util = {
      * @param successCallback
      * @param failCallback
      */
-    httpPostJson:(url, data,successCallback, failCallback)=>{
-          console.log('tag','请求地址＝'+url);
-          fetch(url,{
-              method: 'POST',
-              headers: {
+    httpPostJson: (url, data, successCallback, failCallback)=> {
+        console.log('tag', '请求地址＝' + url);
+        fetch(url, {
+            method: 'POST',
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(data)
-            })
+            },
+            body: JSON.stringify(data)
+        })
             .then((response) => response.text())
             .then((responseText) => {
-              let result=JSON.parse(responseText);
-              if(result.status===1){
-                console.log('success: ' + responseText);
-                successCallback(result.result);
-              }else{
-                console.log('fail: ' + responseText);
-                failCallback(result.msg);
-              }
+                let result = JSON.parse(responseText);
+                if (result.status === 1) {
+                    console.log('success: ' + responseText);
+                    successCallback(result.result);
+                } else {
+                    console.log('fail: ' + responseText);
+                    failCallback(result.msg);
+                }
             })
             .catch((err) => {
                 console.log('err: ' + err);
@@ -130,8 +130,8 @@ let Util = {
      */
     storageUpdateItem: (key, value) => {
         return AsyncStorage.getItem(key).then((item) => {
-          value =  Object.assign({}, JSON.parse(item), value);
-          return AsyncStorage.setItem(key, JSON.stringify(value));
+            value = Object.assign({}, JSON.parse(item), value);
+            return AsyncStorage.setItem(key, JSON.stringify(value));
         });
     },
     /**
@@ -146,12 +146,12 @@ let Util = {
      * md5加密
      * @param value
      */
-    md5:(value)=>{
-      return Md5(value);
+    md5: (value)=> {
+        return Md5(value);
     },
 
-    isEmptyObject:(obj)=>{
-        for(var n in obj){
+    isEmptyObject: (obj)=> {
+        for (var n in obj) {
             return false;
         }
         return true;

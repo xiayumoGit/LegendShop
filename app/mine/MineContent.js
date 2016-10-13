@@ -3,7 +3,7 @@
  */
 'use strict';
 
-import React,{ Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -18,13 +18,13 @@ import UIConfigure from '../common/UIConfigure';
 
 export default class MineContent extends Component {
 
-    _itemPress(title:string,prodId:number) {
+    _itemPress(title: string, prodId: number) {
         InteractionManager.runAfterInteractions(() => {
         });
     }
 
-    _renderOrderView(){
-        return Constant.strings.mineOrderStringArray.map((item,i)=>{
+    _renderOrderView() {
+        return Constant.strings.mineOrderStringArray.map((item, i)=> {
             return (
                 <TouchableOpacity key={i} activeOpacity={0.7}>
                     <View style={styles.container1}>
@@ -36,9 +36,9 @@ export default class MineContent extends Component {
         });
     }
 
-    _renderMoneyView(){
-        let numArray=['0.0','0张','0个','120'];
-        return Constant.strings.mineMoneyStringArray.map((item,i)=>{
+    _renderMoneyView() {
+        let numArray = ['0.0', '0张', '0个', '120'];
+        return Constant.strings.mineMoneyStringArray.map((item, i)=> {
             return (
                 <TouchableOpacity key={i} activeOpacity={0.7}>
                     <View style={{alignItems:'center',}}>
@@ -53,8 +53,8 @@ export default class MineContent extends Component {
         });
     }
 
-    _renderItemView(){
-        return Constant.strings.mineItemStringArray.map((item,i)=>{
+    _renderItemView() {
+        return Constant.strings.mineItemStringArray.map((item, i)=> {
             return (
                 <TouchableOpacity key={i} activeOpacity={0.7}>
                     <View>
@@ -69,13 +69,13 @@ export default class MineContent extends Component {
                         </View>
                         <View style={styles.separate}/>
                     </View>
-                 </TouchableOpacity>
+                </TouchableOpacity>
             )
         });
     }
 
     render() {
-        return(
+        return (
             <View style={{flex:1}}>
                 <View style={[styles.separate,{marginTop:10}]}/>
                 <View style={styles.container}>
@@ -131,47 +131,47 @@ export default class MineContent extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        padding:8,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-        backgroundColor:'white',
+        padding: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: 'white',
     },
     orderContainer: {
-        backgroundColor:'white',
-        justifyContent:'space-around',
+        backgroundColor: 'white',
+        justifyContent: 'space-around',
         flexDirection: 'row',
-        padding:3,
+        padding: 3,
     },
     moneyContainer: {
-        backgroundColor:'white',
-        justifyContent:'space-around',
+        backgroundColor: 'white',
+        justifyContent: 'space-around',
         flexDirection: 'row',
-        padding:5,
+        padding: 5,
     },
-    separate:{
-        height:0.8,
-        backgroundColor:'#F0F0F0',
+    separate: {
+        height: 0.8,
+        backgroundColor: '#F0F0F0',
     },
-    itemImage1:{
-        width:15,
-        height:15,
+    itemImage1: {
+        width: 15,
+        height: 15,
     },
-    itemImage2:{
-        width:30,
-        height:30,
+    itemImage2: {
+        width: 30,
+        height: 30,
     },
-    container1:{
-        alignItems:'center',
-        flex:1,
-        paddingLeft:10,
-        paddingRight:10,
-        paddingTop:3,
-        paddingBottom:3,
+    container1: {
+        alignItems: 'center',
+        flex: 1,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 3,
+        paddingBottom: 3,
     },
     showText: {
         fontSize: 12,
-        color:'#6E6E6E',
+        color: '#6E6E6E',
     }
 });
 

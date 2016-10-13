@@ -9,12 +9,12 @@ const initialState = {
     selectedTab: UIConfigure.home.homeString
 }
 
-let MainReducer = (state = initialState, action)=>{
+let MainReducer = (state = initialState, action)=> {
 
     switch (action.type) {
         case TYPES.MAIN_TAB_CHANGE:
             return Object.assign({}, state, {
-                selectedTab:action.selectedTab,
+                selectedTab: action.selectedTab,
             })
         default:
             return state

@@ -5,7 +5,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ProductSearch from './ProductSearch';
-import {tabChanged,searchProduct,fetchSearchResult,clearState} from '../actions/SearchAciton';
+import {tabChanged, searchProduct, fetchSearchResult, clearState} from '../actions/SearchAciton';
 
 export class ProductSearchContainer extends React.Component {
     render() {
@@ -22,7 +22,7 @@ export class ProductSearchContainer extends React.Component {
  */
 const mapStateToProps = (state) => {
     return {
-        tabIndex:state.SearchReducer.tabIndex,
+        tabIndex: state.SearchReducer.tabIndex,
         loadingStatuses: state.SearchReducer.loadingStatuses,
         resultDto: state.SearchReducer.resultDto,
         queryNumbers: state.SearchReducer.queryNumbers,
@@ -38,10 +38,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         tabChanged: (tabIndex) => dispatch(tabChanged(tabIndex)),
-        searchProduct: (condition,loadingStatuses,queryNumbers,tabIndex) =>
-            dispatch(searchProduct(condition,loadingStatuses,queryNumbers,tabIndex)),
-        fetchSearchResult: (condition,loadingStatuses,queryNumbers,tabIndex) =>
-            dispatch(fetchSearchResult(condition,loadingStatuses,queryNumbers,tabIndex)),
+        searchProduct: (condition, loadingStatuses, queryNumbers, tabIndex) =>
+            dispatch(searchProduct(condition, loadingStatuses, queryNumbers, tabIndex)),
+        fetchSearchResult: (condition, loadingStatuses, queryNumbers, tabIndex) =>
+            dispatch(fetchSearchResult(condition, loadingStatuses, queryNumbers, tabIndex)),
         clearState: () => dispatch(clearState()),
     };
 }

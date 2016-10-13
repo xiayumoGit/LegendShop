@@ -11,7 +11,7 @@ import * as TYPES from './ActionTypes';
 export let changeTab = (label)=> {
     return {
         type: TYPES.MAIN_TAB_CHANGE,
-        selectedTab:label
+        selectedTab: label
     }
 }
 

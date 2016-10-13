@@ -12,12 +12,12 @@ import Constant from '../common/Constant';
 export let fetchCategoryResult = ()=> {
     return dispatch => {
         dispatch(fetchLoading(true));
-        Utils.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.CATEGOTY_API_KEY,'',
+        Utils.httpPostForm(Constant.httpKeys.HOST + Constant.httpKeys.CATEGOTY_API_KEY, '',
             (response) => {
-                dispatch(receiveResult(false,response))
+                dispatch(receiveResult(false, response))
             }, (error) => {
                 dispatch(fetchLoading(false));
-                alert('分类数据获取失败','错误信息＝'+error)
+                alert('分类数据获取失败', '错误信息＝' + error)
             });
     }
 }
@@ -27,7 +27,7 @@ export let fetchCategoryResult = ()=> {
  * @param isLoading
  * @returns {{type, isLoading: *}}
  */
-let fetchLoading = (isLoading)=>{
+let fetchLoading = (isLoading)=> {
     return {
         type: TYPES.CATEGORY_DATA_FETCH,
         isLoading: isLoading,
@@ -40,7 +40,7 @@ let fetchLoading = (isLoading)=>{
  * @param resultDto
  * @returns {{type, isLoading: *, resultDto: *}}
  */
-let receiveResult = (isLoading,resultDto)=>{
+let receiveResult = (isLoading, resultDto)=> {
     return {
         type: TYPES.CATEGORY_DATA_RECEIVE,
         isLoading: isLoading,
@@ -53,7 +53,7 @@ let receiveResult = (isLoading,resultDto)=>{
  * @param index
  * @returns {{type, tabIndex: *}}
  */
-export let tabChanged = (tabIndex)=>{
+export let tabChanged = (tabIndex)=> {
     return {
         type: TYPES.CATEGORY_TAB_CHANGED,
         tabIndex: tabIndex,

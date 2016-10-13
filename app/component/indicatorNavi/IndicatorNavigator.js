@@ -1,7 +1,7 @@
 'use strict';
 
-import { Set } from 'immutable';
-import React, { PropTypes } from 'react';
+import {Set} from 'immutable';
+import React, {PropTypes} from 'react';
 import {
     StyleSheet,
     View,
@@ -28,9 +28,10 @@ export default class IndicatorNavigator extends React.Component {
 
         this._renderTab = this._renderTab.bind(this);
     }
+
     componentWillReceiveProps(nextProps) {
-        console.log('tag','componentWillReceiveProps');
-        let { renderedSceneKeys } = this.state;
+        console.log('tag', 'componentWillReceiveProps');
+        let {renderedSceneKeys} = this.state;
         this.setState({
             renderedSceneKeys: this._updateRenderedSceneKeys(
                 nextProps.children,
@@ -55,15 +56,15 @@ export default class IndicatorNavigator extends React.Component {
     }
 
     render() {
-        console.log('tag','render');
-        let { style, children, tabBarStyle, sceneStyle, ...props } = this.props;
+        console.log('tag', 'render');
+        let {style, children, tabBarStyle, sceneStyle, ...props} = this.props;
         let scenes = [];
         React.Children.forEach(children, (item, index) => {
             let sceneKey = this._getSceneKey(item, index);
             if (!this.state.renderedSceneKeys.has(sceneKey)) {
                 return;
             }
-            let { selected } = item.props;
+            let {selected} = item.props;
             let scene =
                 <SceneContainer key={sceneKey} selected={selected} style={sceneStyle}>
                     {item}
@@ -102,11 +103,12 @@ class SceneContainer extends React.Component {
         ...View.propTypes,
         selected: PropTypes.bool,
     };
+
     render() {
         /**
          * 通过选中和未选中来实现当前容器的显示和不显示
          */
-        let { selected, ...props } = this.props;
+        let {selected, ...props} = this.props;
         return (
             <View
                 {...props}
@@ -140,8 +142,9 @@ class StaticContainer extends React.Component {
     shouldComponentUpdate(nextProps: Object): boolean {
         return !!nextProps.shouldUpdate;
     }
+
     render() {
-        let { children } = this.props;
+        let {children} = this.props;
         return children ? React.Children.only(children) : null;
     }
 
@@ -164,19 +167,19 @@ let styles = StyleSheet.create({
         opacity: 0,
     },
     tabContainer: {
-        flexDirection:'row',
-        justifyContent:'space-around',
-        backgroundColor:'white'
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: 'white'
     },
     defaultText: {
         fontSize: 16,
-        color:'#6E6E6E',
+        color: '#6E6E6E',
     },
     defaultLine: {
-        backgroundColor:'transparent',
-        height:2,
-        marginTop:10,
-        width:75,
+        backgroundColor: 'transparent',
+        height: 2,
+        marginTop: 10,
+        width: 75,
     },
 });
 

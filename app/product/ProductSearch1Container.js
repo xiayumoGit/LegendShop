@@ -5,7 +5,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ProductSearch1 from './ProductSearch1';
-import {getKeywords,addKeywords,clearKeywords} from '../actions/SearchAciton';
+import {getKeywords, addKeywords, clearKeywords} from '../actions/SearchAciton';
 
 
 export class ProductSearchContainer1 extends React.Component {
@@ -23,7 +23,7 @@ export class ProductSearchContainer1 extends React.Component {
  */
 const mapStateToProps = (state) => {
     return {
-        keywords:state.SearchReducer.keywords,
+        keywords: state.SearchReducer.keywords,
     };
 }
 

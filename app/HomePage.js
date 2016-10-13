@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -33,20 +33,20 @@ export default class HomePage extends Component {
         fetchHomeResult();
     }
 
-    _onItemClick(title:string) {
+    _onItemClick(title: string) {
         InteractionManager.runAfterInteractions(() => {
             const {navigator} = this.props;
             navigator.push({
                 name: title,
                 component: CarouselWebView,
                 params: {
-                    title:title,
+                    title: title,
                 }
             })
         });
     }
 
-    _onMenuClick(title:string) {
+    _onMenuClick(title: string) {
 
     }
 
@@ -55,8 +55,8 @@ export default class HomePage extends Component {
         fetchHomeRefreshResult();
     }
 
-    _renderMenuView(){
-        return UIConfigure.home.menuStringArray.map((item,i)=>{
+    _renderMenuView() {
+        return UIConfigure.home.menuStringArray.map((item, i)=> {
             return (
                 <TouchableOpacity key={i} activeOpacity={0.7}>
                     <View style={styles.container1}>
@@ -68,13 +68,13 @@ export default class HomePage extends Component {
         });
     }
 
-    _renderCarousel(data:Array){
-        return data.map((item,i)=>{
+    _renderCarousel(data: Array) {
+        return data.map((item, i)=> {
             return (
                 <TouchableOpacity key={i} activeOpacity={0.7} onPress={()=>this._onItemClick(item.title)}>
-                    <View style={styles.slide} >
+                    <View style={styles.slide}>
                         <Image source={{uri:Constant.httpKeys.IMAGE_API_HOST+item.img}}
-                              style={styles.carouselImg}/>
+                               style={styles.carouselImg}/>
                     </View>
                 </TouchableOpacity>
             )
@@ -82,35 +82,37 @@ export default class HomePage extends Component {
     }
 
     render() {
-        const {isLoading,isRefreshing,resultDto}=this.props;
-        let content = isLoading ? <ActivityIndicator size={Platform.OS ==='ios'?'small':'large'} style={styles.scrollSpinner}/>
-            : (!Utils.isEmptyObject(resultDto)?
+        const {isLoading, isRefreshing, resultDto}=this.props;
+        let content = isLoading ?
+            <ActivityIndicator size={Platform.OS ==='ios'?'small':'large'} style={styles.scrollSpinner}/>
+            : (!Utils.isEmptyObject(resultDto) ?
             <ScrollView
-                            style={styles.container}
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
+                style={styles.container}
+                showsVerticalScrollIndicator={false}
+                refreshControl={
                             <RefreshControl
                               refreshing={isRefreshing}
                               onRefresh={()=>this._onRefresh()}
                           />}>
-            <Carousel style={styles.wrapper} height={UIConfigure.home.carouselHeight} autoplay={true} autoplayTimeout={5}
-                    paginationStyle={styles.paginationStyle}
-                    loop={true}>
-                {this._renderCarousel(resultDto.indexjpgDto)}
-            </Carousel>
+                <Carousel style={styles.wrapper} height={UIConfigure.home.carouselHeight} autoplay={true}
+                          autoplayTimeout={5}
+                          paginationStyle={styles.paginationStyle}
+                          loop={true}>
+                    {this._renderCarousel(resultDto.indexjpgDto)}
+                </Carousel>
 
-            <View style={styles.menuView}>
-                {this._renderMenuView()}
-            </View>
+                <View style={styles.menuView}>
+                    {this._renderMenuView()}
+                </View>
 
-            <BagActive {...this.props}/>
-            <ClothesActive {...this.props}/>
-            <DigitalActive {...this.props}/>
-        </ScrollView>:null);
+                <BagActive {...this.props}/>
+                <ClothesActive {...this.props}/>
+                <DigitalActive {...this.props}/>
+            </ScrollView> : null);
 
         return (
             <View style={{flex: 1}}>
-              <TopBar navigator={this.props.navigator}/>
+                <TopBar navigator={this.props.navigator}/>
                 {content}
             </View>
         )
@@ -118,44 +120,44 @@ export default class HomePage extends Component {
 }
 
 const styles = StyleSheet.create({
-    container:{
-      backgroundColor:UIConfigure.home.defaultBgColor,
+    container: {
+        backgroundColor: UIConfigure.home.defaultBgColor,
     },
     slide: {
-      flex: 1,
-      height:UIConfigure.home.carouselHeight,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'white',
+        flex: 1,
+        height: UIConfigure.home.carouselHeight,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
     },
     menuView: {
-      backgroundColor:'white',
-      justifyContent:'space-around',
-      flexDirection: 'row',
-      marginTop: 8,
-      padding:3,
+        backgroundColor: 'white',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        marginTop: 8,
+        padding: 3,
     },
     wrapper: {
-      backgroundColor:'white'
+        backgroundColor: 'white'
     },
-    paginationStyle:{
-      bottom: 5,
+    paginationStyle: {
+        bottom: 5,
     },
     scrollSpinner: {
         marginVertical: 20,
     },
     carouselImg: {
-      width:UIConfigure.home.carouselWidth,
-      height:UIConfigure.home.carouselHeight,
-      resizeMode:'cover',
+        width: UIConfigure.home.carouselWidth,
+        height: UIConfigure.home.carouselHeight,
+        resizeMode: 'cover',
     },
-    container1:{
-        alignItems:'center',
-        flex:1,
-        paddingLeft:10,
-        paddingRight:10,
-        paddingTop:3,
-        paddingBottom:3,
+    container1: {
+        alignItems: 'center',
+        flex: 1,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 3,
+        paddingBottom: 3,
     },
     icon: {
         width: 40,
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
     },
     showText: {
         fontSize: 12,
-        color:'#6E6E6E',
+        color: '#6E6E6E',
     }
 
 });

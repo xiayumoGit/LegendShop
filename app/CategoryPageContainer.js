@@ -6,7 +6,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import CategoryPage from './CategoryPage';
 
-import {fetchCategoryResult,tabChanged} from './actions/CategoryAction';
+import {fetchCategoryResult, tabChanged} from './actions/CategoryAction';
 
 
 class CategoryPageContainer extends React.Component {
@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
     return {
         isLoading: state.CategoryReducer.isLoading,
         resultDto: state.CategoryReducer.resultDto,
-        tabIndex:state.CategoryReducer.tabIndex,
+        tabIndex: state.CategoryReducer.tabIndex,
     };
 }
 
