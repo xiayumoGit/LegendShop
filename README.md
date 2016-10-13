@@ -24,12 +24,26 @@ LegendShop是一款基于react-native的电商类app，现已支持安卓和ios�
 
 
 ## 工程运行
-
+```
 $ git clone https://github.com/xiayumoGit/LegendShop.git
 $ cd LegendShop
 $ npm install
 $ react-native run-ios / react-native run-android
+```
 
+## 相关依赖
+```
+ "dependencies": {
+    "md5": "^2.1.0",
+    "react": "15.3.1",
+    "react-native": "0.33.0",
+    "react-native-device-info": "^0.9.3",
+    "react-native-swiper": "^1.4.11",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
+  },
+```
 
 ## 备注
 
