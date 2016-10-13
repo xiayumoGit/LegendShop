@@ -74,7 +74,6 @@ let styles = StyleSheet.create({
     rectStyle: {
       position:'absolute',
       top:30,
-      color:'white',
       borderWidth:1,
       borderRadius:5,
       borderColor:'white',

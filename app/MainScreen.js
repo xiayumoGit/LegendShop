@@ -18,7 +18,6 @@ export default class MainScreen extends Component {
          */
     }
     _renderTabItem(img,selectedImg,title,childView) {
-
         const {selectedTab, changeTab} = this.props;
         return (
             <TabNavigator.Item

@@ -7,6 +7,7 @@ import {
     Image,
     StyleSheet,
     TouchableOpacity,
+    InteractionManager,
 } from 'react-native';
 
 import ProductSearchContainer from '../product/ProductSearchContainer';
@@ -16,26 +17,30 @@ import Constant from '../common/Constant';
 export default class DigitalAcitve extends Component {
 
     _itemPress(title:string,prodId:number) {
-        const {navigator} = this.props;
-        navigator.push({
-            name: title,
-            component: ProductDetailContainer,
-            params: {
-                title:title,
-                prodId:prodId,
-            }
-        })
+        InteractionManager.runAfterInteractions(() => {
+            const {navigator} = this.props;
+            navigator.push({
+                name: title,
+                component: ProductDetailContainer,
+                params: {
+                    title:title,
+                    prodId:prodId,
+                }
+            })
+        });
     }
     _morePress(title:string,categoryId:string) {
-        const {navigator} = this.props;
-        navigator.push({
-            name: title,
-            component: ProductSearchContainer,
-            params: {
-                title:title,
-                categoryId:categoryId,
-            }
-        })
+        InteractionManager.runAfterInteractions(() => {
+            const {navigator} = this.props;
+            navigator.push({
+                name: title,
+                component: ProductSearchContainer,
+                params: {
+                    title:title,
+                    categoryId:categoryId,
+                }
+            })
+        });
     }
 
     _getCategoryId(url:string){

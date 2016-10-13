@@ -6,11 +6,9 @@ import  {
     Text,
     Image,
     TouchableOpacity,
-    Platform,
     ListView,
-    ProgressBarAndroid,
-    TouchableHighlight,
     ActivityIndicator,
+    InteractionManager,
     ScrollView,
     StyleSheet,
 } from 'react-native';
@@ -45,15 +43,17 @@ export default class GridSectionListView extends Component {
     }
 
     _pressItem(title:string,categoryId:number) {
-        const {navigator} = this.props;
-        navigator.push({
-            name: title,
-            component: ProductSearchContainer,
-            params: {
-                title:title,
-                categoryId:categoryId,
-            }
-        })
+        InteractionManager.runAfterInteractions(() => {
+            const {navigator} = this.props;
+            navigator.push({
+                name: title,
+                component: ProductSearchContainer,
+                params: {
+                    title:title,
+                    categoryId:categoryId,
+                }
+            })
+        });
     }
 
     _renderItem(rowData: Array){

@@ -15,34 +15,20 @@ import {
 
 import Util from '../common/Utils';
 import Constant from '../common/Constant';
-import Login from './Login';
+import Back from '../component/Back';
+
+let nickName,password,phone,smsCode;
 
 export default class Register extends React.Component {
 
-   //定义首页图片获取的state
-  constructor(props){
-        super(props);
-        this.state = {
-          password: '',
-          mobile:'',
-          mobileCode:'',
-        };
-  }
 
   _onClick() {
     this.props.navigator.pop();
   }
 
-  _onLogin(title:string){
-    this.props.navigator.pop();
-  }
-
   _onGetSmsCode(){
-
-    let data='phone='+'13066831968';
-
-    console.log('tag','注册发送短信验证参数＝'+data);
-
+    let data='mobile='+phone+'&'+'userName='+nickName;
+    console.log('tag','注册发送短信验证参数:'+data);
     Util.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.REGISTER_SMS_API_KEY,data,
       (response) => {
             console.log('_onGetSmsCode success: ' + JSON.stringify(response));
@@ -52,13 +38,18 @@ export default class Register extends React.Component {
   }
 
   _onRegister(){
+      if(nickName.length==0||password.length==0||phone.length==0||smsCode.length==0){
+          alert('请填写必填参数');return;
+      }
+        let data='nickName='+nickName+'&'+'password='+password+'&'
+        +'mobile='+phone+'&'+'mobileCode='+smsCode;
 
-        let data='nickName='+this.state.mobile+'&'+'password='+this.state.password+'&'
-        +'mobile='+this.state.mobile+'&'+'mobileCode='+'1234';
+      console.log('tag','注册请求参数＝'+data);
 
         Util.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.REGISTER_API_KEY,data,
           (response) => {
                 console.log('_onRegister success: ' + JSON.stringify(response));
+              this.props.navigator.pop();
               }, (error) => {
                   console.log('_onRegister error: ' + error);
               });
@@ -69,60 +60,78 @@ export default class Register extends React.Component {
     return (
       <View style={{flex:1}}>
 
-            <View style={styles.container1}>
-                <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onClick()}>
-                    <View >
-                      <Image source={require('../image/ic_arrow_back_black_@2x.png')} style={styles.icon3}/>
-                    </View>
-                </TouchableOpacity>
-                <Text style={styles.text}>
-                      {this.props.title}
-                </Text>
-                <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onLogin()}>
-                  <Text style={[styles.text,{fontSize:13,marginRight:10,color:'#6A6666'}]}>
-                      登录
-                  </Text>
-                </TouchableOpacity>
-            </View>
+          <Back title='会员注册' _onClick={()=>this._onClick()}/>
 
           <ScrollView style={{backgroundColor:'#F1F2F6'}}>
 
-            <View style={styles.separate}/>
+              <View style={[styles.separate,{marginTop:10}]}/>
 
-            <View style={styles.container}>
-                <Image source={require('./img/user_name_@2x.png')} style={styles.icon}/>
-                <View style={styles.inputBox}>
-                    <TextInput
-                        clearButtonMode='while-editing'
-                        onChangeText={(text) => this.setState({mobile: text})}
-                        placeholder='请输入手机号码'
-                        style={styles.inputText}/>
-                </View>
-                <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onGetSmsCode()}>
-                    <Text style={styles.codeText}>获取验证码</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.container}>
-                <Image source={require('./img/password_@2x.png')} style={styles.icon}/>
-                <View style={styles.inputBox}>
-                    <TextInput
-                        clearButtonMode='while-editing'
-                        onChangeText={(text) => this.setState({mobileCode: text})}
-                        placeholder='手机验证码'
-                        style={styles.inputText}/>
-                </View>
-            </View>
+              <View style={styles.container}>
+                  <Text style={{width:80,marginLeft:10}}>用户名：</Text>
+                  <TextInput
+                      clearButtonMode='while-editing'
+                      placeholder='请输入3~15个字符'
+                      onEndEditing={(event) =>{
+                                nickName=event.nativeEvent.text;
+                                    }
+                                }
+                      style={styles.inputText}/>
+              </View>
+              <View style={styles.separate}/>
+              <View style={styles.container}>
+                  <Text style={{width:80,marginLeft:10}}>设置密码：</Text>
+                  <TextInput
+                      clearButtonMode='while-editing'
+                      onEndEditing={(event) =>{
+                                password=event.nativeEvent.text;
+                                    }
+                                }
+                      placeholder='请输入6~20位密码'
+                      style={styles.inputText}/>
+              </View>
+              <View style={styles.separate}/>
+              <View style={styles.container}>
+                  <Text style={{width:80,marginLeft:10}}>确认密码：</Text>
+                  <TextInput
+                      clearButtonMode='while-editing'
+                      onEndEditing={(event) =>{
+                                password=event.nativeEvent.text;
+                                    }
+                                }
+                      placeholder='请再次输入密码'
+                      style={styles.inputText}/>
+              </View>
+              <View style={styles.separate}/>
+              <View style={styles.container}>
+                  <Text style={{width:80,marginLeft:10}}>手机：</Text>
+                  <TextInput
+                      clearButtonMode='while-editing'
+                      onEndEditing={(event) =>{
+                                phone=event.nativeEvent.text;
+                                    }
+                                }
+                      placeholder='请输入您的手机号'
+                      style={styles.inputText}/>
+              </View>
+              <View style={styles.separate}/>
+              <View style={styles.container}>
+                  <Text style={{width:80,marginLeft:10}}></Text>
+                  <TextInput
+                      clearButtonMode='while-editing'
+                      onEndEditing={(event) =>{
+                                smsCode=event.nativeEvent.text;
+                                    }
+                                }
+                      placeholder='请输入验证码'
+                      style={styles.inputText}/>
 
-            <View style={styles.container}>
-                <Image source={require('./img/phone_code_@2x.png')} style={styles.icon}/>
-                <View style={styles.inputBox}>
-                    <TextInput
-                        clearButtonMode='while-editing'
-                        onChangeText={(text) => this.setState({password: text})}
-                        placeholder='输入密码'
-                        style={styles.inputText}/>
-                </View>
-            </View>
+                  <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onGetSmsCode()}>
+                      <View style={styles.smsContainer}>
+                          <Text style={{color:'white'}}>获取验证码</Text>
+                      </View>
+                  </TouchableOpacity>
+
+              </View>
 
             <View style={{flexDirection:'row',justifyContent:'center',margin:20}}>
                 <Text style={{color:'#666666',fontSize:12}}>点击注册，表示您同意LegendShop</Text>
@@ -131,9 +140,11 @@ export default class Register extends React.Component {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onRegister()}>
-                <Text style={styles.okText}>注册</Text>
-            </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onRegister()}>
+                  <View style={styles.okContainer}>
+                      <Text style={{color:'white'}}>注册</Text>
+                  </View>
+              </TouchableOpacity>
 
           </ScrollView>
       </View>
@@ -142,103 +153,44 @@ export default class Register extends React.Component {
 }
 let styles = StyleSheet.create({
 
-  container:{
-    flexDirection: 'row',
-    backgroundColor:'white',
-    padding:10,
-    alignItems:'center',
-    flex: 1,  // 类似于android中的layout_weight,设置为1即自动拉伸填充
-  },
+    container:{
+        flexDirection: 'row',
+        paddingLeft: 5,
+        paddingRight: 5,
+        height:45,
+        justifyContent:'space-between',
+        backgroundColor: 'white',
+        alignItems: 'center'
+    },
 
-  inputBox: {
-      height: 22,
-      flexDirection: 'row',
-      flex: 1,  // 类似于android中的layout_weight,设置为1即自动拉伸填充
-      backgroundColor: 'white',
-      alignItems:'center',
-      marginLeft:10,
-      marginRight:10,
-  },
-
-  separate:{
-    height:15,
-    backgroundColor:'#F1F2F6',
-  },
-
-  inputText: {
-      flex: 1,
-      backgroundColor: 'transparent',
-      fontSize: 12
-  },
-
-  okText: {
-      flex: 1,
-      height:35,
-      marginLeft:40,
-      marginRight:40,
-      borderRadius:5,
-      textAlign:'center',
-      paddingTop:12,
-      alignItems:'center',
-      color:'white',
-      flexDirection:'row',
-      backgroundColor: '#FF303D',
-      fontSize: 13,
-  },
-  codeText: {
-    height:30,
-    width:60,
-    borderRadius:5,
-    textAlign:'center',
-    paddingTop:10,
-    alignItems:'center',
-    color:'white',
-    flexDirection:'row',
-    backgroundColor: '#FF303D',
-    fontSize: 10,
-  },
-
-  icon:{
-    width:22,
-    height:22,
-    marginLeft:40,
-    marginRight:5,
-  },
-
-  icon1:{
-    width:10,
-    height:10,
-    marginRight:3,
-  },
-
-  container1: {
-      flexDirection: 'row',   // 水平排布
-      paddingLeft: 5,
-      paddingRight: 5,
-      justifyContent:'space-between',
-      paddingTop: Platform.OS === 'ios' ? 20 : 0,  // 处理iOS状态栏
-      height: Platform.OS === 'ios' ? 60 : 60,   // 处理iOS状态栏
-      backgroundColor: 'white',
-      alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
-  },
-
-  container2: {
-      flexDirection: 'row',   // 水平排布
-      justifyContent:'space-between',
-      paddingLeft:40,
-      paddingTop:10,
-      paddingBottom:10,
-      paddingRight:40,
-      alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
-  },
-
-  icon3:{
-     marginLeft:5,
-      width:28,
-      height:28,
-  },
-  text:{
-    fontSize:16,
-  },
+    separate:{
+        height:0.8,
+        backgroundColor:'#F1F2F6',
+    },
+    inputText: {
+        flex: 1,
+        backgroundColor: 'transparent',
+        fontSize: 12
+    },
+    okContainer: {
+        flex: 1,
+        height:35,
+        marginLeft:40,
+        marginRight:40,
+        marginTop:15,
+        borderRadius:5,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor: Constant.colors.lightRedColor,
+    },
+    smsContainer:{
+        height:30,
+        paddingLeft:15,
+        paddingRight:15,
+        borderRadius:5,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor: Constant.colors.lightRedColor,
+    },
 
 });

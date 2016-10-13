@@ -5,10 +5,10 @@ import {
   StyleSheet,
   View,
   TextInput,
-  ActivityIndicator,
   Text,
   Image,
   TouchableOpacity,
+  InteractionManager,
 } from 'react-native';
 
 import ProductListView from './ProductListView';
@@ -61,14 +61,16 @@ export default class ProductSearch extends Component{
   }
 
    _onSearchClick(title:string) {
-        const {navigator} = this.props;
-        navigator.push({
-            name: title,
-            component: ProductSearchContainer1,
-            params: {
-                title:title,
-            }
-        })
+       InteractionManager.runAfterInteractions(() => {
+           const {navigator} = this.props;
+           navigator.push({
+               name: title,
+               component: ProductSearchContainer1,
+               params: {
+                   title:title,
+               }
+           })
+       });
    }
   render(){
     const{keyword,categoryId,tabIndex}=this.props;

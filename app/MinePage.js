@@ -13,13 +13,10 @@ import {
 } from 'react-native';
 
 import TopInfo from './mine/TopInfo';
-import MyMenu from './mine/MyMenu';
-import MyItem from './mine/MyItem';
 import Login from './login/Login';
+import MineContent from './mine/MineContent';
 
 import Constant from './common/Constant';
-
-const WINDOW_WIDTH = Platform.OS==='ios'?Dimensions.get('window').width:Dimensions.get('screen').width;
 
 export default class MinePage extends Component {
 
@@ -27,38 +24,41 @@ export default class MinePage extends Component {
         super(props);
 
     }
-    _onClick() {
-
-    }
-    _onLoginClick(title:string) {
-       let navigator = this.props.navigator;
+    _onSettingClick(title:string) {
+        let navigator = this.props.navigator;
         navigator.push({
-               name: title,
-               component: Login,
-               params: {
-                    title:title,
-                }
+            name: title,
+            component: Login,
+            params: {
+                title:title,
+            }
         })
     }
     render() {
         return (
           <View style={{flex: 1}}>
               <View style={styles.container}>
-                  <Text style={styles.titleText}>
-                    我的
+                  <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onSettingClick('登录')}>
+                  <Image style={{width:25,height:25,marginLeft:10}} source={require('./mine/img/icon_setting.png')}/>
+                  </TouchableOpacity>
+                  <Text style={[styles.titleText,{marginRight:20}]}>
+                      个人中心
                   </Text>
+                  <Text style={styles.titleText}></Text>
               </View>
               <View style={styles.separate}/>
-             {/* <ScrollView style={styles.container1}>
-                      <Image  source={require('./image/mine_bg.jpg')} style={styles.backgroundImage}/>
-                      <TopInfo _onLoginClick={this._onLoginClick.bind(this)}/>
-                      <MyMenu/>
-                      <MyItem/>
-              </ScrollView>*/}
-
-              <View style={styles.container1}>
-                  <Text>个人中心</Text>
-              </View>
+              <ScrollView >
+                  <View>
+                      <View  style={{position:'absolute',backgroundColor:'transparent',height:150}}>
+                          <Image resizeMode='cover' source={require('./image/mine_bg.jpg')}/>
+                          <View style={{backgroundColor: 'black',bottom:0,
+                         position:'absolute',width:Constant.window.width,
+                         opacity: 0.1,height:50}}/>
+                      </View>
+                      <TopInfo/>
+                  </View>
+                  <MineContent/>
+              </ScrollView>
           </View>
         );
     }
@@ -69,11 +69,11 @@ const styles = StyleSheet.create({
       flexDirection: 'row',   // 水平排布
       paddingLeft: 5,
       paddingRight: 5,
-      justifyContent:'center',
+      justifyContent:'space-between',
       paddingTop:Constant.window.statusBarHeight,
       height: Constant.window.navigatorBarHeight,
       backgroundColor: 'white',
-      alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
+      alignItems: 'center'
   },
 
   separate:{
@@ -89,11 +89,6 @@ const styles = StyleSheet.create({
   back:{
     width:15,
     height:12,
-  },
-  backgroundImage:{
-    position:'absolute',
-    height:105,
-    width:WINDOW_WIDTH,
   },
   titleText:{
     fontSize:15,

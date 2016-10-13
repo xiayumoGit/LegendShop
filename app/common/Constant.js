@@ -46,6 +46,9 @@ let strings = {
     orderByStringArray:['buys','comments','comments','cash'],
     detailTabStringArray:['商品','详情','评价'],
     judgeTabStringArray:['全部评价','好评','中评','差评'],
+    mineOrderStringArray:['待付款','待发货','待收货','已完成'],
+    mineMoneyStringArray:['我的余额','我的金券','我的红包','我的积分'],
+    mineItemStringArray:['退款退货','我的评价','常见问题','意见反馈'],
 }
 
 
@@ -103,7 +106,7 @@ let httpKeys = {
     /**
      * 商品分类
      */
-    CATEGOTY_API_KEY: '/category',
+    CATEGOTY_API_KEY: '/category?',
     /**
      * 搜索
      */

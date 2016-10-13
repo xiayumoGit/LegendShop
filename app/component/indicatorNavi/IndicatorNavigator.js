@@ -10,7 +10,6 @@ import {
     Text,
     ScrollView,
 } from 'react-native';
-import Constant from '../../common/Constant';
 import IndicatorNavigatorItem from './IndicatorNavigatorItem';
 
 export default class IndicatorNavigator extends React.Component {
@@ -30,6 +29,7 @@ export default class IndicatorNavigator extends React.Component {
         this._renderTab = this._renderTab.bind(this);
     }
     componentWillReceiveProps(nextProps) {
+        console.log('tag','componentWillReceiveProps');
         let { renderedSceneKeys } = this.state;
         this.setState({
             renderedSceneKeys: this._updateRenderedSceneKeys(
@@ -55,6 +55,7 @@ export default class IndicatorNavigator extends React.Component {
     }
 
     render() {
+        console.log('tag','render');
         let { style, children, tabBarStyle, sceneStyle, ...props } = this.props;
         let scenes = [];
         React.Children.forEach(children, (item, index) => {
@@ -101,7 +102,6 @@ class SceneContainer extends React.Component {
         ...View.propTypes,
         selected: PropTypes.bool,
     };
-
     render() {
         /**
          * 通过选中和未选中来实现当前容器的显示和不显示
@@ -132,6 +132,7 @@ class SceneContainer extends React.Component {
  * 渲染机制和缓存机制进行掌握
  */
 class StaticContainer extends React.Component {
+
     static propTypes = {
         shouldUpdate: PropTypes.bool,
     };
@@ -143,6 +144,7 @@ class StaticContainer extends React.Component {
         let { children } = this.props;
         return children ? React.Children.only(children) : null;
     }
+
 }
 
 

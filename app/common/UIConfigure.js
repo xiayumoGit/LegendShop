@@ -96,11 +96,33 @@ let detail ={
     cartBgColor:Constant.colors.lightRedColor,
 }
 
+/**
+ * 个人中心
+ *
+ */
+let mine ={
+    mineOrderIconArray:[require('../mine/img/icon_mine_order_1.png'),
+                        require('../mine/img/icon_mine_order_2.png'),
+                        require('../mine/img/icon_mine_order_3.png'),
+                        require('../mine/img/finish_order.png')],
+
+    mineMoneyIconArray:[require('../mine/img/ivmybalanceicon.png'),
+                        require('../mine/img/ivmycouponicon.png'),
+                        require('../mine/img/ivredpacketsicon.png'),
+                        require('../mine/img/ivmyintegralicon.png')],
+
+    mineItemIconArray:[require('../mine/img/icon_mine_order_4.png'),
+                        require('../mine/img/icon_my_comments.png'),
+                        require('../mine/img/icon_help.png'),
+                        require('../mine/img/icon_feedback.png')],
+
+}
 
 export default {
     home: home,
     category:category,
     search:search,
     detail:detail,
+    mine,
 }
 

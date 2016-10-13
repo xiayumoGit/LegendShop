@@ -48,15 +48,17 @@ export default class ProductListView extends Component{
   }
 
   _pressItem(title:string,prodId:number) {
-     const {navigator} = this.props;
-       navigator.push({
-           name: title,
-           component: ProductDetailContainer,
-           params: {
-                title:title,
-                prodId:prodId,
-            }
-       })
+      InteractionManager.runAfterInteractions(() => {
+          const {navigator} = this.props;
+          navigator.push({
+              name: title,
+              component: ProductDetailContainer,
+              params: {
+                  title:title,
+                  prodId:prodId,
+              }
+          })
+      });
   }
 
   _renderFooter(){

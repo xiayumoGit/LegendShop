@@ -11,15 +11,16 @@ import {
     ActivityIndicator,
     RefreshControl,
     TouchableOpacity,
+    InteractionManager
 } from 'react-native';
 
 import TopBar from './home/TopBar';
 import Carousel from 'react-native-swiper';
-import MenuButton from './component/MenuButton';
 
 import BagActive from './home/BagActive';
 import ClothesActive from './home/ClothesActive';
 import DigitalActive from './home/DigitalActive';
+import CarouselWebView from './home/CarouselWebView';
 
 import UIConfigure from './common/UIConfigure';
 import Constant from './common/Constant';
@@ -33,7 +34,16 @@ export default class HomePage extends Component {
     }
 
     _onItemClick(title:string) {
-
+        InteractionManager.runAfterInteractions(() => {
+            const {navigator} = this.props;
+            navigator.push({
+                name: title,
+                component: CarouselWebView,
+                params: {
+                    title:title,
+                }
+            })
+        });
     }
 
     _onMenuClick(title:string) {
@@ -48,9 +58,12 @@ export default class HomePage extends Component {
     _renderMenuView(){
         return UIConfigure.home.menuStringArray.map((item,i)=>{
             return (
-                <MenuButton key={i} renderIcon={UIConfigure.home.menuIconArray[i]}
-                            showText={item}
-                            onClick={()=>this._onMenuClick(item)}/>
+                <TouchableOpacity key={i} activeOpacity={0.7}>
+                    <View style={styles.container1}>
+                        <Image style={styles.icon} source={UIConfigure.home.menuIconArray[i]}/>
+                        <Text style={styles.showText}>{item}</Text>
+                    </View>
+                </TouchableOpacity>
             )
         });
     }
@@ -58,7 +71,7 @@ export default class HomePage extends Component {
     _renderCarousel(data:Array){
         return data.map((item,i)=>{
             return (
-                <TouchableOpacity key={i} activeOpacity={0.7} onPress={()=>this._onItemClick('商品详情')}>
+                <TouchableOpacity key={i} activeOpacity={0.7} onPress={()=>this._onItemClick(item.title)}>
                     <View style={styles.slide} >
                         <Image source={{uri:Constant.httpKeys.IMAGE_API_HOST+item.img}}
                               style={styles.carouselImg}/>
@@ -135,6 +148,23 @@ const styles = StyleSheet.create({
       width:UIConfigure.home.carouselWidth,
       height:UIConfigure.home.carouselHeight,
       resizeMode:'cover',
+    },
+    container1:{
+        alignItems:'center',
+        flex:1,
+        paddingLeft:10,
+        paddingRight:10,
+        paddingTop:3,
+        paddingBottom:3,
+    },
+    icon: {
+        width: 40,
+        height: 40,
+        marginBottom: 3
+    },
+    showText: {
+        fontSize: 12,
+        color:'#6E6E6E',
     }
 
 });

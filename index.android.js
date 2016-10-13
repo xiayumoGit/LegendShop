@@ -12,6 +12,7 @@ import Root from './app/Root';
  * @type {boolean}
  */
 console.disableYellowBox = true;
+
 console.warn('警告部分不再提示');
 
 AppRegistry.registerComponent('LegendShop', () => Root);

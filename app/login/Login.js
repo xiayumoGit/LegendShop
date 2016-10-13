@@ -24,33 +24,30 @@ import Main from '../MainScreen';
 
 import DeviceInfo  from 'react-native-device-info';
 
+let loginName;
+let password;
+
 export default class Login extends Component {
 
   constructor(props){
         super(props);
         this.state = {
-          accountRemember:'0',
-          deviceId: DeviceInfo.getUniqueID(),
-          verId:'1.0',
-          platform:'IOS',
-          loginName:'',
-          password:''
         };
   }
   componentDidMount() {
 
-    Utils.storageGetItem(Constant.storeKeys.LOGIN_INFO_KEY)
-        .then((value) => {
-            let name,remember;
-            if(value){
-               name=value.loginName?value.loginName:'';
-               remember=value.accountRemember?value.accountRemember:'0'
-            }
-            this.setState({
-                loginName: name,
-                accountRemember:remember,
-            });
-        });
+    // Utils.storageGetItem(Constant.storeKeys.LOGIN_INFO_KEY)
+    //     .then((value) => {
+    //         let name,remember;
+    //         if(value){
+    //            name=value.loginName?value.loginName:'';
+    //            remember=value.accountRemember?value.accountRemember:'0'
+    //         }
+    //         this.setState({
+    //             loginName: name,
+    //             accountRemember:remember,
+    //         });
+    //     });
   }
 
   _onForgetClick(title){
@@ -65,48 +62,31 @@ export default class Login extends Component {
   }
 
   _onClick() {
-
     this.props.navigator.pop();
-
   }
 
   _onLogin(){
 
-   let data='loginName='+this.state.loginName+'&'+'password='+this.state.password+
-   '&'+'deviceId='+this.state.deviceId+'&'+'verId='+this.state.verId+'&'+'platform='+this.state.platform;
-
+   let data='loginName='+loginName+'&'+'password='+password+
+   '&'+'deviceId='+'25dfr542656df1xvc6v6'+'&'+'verId='+'1.0'+'&'+'platform='+'Android';
    console.log('tag','登录参数＝'+data);
 
     Utils.httpPostForm(Constant.httpKeys.HOST+Constant.httpKeys.LOGIN_API_KEY,data,
         (response) => {
                 console.log('_onLogin success: ' + JSON.stringify(response));
 
-                //账号密码添加进登录信息
-                response.loginName=this.state.loginName;
-                response.password=this.state.password;
-
+                response.loginName=loginName;
+                response.password=password;
+                response.isLogin=true
                 Utils.storageSetItem(Constant.storeKeys.LOGIN_INFO_KEY,response);
 
-                let navigator = this.props.navigator;
-                  navigator.resetTo({
-                      name: '首页',
-                      component: Main,
-                  })
+                this.props.navigator.pop();
 
           }, (error) => {
                 console.log('_onLogin error: ' + error);
                     Alert.alert('登录失败',error)
           });
 
-  }
-
-  _onSetRemberAccount(){
-
-      let value = this.state.accountRemember==='0'?'1':'0';
-      Utils.storageUpdateItem(Constant.storeKeys.LOGIN_INFO_KEY,{'accountRemember':value});
-      this.setState({
-              accountRemember:value,
-      });
   }
 
   _onRegister(title){
@@ -121,100 +101,75 @@ export default class Login extends Component {
   }
 
   render() {
-
-    let img,name;
-    if(this.state.accountRemember ==='0'){
-         img=require('./img/check_@2x.png');
-         name='';
-    }else{
-         img=require('./img/checked_@2x.png');
-         name=this.state.loginName;
-    }
     return (
       <View style={{flex:1}}>
-            <View style={styles.container1}>
-                <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onClick()}>
-                    <View >
-                      <Image source={require('../image/ic_arrow_back_black_@2x.png')} style={styles.icon3}/>
+            <Back title='登录' rightTitle='注册' _onClick={()=>this._onClick()}
+                  _onRightClick={()=>this._onRegister('注册')}/>
+              <ScrollView style={{backgroundColor:'#F1F2F6'}}>
+
+                <View style={[styles.separate,{marginTop:10}]}/>
+
+                <View style={styles.container}>
+                    <Text style={{width:80,marginLeft:10}}>账号：</Text>
+                    <TextInput
+                            clearButtonMode='while-editing'
+                            placeholder='用户名／手机号／邮箱'
+                            onEndEditing={(event) =>{
+                                loginName=event.nativeEvent.text;
+                                    }
+                                }
+                            style={styles.inputText}/>
+                </View>
+                <View style={styles.separate}/>
+                <View style={styles.container}>
+                      <Text style={{width:80,marginLeft:10}}>密码：</Text>
+                      <TextInput
+                          clearButtonMode='while-editing'
+                          onEndEditing={(event) =>{
+                                password=event.nativeEvent.text;
+                                    }
+                                }
+                          placeholder='请输入密码'
+                          style={styles.inputText}/>
+                 </View>
+
+                <View style={{flexDirection:'row-reverse',marginTop:15}}>
+                  <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onForgetClick('密码找回')}>
+                      <Text style={{color:'#0067C4',fontSize:12,marginRight:10,}}> 找回密码？</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onLogin()}>
+                    <View style={styles.okContainer}>
+                        <Text style={{color:'white'}}>确定</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.text}>
-                      {this.props.title}
-                </Text>
-                <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onRegister('注册')}>
-                  <Text style={[styles.text,{fontSize:13,marginRight:10,color:'#6A6666'}]}>
-                        注册
-                  </Text>
-                </TouchableOpacity>
-            </View>
 
-          <ScrollView style={{backgroundColor:'#F1F2F6'}}>
-
-            <View style={styles.separate}/>
-
-            <View style={styles.container}>
-                <Image source={require('./img/user_name_@2x.png')} style={styles.icon}/>
-                <View style={styles.inputBox}>
-                    <TextInput
-                        clearButtonMode='while-editing'
-                        value={name}
-                        placeholder='邮箱／手机／用户名'
-                        onChangeText={(text) => this.setState({loginName: text})}
-                        style={styles.inputText}/>
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',
+                  paddingTop:10,paddingBottom:10,marginTop:10}}>
+                    <View style={styles.separate1}/>
+                    <Text style={{fontSize:12,color:'#666666'}}>其他方式登录</Text>
+                    <View style={styles.separate1}/>
                 </View>
-            </View>
-            <View style={styles.container}>
-                <Image source={require('./img/password_@2x.png')} style={styles.icon}/>
-                <View style={styles.inputBox}>
-                    <TextInput
-                        clearButtonMode='while-editing'
-                        placeholder='请输入密码'
-                        onChangeText={(text) => this.setState({password: text})}
-                        style={styles.inputText}/>
+
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-around',
+                    padding:10}}>
+
+                  <TouchableOpacity activeOpacity={0.7}>
+                      <Image style={{marginLeft:10,}} source={require('./img/qq_@2x.png')}/>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity activeOpacity={0.7}>
+                      <Image source={require('./img/weixin_@2x.png')}/>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity activeOpacity={0.7}>
+                      <Image style={{marginRight:10,}} source={require('./img/weibo_@2x.png')}/>
+                  </TouchableOpacity>
+
                 </View>
-            </View>
 
-            <View style={styles.container2}>
-             <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onSetRemberAccount()}>
-                <View style={{flexDirection:'row',alignItems:'center',marginLeft:15}}>
-                  <Image source={img} style={styles.icon1}/>
-                  <Text style={{fontSize:12,color:'#666666'}}> 记住账号 </Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onForgetClick('密码找回')}>
-                  <Text style={{color:'#0067C4',fontSize:12,marginRight:10,}}> 忘记密码？</Text>
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity activeOpacity={0.7} onPress={()=>this._onLogin()}>
-                <Text style={styles.okText}>确定</Text>
-            </TouchableOpacity>
-
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',
-              paddingTop:10,paddingBottom:10,marginTop:10}}>
-                <View style={styles.separate1}/>
-                <Text style={{fontSize:12,color:'#666666'}}>其他方式登录</Text>
-                <View style={styles.separate1}/>
-            </View>
-
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-around',
-                padding:10}}>
-
-              <TouchableOpacity activeOpacity={0.7}>
-                  <Image style={{marginLeft:10,}} source={require('./img/qq_@2x.png')}/>
-              </TouchableOpacity>
-
-              <TouchableOpacity activeOpacity={0.7}>
-                  <Image source={require('./img/weixin_@2x.png')}/>
-              </TouchableOpacity>
-
-              <TouchableOpacity activeOpacity={0.7}>
-                  <Image style={{marginRight:10,}} source={require('./img/weibo_@2x.png')}/>
-              </TouchableOpacity>
-
-            </View>
-
-          </ScrollView>
+              </ScrollView>
       </View>
     );
   }
@@ -222,17 +177,19 @@ export default class Login extends Component {
 let styles = StyleSheet.create({
 
   container:{
-    flexDirection: 'row',
-    backgroundColor:'white',
-    padding:10,
-    alignItems:'center',
-    flex: 1,  // 类似于android中的layout_weight,设置为1即自动拉伸填充
+      flexDirection: 'row',
+      paddingLeft: 5,
+      paddingRight: 5,
+      height:45,
+      justifyContent:'space-between',
+      backgroundColor: 'white',
+      alignItems: 'center'
   },
 
   inputBox: {
       height: 22,
       flexDirection: 'row',
-      flex: 1,  // 类似于android中的layout_weight,设置为1即自动拉伸填充
+      flex: 1,
       backgroundColor: 'white',
       alignItems:'center',
       marginLeft:10,
@@ -240,7 +197,7 @@ let styles = StyleSheet.create({
   },
 
   separate:{
-    height:15,
+    height:0.8,
     backgroundColor:'#F1F2F6',
   },
 
@@ -256,20 +213,16 @@ let styles = StyleSheet.create({
       fontSize: 12
   },
 
-  okText: {
+  okContainer: {
       flex: 1,
       height:35,
       marginLeft:40,
       marginRight:40,
-      borderRadius:5,
-      textAlign:'center',
-      paddingTop:12,
-      alignItems:'center',
-      color:'white',
       marginTop:15,
-      flexDirection:'row',
-      backgroundColor: '#FF303D',
-      fontSize: 13,
+      borderRadius:5,
+      justifyContent:'center',
+      alignItems:'center',
+      backgroundColor: Constant.colors.lightRedColor,
   },
   codeText: {
       color:'#A79BCD',
@@ -296,8 +249,8 @@ let styles = StyleSheet.create({
       paddingLeft: 5,
       paddingRight: 5,
       justifyContent:'space-between',
-      paddingTop: Platform.OS === 'ios' ? 20 : 0,  // 处理iOS状态栏
-      height: Platform.OS === 'ios' ? 60 : 60,   // 处理iOS状态栏
+      paddingTop: Platform.OS === 'ios' ? 20 : 0,
+      height: Platform.OS === 'ios' ? 60 : 60,
       backgroundColor: 'white',
       alignItems: 'center'  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
   },

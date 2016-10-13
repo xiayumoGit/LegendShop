@@ -36,11 +36,26 @@ export default class ProductDetail extends React.Component{
     _onBackPress() {
         this.props.navigator.pop();
     }
+    componentWillReceiveProps(nextProps) {
+        // this.setState({
+        //       isDrop:!this.state.isDrop
+        // });
+    }
 
     handleSortTypesViewAnimation() {
         this.setState({
             isDrop:!this.state.isDrop,
         });
+        Animated.parallel([
+            Animated.timing(this.state.sortTypeViewY, {
+                toValue: this.state.isDrop ? 0 : 1,
+                duration: 300,
+            }),
+            Animated.timing(this.state.coverViewOpacity, {
+                toValue: this.state.isDrop ? 0 : 1,
+                duration: 300,
+            }),
+        ]).start();
     }
     _onCartClick(){
         this.handleSortTypesViewAnimation();
@@ -49,22 +64,22 @@ export default class ProductDetail extends React.Component{
     _onFollowClick(){
 
     }
-    // renderSortTypesView() {
-    //     let typesStyle = [styles.sortTypesView];
-    //     typesStyle.push({
-    //         top: this.state.sortTypeViewY.interpolate({
-    //             inputRange: [0, 1],
-    //             outputRange: [Constant.window.height, Constant.window.height/3]
-    //         })
-    //     })
-    //     return (
-    //         <Animated.View style={typesStyle}>
-    //             <View style={{backgroundColor:'white',
-    //             height:Constant.window.height-Constant.window.height/3}}>
-    //             </View>
-    //         </Animated.View>
-    //     )
-    // }
+    renderSortTypesView() {
+        let typesStyle = [styles.sortTypesView];
+        typesStyle.push({
+            top: this.state.sortTypeViewY.interpolate({
+                inputRange: [0, 1],
+                outputRange: [Constant.window.height, Constant.window.height/3]
+            })
+        })
+        return (
+            <Animated.View style={typesStyle}>
+                <View style={{backgroundColor:'white',
+                 height:Constant.window.height-Constant.window.height/3}}>
+                </View>
+            </Animated.View>
+        )
+    }
 
     renderCoverView() {
         return (
@@ -96,7 +111,8 @@ export default class ProductDetail extends React.Component{
                 case 0:
                     childView = <View style={{flex:1}}>
                         <ProductDetail1 {...this.props}/>
-                         {/*{this.state.isDrop?this.renderCoverView():null}*/}
+                         {this.state.isDrop?this.renderCoverView():null}
+                         {this.renderSortTypesView()}
                         <View style={styles.separate}/>
                         <View style={styles.bottom}>
                             <View style={{flex:3,flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
@@ -108,7 +124,7 @@ export default class ProductDetail extends React.Component{
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={()=>this._onFollowClick('关注')} activeOpacity={0.7}>
                                     <View style={styles.bottomContainer1}>
-                                        <Image source={require('./img/message.png')} style={styles.icon}/>
+                                        <Image source={require('./../image/message.png')} style={styles.icon}/>
                                         <Text style={[styles.text1,{color:'white',marginLeft:5}]}>关注</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -154,16 +170,6 @@ export default class ProductDetail extends React.Component{
 
 
     render() {
-        Animated.parallel([
-            Animated.timing(this.state.sortTypeViewY, {
-                toValue: this.state.isDrop ? 1 : 0,
-                duration: 300,
-            }),
-            Animated.timing(this.state.coverViewOpacity, {
-                toValue: this.state.isDrop ? 1 : 0,
-                duration: 300,
-            }),
-        ]).start();
         const {tabIndex}=this.props;
         return (
             <View style={{flex:1}}>
@@ -175,7 +181,7 @@ export default class ProductDetail extends React.Component{
                         {this._renderTab(tabIndex)}
                     </IndicatorNavigator>
                 </View>
-                <TouchableOpacity  style={{position:'absolute',top:10,left:5,}}
+                <TouchableOpacity  style={{position:'absolute',top:12,left:5,}}
                                    activeOpacity={0.7} onPress={()=>this._onBackPress()}>
                     <Image  source={require('../image/ic_arrow_back_black_@2x.png')}/>
                 </TouchableOpacity>

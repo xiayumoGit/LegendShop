@@ -10,7 +10,7 @@ import {
     StyleSheet
 } from 'react-native';
 
-import UIConfigure from '../common/UIConfigure'
+import Constant from '../common/Constant';
 
 /**
  * 定义统一的退回，对应navigator，布局统一左边箭头，中间文字，右边文字（可能空白）
@@ -20,11 +20,18 @@ export default class Back extends Component {
     constructor(props) {
         super(props);
         this._onClick = this._onClick.bind(this);
+        this._onRightClick = this._onRightClick.bind(this);
     }
 
     _onClick() {
-        if (this.props.onClick) {
-            this.props.onClick();
+        if (this.props._onClick) {
+            this.props._onClick();
+        }
+    }
+
+    _onRightClick() {
+        if (this.props._onRightClick) {
+            this.props._onRightClick();
         }
     }
 
@@ -36,10 +43,16 @@ export default class Back extends Component {
                 <TouchableOpacity activeOpacity={0.7} onPress={this._onClick}>
                   <Image source={require('../image/ic_arrow_back_black_@2x.png')}/>
                 </TouchableOpacity>
-                <Text style={[styles.text,{marginRight:20}]}>
+                <Text style={styles.text}>
                       {title}
                 </Text>
-                <Text style={styles.text}>{rightTitle?rightTitle:''}</Text>
+                <TouchableOpacity activeOpacity={0.7} onPress={this._onRightClick}>
+                    <Text style={[styles.text,{marginRight:15,fontSize:13,
+                                color:Constant.colors.lightRedColor}]}>
+                        {rightTitle?rightTitle:''}
+                    </Text>
+                </TouchableOpacity>
+
             </View>
             <View style={styles.separate}/>
           </View>
@@ -53,8 +66,8 @@ const styles = StyleSheet.create({
       paddingLeft: 5,
       justifyContent:'space-between',
       paddingRight: 5,
-      paddingTop:UIConfigure.home.statusBarHeight,
-      height: UIConfigure.home.navigationBarHeight,
+      paddingTop: Platform.OS === 'ios' ? 20 : 0,
+      height: Platform.OS === 'ios' ? 60 : 45,
       backgroundColor: 'white',
       alignItems: 'center'
   },

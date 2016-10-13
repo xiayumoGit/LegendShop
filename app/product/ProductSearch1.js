@@ -10,6 +10,7 @@ import {
     Image,
     ScrollView,
     TouchableOpacity,
+    InteractionManager
 } from 'react-native';
 
 import ProductSearchContainer from './ProductSearchContainer';
@@ -40,23 +41,28 @@ export default class ProductSearch1 extends Component{
      * @private
      */
     _addSearchKeyword(keyword:String){
+        InteractionManager.runAfterInteractions(() => {
             const {navigator} = this.props;
             navigator.push({
                 component: ProductSearchContainer,
                 params: {keyword:keyword},
             })
-            if(keyword.length>0){
-                const {addKeywords} =this.props;
-                addKeywords(keyword);
-            }
+        });
+
+         if(keyword.length>0){
+             const {addKeywords} =this.props;
+             addKeywords(keyword);
+         }
     }
 
     _itemPress(keyword:String){
-        const {navigator} = this.props;
+        InteractionManager.runAfterInteractions(() => {
+            const {navigator} = this.props;
             navigator.push({
-            component: ProductSearchContainer,
-            params: {keyword:keyword},
-        })
+                component: ProductSearchContainer,
+                params: {keyword:keyword},
+            })
+        });
     }
 
     _renderItem(data:Array){
@@ -156,6 +162,7 @@ let styles = StyleSheet.create({
     searchBox: {
         height:  35,
         flexDirection: 'row',
+        justifyContent:'space-between',
         flex: 1,
         borderRadius: 3,
         backgroundColor: 'white',

@@ -6,7 +6,7 @@ import Utils from '../common/Utils';
 import Constant from '../common/Constant';
 
 /**
- * 首页加载
+ * 分类数据
  * @returns {function(*)}
  */
 export let fetchCategoryResult = ()=> {

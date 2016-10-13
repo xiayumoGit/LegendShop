@@ -28,7 +28,7 @@ export default class ProductDetail2 extends Component{
     }
 
   render() {
-
+    console.log(this.props.prodId);
     return (
       <View style={{flex:1}}>
         <WebView
