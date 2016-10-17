@@ -24,7 +24,7 @@ export default class ProductDetail1 extends Component {
 
     }
 
-    _renderCarousel(data: Array) {
+    _renderCarousel(data:Array) {
         return data.map((item, i)=> {
             return (
                 <Image key={i} resizeMode={'stretch'} style={styles.image}

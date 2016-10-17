@@ -9,6 +9,7 @@ import {
     ScrollView,
     InteractionManager,
     TouchableOpacity,
+    Platform,
     View,
 } from 'react-native';
 
@@ -36,12 +37,6 @@ export default class ProductDetail extends React.Component {
 
     _onBackPress() {
         this.props.navigator.pop();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // this.setState({
-        //       isDrop:!this.state.isDrop
-        // });
     }
 
     handleSortTypesViewAnimation() {
@@ -81,6 +76,14 @@ export default class ProductDetail extends React.Component {
             <Animated.View style={typesStyle}>
                 <View style={{backgroundColor:'white',
                  height:Constant.window.height-Constant.window.height/3}}>
+
+                  <View>
+
+
+
+                  </View>
+
+
                 </View>
             </Animated.View>
         )
@@ -116,8 +119,6 @@ export default class ProductDetail extends React.Component {
                 case 0:
                     childView = <View style={{flex:1}}>
                         <ProductDetail1 {...this.props}/>
-                        {this.state.isDrop ? this.renderCoverView() : null}
-                        {this.renderSortTypesView()}
                         <View style={styles.separate}/>
                         <View style={styles.bottom}>
                             <View
@@ -149,7 +150,8 @@ export default class ProductDetail extends React.Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                        {/*{this.renderSortTypesView()}*/}
+                        {this.state.isDrop ? this.renderCoverView() : null}
+                        {this.renderSortTypesView()}
                     </View>;
                     break;
                 case 1:
@@ -188,7 +190,7 @@ export default class ProductDetail extends React.Component {
                         {this._renderTab(tabIndex)}
                     </IndicatorNavigator>
                 </View>
-                <TouchableOpacity style={{position:'absolute',top:12,left:5,}}
+                <TouchableOpacity style={styles.backImg}
                                   activeOpacity={0.7} onPress={()=>this._onBackPress()}>
                     <Image source={require('../image/ic_arrow_back_black_@2x.png')}/>
                 </TouchableOpacity>
@@ -231,10 +233,15 @@ const styles = StyleSheet.create({
     tabContainer: {
         justifyContent: 'center',
         paddingTop: Constant.window.statusBarHeight,
-        height: Constant.window.navigatorBarHeight + 5,
+        height: (Platform.OS === 'ios'?60:45)+5,
         backgroundColor: 'white'
     },
     sceneContainer: {
-        paddingTop: Constant.window.statusBarHeight + Constant.window.navigatorBarHeight,
+        paddingTop: Constant.window.statusBarHeight +  Platform.OS === 'ios'?60:45,
     },
+    backImg:{
+        position:'absolute',
+        top:12+Constant.window.statusBarHeight,
+        left:5,
+    }
 });

@@ -48,3 +48,26 @@ export let tabChanged = (tabIndex)=> {
     }
 }
 
+/**
+ * 购物车pop
+ * @param index
+ * @returns {{type, tabIndex: *}}
+ */
+export let cartPopDrop = (cartPop)=> {
+    return {
+        type: TYPES.DETAIL_TAB_CHANGED,
+        tabIndex: tabIndex,
+    }
+}
+
+/**
+ * 分享pop
+ * @param index
+ * @returns {{type, tabIndex: *}}
+ */
+export let sharePopDrop = (sharePop)=> {
+    return {
+        type: TYPES.DETAIL_TAB_CHANGED,
+        tabIndex: tabIndex,
+    }
+}
